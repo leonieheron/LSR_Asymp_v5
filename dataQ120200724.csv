@@ -1,0 +1,145 @@
+"","id","record_id","author_1","setting","total","cluster","events"
+"1",1,4,"Bai, Y","Contact investigation",6,NA,1
+"2",2,11,"Chan, JF","Contact investigation",5,NA,1
+"3",3,23,"Hu, Z","Contact investigation",4,NA,1
+"4",4,36,"Liao, J","Contact investigation",5,"1",1
+"5",5,42,"Luo, SH","Contact investigation",4,NA,1
+"6",6,54,"Qian, G","Contact investigation",8,NA,2
+"7",7,64,"Tabata, S","Hospitalised adults",104,NA,33
+"8",8,91,"Tong, ZD","Contact investigation",2,"1",1
+"9",9,122,"Luo, L","Contact investigation, aggregated",129,NA,8
+"10",10,141,"Qiu, H","Hospitalised children",36,NA,10
+"11",11,142,"Zhang, J","Contact investigation",5,NA,2
+"12",12,152,"Yang, N","Outbreak investigation",10,NA,2
+"13",13,170,"Chang, L","Screening",4,NA,2
+"14",14,180,"Ye, F","Contact investigation",5,NA,1
+"15",15,187,"Wang, X","Hospitalised adults",1012,NA,14
+"16",16,204,"Pongpirul, WA","Hospitalised adults",11,NA,1
+"17",17,224,"Arima, Y","Screening",12,NA,4
+"18",18,233,"Zhou, X","Hospitalised adults",328,NA,10
+"19",19,242,"Danis, K","Outbreak investigation",13,NA,1
+"20",20,249,"Wang, Z","Contact investigation, aggregated",47,NA,4
+"21",21,265,"Tian, S","Outbreak investigation",24,NA,7
+"22",22,275,"Tan, YP","Hospitalised children",10,NA,2
+"23",23,294,"Lavezzo, E","Screening",73,NA,29
+"24",24,299,"See, KC","Hospitalised children",4,NA,1
+"25",25,316,"Zou, L","Hospitalised adults",18,NA,1
+"26",26,317,"Hoehl, S","Screening",2,NA,1
+"27",27,328,"Yongchen, Z","Hospitalised adults & children",21,NA,5
+"28",28,334,"Tan, X","Hospitalised children",13,NA,2
+"29",29,344,"Jiang, XL","Contact investigation",4,"1",1
+"30",30,354,"Park, SY","Outbreak investigation",97,NA,4
+"31",31,372,"Jiang, X","Contact investigation",3,NA,1
+"32",32,374,"Luo, Y","Contact investigation",6,NA,5
+"33",33,376,"Arons, MM","Outbreak investigation",47,NA,3
+"34",34,382,"Xu, H","Hospitalised children",32,NA,11
+"35",35,389,"Zhang, B","Contact investigation",7,NA,2
+"36",36,396,"Schwierzeck, V","Outbreak investigation",12,NA,2
+"37",37,414,"Gao, Y","Contact investigation",15,NA,6
+"38",38,434,"Xu, T","Hospitalised adults",342,NA,15
+"39",39,443,"Bi, Q","Contact investigation, aggregated",87,NA,17
+"40",40,449,"Huang, L","Contact investigation",7,NA,2
+"41",41,477,"Cheng, HY","Contact investigation, aggregated",22,NA,4
+"42",42,481,"Song, W","Hospitalised children",16,NA,8
+"43",43,506,"Wong, J","Hospitalised adults",138,NA,16
+"44",44,521,"Qiu, C","Hospitalised adults",104,NA,5
+"45",45,556,"Lu, Y","Hospitalised children",110,NA,29
+"46",46,559,"Kim, SE","Hospitalised adults & children",71,NA,10
+"47",47,585,"Ma, Y","Hospitalised adults & children",47,NA,11
+"48",48,593,"Lombardi, A","Screening",138,NA,41
+"49",49,597,"Wu, J","Contact investigation, aggregated",83,NA,8
+"50",50,598,"Rivett, L","Screening",30,NA,5
+"51",51,599,"Hijnen, D","Contact investigation, aggregated",11,NA,1
+"52",52,622,"Treibel, TA","Screening",44,NA,12
+"53",53,637,"Merza, MA","Hospitalised adults & children",15,NA,6
+"54",54,653,"Bai, K","Hospitalised children",25,NA,8
+"55",55,664,"Chang, MC","Hospitalised adults",139,NA,10
+"56",56,665,"Brandstetter, S","Contact investigation, aggregated",36,NA,2
+"57",57,696,"Pham, TQ","Outbreak investigation",208,NA,89
+"58",58,713,"Böhmer, MM","Outbreak investigation",16,NA,1
+"59",59,726,"Alshami, AA","Hospitalised adults & children",128,NA,69
+"60",60,729,"London, V","Hospitalised adults",68,NA,22
+"61",61,735,"Huang, R","Contact investigation",2,NA,1
+"62",62,745,"Zhang, W3","Hospitalised adults & children",137,NA,26
+"63",63,761,"Zhou, R","Hospitalised adults",31,NA,9
+"64",64,763,"Roxby, AC","Outbreak investigation",6,NA,3
+"65",65,765,"Angelo Vaira, L","Hospitalised adults",345,NA,10
+"66",66,769,"Melgosa, M","Hospitalised children",16,NA,3
+"67",67,778,"Wang, Y2","Hospitalised adults & children",279,NA,63
+"68",68,797,"Noh, JY","Hospitalised adults",199,NA,53
+"69",69,818,"Kumar, R","Hospitalised adults",231,NA,108
+"70",70,821,"Zhang, W2","Contact investigation, aggregated",12,NA,4
+"71",71,832,"Andrikopoulou, M","Hospitalised adults",158,NA,46
+"72",72,843,"Wu, HP","Hospitalised children",23,NA,3
+"73",73,849,"Dora, AV","Outbreak investigation",19,NA,6
+"74",74,856,"Choe, PG","Hospitalised adults & children",113,NA,15
+"75",75,899,"Solbach, W","Outbreak investigation",97,NA,10
+"76",76,908,"Yang, R","Contact investigation, aggregated",78,NA,33
+"77",77,936,"Kong, W","Hospitalised adults & children",473,NA,45
+"78",78,981,"Sharma, AK","Hospitalised adults & children",234,NA,215
+"79",79,1003,"Graham, N","Outbreak investigation",126,NA,46
+"80",80,1049,"Romao","Outbreak investigation",14,NA,0
+"81",81,1103,"Kennelly","Outbreak investigation",869,NA,239
+"82",82,1155,"Bogani","Hospitalised adults",19,NA,10
+"83",83,1159,"Alshukry","Hospitalised adults & children",417,NA,164
+"84",84,1164,"Meyers","Screening",81,NA,58
+"85",85,1196,"Chamie","Screening",83,NA,23
+"86",86,1207,"Deng","Screening",61,NA,38
+"87",87,1225,"Han","Screening",17,NA,17
+"88",88,1232,"Patel","Outbreak investigation",35,NA,13
+"89",89,1264,"Lombardi","Screening",139,NA,17
+"90",90,1268,"Choi",NA,568,NA,138
+"91",91,1293,"Borras-Bermejo","Outbreak investigation",768,"1",486
+"92",92,1335,"Pavli","Outbreak investigation",48,NA,7
+"93",93,1349,"Pongpirul","Hospitalised adults",193,NA,10
+"94",94,1377,"Wong","Outbreak investigation",135,NA,13
+"95",95,1438,"Njuguna",NA,98,NA,29
+"96",96,1440,NA,"Outbreak investigation",64,NA,14
+"97",97,1532,"Mei","Hospitalised adults & children",494,NA,31
+"98",98,1541,"Daniells","Screening",279,NA,19
+"99",99,1556,"Almazeedi","Hospitalised adults & children",1096,NA,473
+"100",100,1654,"Yau","Outbreak investigation",22,NA,7
+"101",101,1714,"Lee","Outbreak investigation",694,NA,80
+"102",102,1834,"Yousaf","Contact investigation",47,NA,0
+"103",103,1837,"Tsou","Screening",100,NA,10
+"104",104,1839,"Cariani","Screening",182,NA,32
+"105",105,1926,"Smith",NA,103,NA,42
+"106",106,1929,"Kutsuna","Screening",11,NA,3
+"107",107,1960,"Tanacan","Screening",3,NA,0
+"108",108,1972,"Rauch","Screening",6,NA,2
+"109",109,2051,"Starling","Screening",31,NA,29
+"110",110,2054,"Eythorsson","Screening",1797,NA,49
+"111",111,2091,"Luo","Contact investigation",127,NA,8
+"112",112,2217,"Wong","Contact investigation",135,NA,13
+"113",113,2218,"Kittang","Outbreak investigation",40,NA,0
+"114",114,2231,"Chamie","Screening",81,NA,23
+"115",115,2246,"Hurst","Hospitalised children",293,NA,87
+"116",116,2249,"Corcorran","Outbreak investigation",17,NA,3
+"117",117,2263,"Aherfi","Contact investigation, aggregated",63,NA,9
+"118",118,2470,"Pirnay","Outbreak investigation",9,NA,4
+"119",119,2473,"van Buul","Screening",15,NA,3
+"120",120,2540,"García-Sierra","Outbreak investigation",323,NA,33
+"121",121,2650,"Stock","Screening",19,NA,6
+"122",122,2705,"Ladhani","Outbreak investigation",105,NA,46
+"123",123,2751,"van den Besselaar","Outbreak investigation",167,NA,8
+"124",124,2774,"Viñuela","Hospitalised adults",8,NA,8
+"125",125,2802,"Bender","Hospitalised adults",2,"1",0
+"126",126,2826,"Taylor","Outbreak investigation",89,"1",9
+"127",127,2892,"Kennelly","Outbreak investigation",710,"1",193
+"128",128,2907,"Shi",NA,146,NA,21
+"129",129,2909,"AbdulRahman","Screening",6,NA,3
+"130",130,2932,"Berghoff","Hospitalised adults",4,NA,2
+"131",131,3487,"Pray","Outbreak investigation",78,NA,1
+"132",132,3674,"Al-Qahtani","Screening",188,NA,116
+"133",133,3719,"Ladhani",NA,158,NA,72
+"134",134,3722,"Kasper",NA,1271,NA,572
+"135",135,4674,"Alshahrani",NA,18,NA,12
+"139",139,36,"Liao, J","Contact investigation",3,"2",1
+"143",143,91,"Tong, ZD","Contact investigation",3,"2",2
+"164",164,344,"Jiang, XL","Contact investigation",2,"2",1
+"226",226,1293,"Borras-Bermejo","Outbreak investigation",403,"2",144
+"260",260,2802,"Bender","Hospitalised adults",6,"2",6
+"261",261,2826,"Taylor","Outbreak investigation",190,"2",7
+"262",262,2892,"Kennelly","Outbreak investigation",395,"2",97
+"274",274,36,"Liao, J","Contact investigation",4,"3",1
+"299",299,344,"Jiang, XL","Contact investigation",2,"3",1

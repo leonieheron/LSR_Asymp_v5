@@ -1,0 +1,28 @@
+#####################################
+# Q2.2 forest plot
+
+This is not a meta-analysis, this is a forest plot only.
+
+Some notes. 
+1758 has multiple settings but only one estimate - perhaps data was take from several settings.
+In general, settings are a bit random for Q2.2 - either a geogrphical region or a study setting liike 'households'. 
+This should probably be more consistent.
+
+Need to look at MC's analysis on Github to improve forest plot
+
+
+#####################################
+# Q2.1 table - not in paper, do we need?
+
+Include
+Author
+Setting
+Location
+
+
+#####################################
+# locations of studies table
+
+by question
+
+country/number of studies/SARS-CoV-2 cases total

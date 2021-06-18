@@ -1,0 +1,20 @@
+"","record_id","author_1","q3_pa_m","q3_pa_l","q3_pa_u","q3_pp_m","q3_pp_l","q3_pp_u","question_3_complete","label","setting"
+"1",88,"Ferretti, L",0.06,0,0.57,0.47,0.11,0.58,2,"88 model 1",NA
+"4",279,"He, X",NA,NA,NA,0.44,0.25,0.69,2,"279 model 1",NA
+"5",590,"Emery, JC",0.69,0.2,0.85,NA,NA,NA,2,"590 model 1","Diamond Princess"
+"7",728,"Kim, Y",NA,NA,NA,0.37,0.16,0.52,2,"728 model 1",NA
+"9",1508,"Moghadas, SM",0.034,NA,NA,0.48,NA,NA,2,"1508 model 1","New York City"
+"10",1758,"Hu, S",NA,NA,NA,0.592,NA,NA,2,"1758 model 1","Households; workplace; healthcare facilities"
+"11",2001,"Ren, X",NA,NA,NA,0.4,NA,NA,2,"2001 model 1","Throughout China outside Hubei"
+"12",2034,"Chun, JY",NA,NA,NA,0.37,0.16,0.52,2,"2034 model 1","Government data,  linked  clusters  such as religious groups, hospitals, or long-term healthcare facilities in South Korea"
+"13",2084,"Sun",NA,NA,NA,0.53,NA,NA,2,"2084 model 1",NA
+"14",2325,"Emery, JC",0.74,0.7,0.78,NA,NA,NA,2,"2325 model 1","Diamond Princess Cruiseship"
+"15",4517,"Bushman",NA,NA,NA,34.4,28.3,41.3,1,"4517 model 1","China, surveillance data"
+"16",183,"Zhang, W1",NA,NA,NA,0.197,NA,NA,2,"183  model 1","Early Transmission in Wuhan"
+"17",183,"Zhang, W1",NA,NA,NA,0.797,NA,NA,2,"183  model 2","Imported Cases Outside Wuhan"
+"18",591,"Casey, M",NA,NA,NA,0.683,0.479,0.886,2,"591  model 1","GI"
+"19",591,"Casey, M",NA,NA,NA,0.564,0.349,0.78,2,"591  model 2","SI"
+"20",798,"Peak, CM",NA,NA,NA,0.205,0,0.914,2,"798  model 1","Short SI"
+"21",798,"Peak, CM",NA,NA,NA,0.00065,0,0.0088,2,"798  model 2","Long SI"
+"22",89,"Ganyani, T",NA,NA,NA,0.62,0.5,0.76,2,"89  model 1","Tianjin, China"
+"23",89,"Ganyani, T",NA,NA,NA,0.48,0.32,0.67,2,"89  model 2","Singapore"
