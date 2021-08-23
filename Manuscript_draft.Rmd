@@ -1,0 +1,886 @@
+---
+title: "Occurrence and transmission potential of asymptomatic and pre-symptomatic SARS-CoV-2 infections: a living systematic review and meta-analysis"
+author: "Diana Buitrago-Garcia, Aziz Mert Ipekci, Leonie Heron, Stefanie Hossmann, Hira Imeri, Georgia Salanti, Nicola Low"
+date: "`r format(Sys.time(), '%d/%m/%y')`"
+output: html_document
+#always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+#download packages
+library(meta)
+library(readxl)
+library(tidyverse)
+library(httr) # use to retrieve data from REDCap
+library(kableExtra)
+library(flextable)
+library(dplyr)
+library(RCurl)
+library(tidyr)
+library(ggplot2)
+library(metafor)
+
+
+##########################################
+# table on characteristics of Q1 studies
+##########################################
+
+#prepare data for table 1: characteristics of studies included in q1
+
+#download data
+# get the data directly from redcap:
+# report #155 is Q1:
+url <- "https://redcap.ispm.unibe.ch/api/"
+token <- "F2725F15FE84D2832E2793BB23B0A62B"
+formData <- list("token"=token,
+                 content='report',
+                 format='csv',
+                 report_id='155',
+                 csvDelimiter='',
+                 rawOrLabel='raw',
+                 rawOrLabelHeaders='raw',
+                 exportCheckboxLabel='false',
+                 returnFormat='csv'
+)
+response <- httr::POST(url, body = formData, encode = "form")
+Q1_table <- httr::content(response)
+
+#clean countries
+Q1_table <- Q1_table %>%
+  mutate(country = ifelse(country == 10, "Australia", country),
+         country = ifelse(country == 11, "Austria", country),
+         country = ifelse(country == 15, "Bahrain", country),
+         country = ifelse(country == 19, "Belgium", country),
+         country = ifelse(country == 28, "Brunei", country),
+         country = ifelse(country == 34, "Canada", country),
+         country = ifelse(country == 40, "China", country),
+         country = ifelse(country == 41, "Colombia", country),
+         country = ifelse(country == 51, "Denmark", country),
+         country = ifelse(country == 62, "France", country),
+         country = ifelse(country == 63, "French Guyana", country),
+         country = ifelse(country == 67, "Germany", country),
+         country = ifelse(country == 69, "Greece", country),
+         country = ifelse(country == 78, "Iceland", country),
+         country = ifelse(country == 79, "India", country),
+         country = ifelse(country == 83, "Ireland", country),
+         country = ifelse(country == 85, "Italy", country),
+         country = ifelse(country == 87, "Japan", country),
+         country = ifelse(country == 92, "Kuwait", country),
+         country = ifelse(country == 105, "Malaysia", country),
+         country = ifelse(country == 121, "Netherlands", country),
+         country = ifelse(country == 128, "Norway", country),
+         country = ifelse(country == 888, "Other", country),
+         country = ifelse(country == 138, "Portugal", country),
+         country = ifelse(country == 146, "Saudi Arabia", country),
+         country = ifelse(country == 157, "South Korea", country),
+         country = ifelse(country == 160, "Spain", country),
+         country = ifelse(country == 174, "Turkey", country),
+         country = ifelse(country == 176, "Uganda", country),
+         country = ifelse(country == 180, "United Kingdom", country),
+         country = ifelse(country == 181, "United States of America", country),
+         country = ifelse(country == 185, "Vietnam", country))
+#clean regions
+Q1_table$region[Q1_table$region == "none" | Q1_table$region == "None"] <- NA
+#create location variable
+Q1_table$location <- Q1_table$country
+Q1_table <- Q1_table %>%
+  mutate(location = ifelse(!is.na(region), paste0(Q1_table$country, ", ", Q1_table$region), country))
+#drop country and region variables
+Q1_table$country <- NULL
+Q1_table$region <- NULL
+
+#author column
+Q1_table$study <- paste0(Q1_table$author_1, " (", Q1_table$year, ")")
+Q1_table$author_1 <- NULL
+Q1_table$record_id <- NULL
+Q1_table$year <- NULL
+
+#clean settings
+Q1_table <- Q1_table %>%
+  mutate(setting = ifelse(setting2 == 1, "Contact investigation", setting),
+         setting = ifelse(setting2 == 2, "Contact investigation, aggregated", setting),
+         setting = ifelse(setting2 == 3, "Outbreak investigation", setting),
+         setting = ifelse(setting2 == 4, "Statistical model", setting),
+         setting = ifelse(setting2 == 5, "Screening", setting),
+         setting = ifelse(setting2 == 6, "Hospitalised adults", setting),
+         setting = ifelse(setting2 == 7, "Hospitalised children", setting),
+         setting = ifelse(setting2 == 8, "Hospitalised children and adults", setting),
+         setting = ifelse(setting2 == 9, "Screening: hospitalised patients", setting),
+         setting = ifelse(setting2 == 10, "Screening: general population", setting),
+         setting = ifelse(setting2 == 11, "Screening: occupational", setting))
+Q1_table$setting2 <- NULL
+
+#clean case numbers
+#total SARS-CoV-2 n
+Q1_table$total_SARS_n <- Q1_table$q1_c1_total
+Q1_table$total_SARS_n_c2 <- Q1_table$q1_c2_total #numbers for cluster 2 - must be arranged later
+#asymp n
+Q1_table$asymp_SARS_n <- Q1_table$q1_c1_event
+Q1_table$asymp_SARS_n_c2 <- Q1_table$q1_c2_event #numbers for cluster 2 - must be arranged later
+Q1_table$q1_c1_event <- NULL
+Q1_table$q1_c2_event <- NULL
+Q1_table$q1_c1_total <- NULL
+Q1_table$q1_c2_total <- NULL
+Q1_table$q1_nclus <- NULL
+Q1_table$q1_c3_event <- NULL
+Q1_table$q1_c3_total <- NULL
+Q1_table$comment_q1 <- NULL
+
+#clean sex category
+Q1_table$sex <- "NR"
+Q1_table$q1_female[Q1_table$q1_female == 9999] <- 0
+Q1_table$q1_male[Q1_table$q1_male == 9999] <- 0
+Q1_table <- Q1_table %>%
+  mutate(sex = ifelse(q1_female == 0 & q1_male == 0, "NR", paste0(q1_female, " F, ", q1_male, " M")))
+Q1_table$q1_male <- NULL
+Q1_table$q1_female <- NULL
+
+#clean age category
+
+Q1_table$q1_age_median[Q1_table$q1_age_median == 9999] <- NA
+Q1_table$q1_age_iqr[Q1_table$q1_age_iqr == 9999] <- NA
+Q1_table$age <- as.character(Q1_table$q1_age_median)
+Q1_table$age[is.na(Q1_table$age)] <- "NR"
+Q1_table <- Q1_table %>%
+  mutate(age = ifelse(!is.na(q1_age_iqr), 
+                      paste0(q1_age_median, " IQR ", q1_age_iqr),
+                      age))
+Q1_table$q1_age_iqr <- NULL
+Q1_table$q1_age_median <- NULL
+
+#clean up follow up
+Q1_table$follow_up <- NULL
+
+Q1_table$fup___2[Q1_table$fup___2 == 1] <- 2
+Q1_table$fup___3[Q1_table$fup___3 == 1] <- 3
+Q1_table <- Q1_table %>%
+  mutate(follow_up = ifelse(fup___1 != 0 & fup___2 != 0 & fup___3 != 0,
+                            paste0(fup___1, ", ", fup___2, ", ", fup___3),
+                            NA)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 0 & fup___3 == 0,
+                            1,
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 2 & fup___3 == 0,
+                            2,
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 0 & fup___3 == 3,
+                            3,
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 2 & fup___3 == 0,
+                            "1, 2",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 0 & fup___3 == 3,
+                            "1, 3",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 2 & fup___3 == 3,
+                            "2, 3",
+                            follow_up))
+Q1_table$fup___1 <- NULL
+Q1_table$fup___2 <- NULL
+Q1_table$fup___3 <- NULL
+  
+names(Q1_table)
+Q1_table$source <- NULL
+
+#rearrange so that clusters and in one col
+cluster2 <- Q1_table
+cluster2 <- cluster2[!is.na(cluster2$total_SARS_n_c2), ]
+cluster2$total_SARS_n <- cluster2$total_SARS_n_c2
+cluster2$asymp_SARS_n <- cluster2$asymp_SARS_n_c2
+cluster2$total_SARS_n_c2 <- NULL
+cluster2$asymp_SARS_n_c2 <- NULL
+cluster2$study <- paste0(cluster2$study, " [cluster 2]")
+#add clusters to main table
+Q1_table <- bind_rows(Q1_table, cluster2)
+#drop extra cols
+Q1_table$total_SARS_n_c2 <- NULL
+Q1_table$asymp_SARS_n_c2 <- NULL
+
+Q1_table <- Q1_table %>%
+  arrange(setting)
+
+##########################################
+# Q1 forest plot
+##########################################
+
+asymptomaticQ1 <- httr::content(response)
+
+
+settings=c("Contact investigation",
+           "Contact investigation, aggregated",
+           "Outbreak investigation",
+           "Statistical model",
+           "Screening",
+           "Hospitalised adults",
+           "Hospitalised children",
+           "Hospitalised adults & children")
+
+
+asymptomaticQ1$setting2<-factor(asymptomaticQ1$setting2, levels=1:8, labels=settings)
+#combine contact investigation and contact investigation aggregated
+asymptomaticQ1$setting2[asymptomaticQ1$setting2 == "Contact investigation, aggregated"] <- "Contact investigation"
+
+# minor cleaning
+asymptomaticQ1[asymptomaticQ1==9999]=NA
+
+asymptomaticQ1$setting=asymptomaticQ1$setting2
+
+
+data_long1 <- gather(asymptomaticQ1, cluster, total, c(q1_c1_total,q1_c2_total,q1_c3_total), factor_key=TRUE) %>% 
+  mutate(id=1:nrow(.)) %>%
+  select(record_id, author_1, setting, total, id, cluster)
+data_long2 <-gather(asymptomaticQ1, cluster, events, c(q1_c1_event,q1_c2_event,q1_c3_event), factor_key=TRUE) %>% 
+  mutate(id=1:nrow(.)) %>%
+  select(events, id)
+
+data_Q1 = merge(data_long1, data_long2, by="id")
+data_Q1 = data_Q1[!is.na(data_Q1$total),]
+data_Q1$cluster=factor(data_Q1$cluster,labels=c("1","2","3"),levels=c("q1_c1_total","q1_c2_total","q1_c3_total"))
+
+data_Q1[data_Q1$record_id %in% asymptomaticQ1[is.na(asymptomaticQ1$q1_c2_event),]$record_id,]$cluster=NA
+
+asymptomaticQ1=data_Q1
+
+asymptomaticQ1$label=paste0("#", asymptomaticQ1$record_id, " ", asymptomaticQ1$author_1, " (2020)",ifelse(!is.na(asymptomaticQ1$cluster),paste0(" cluster:",asymptomaticQ1$cluster),"")) # [FU: ",asymptomaticQ1$fup_median,"]")
+
+asymptomaticQ1$label=paste0("#", asymptomaticQ1$record_id, " ", asymptomaticQ1$author_1,ifelse(!is.na(asymptomaticQ1$cluster),paste0(" [cluster:",asymptomaticQ1$cluster,"]"),"")) # [FU: ",asymptomaticQ1$fup_median,"]")
+
+#change clusters to descriptions
+asymptomaticQ1$label[asymptomaticQ1$label == "#4479 Harada [cluster:1]"] <- "#4479 Harada [Patients]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#4479 Harada [cluster:2]"] <- "#4479 Harada [Healthcare workers]"
+#asymptomaticQ1$label[asymptomaticQ1$label == "#2826 Taylor [cluster:1]"] <- "#2826 Taylor []" #clarify
+#asymptomaticQ1$label[asymptomaticQ1$label == "#2826 Taylor [cluster:2]"] <- "#2826 Taylor []"
+asymptomaticQ1$label[asymptomaticQ1$label == "#2892 Kennelly [cluster:1]"] <- "#2892 Kennelly [Nursing home residents]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#2892 Kennelly [cluster:2]"] <- "#2892 Kennelly [Nursing home staff]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#2802 Bender [cluster:1]"] <- "#2802 Bender [Hospital 1]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#2802 Bender [cluster:2]"] <- "#2802 Bender [Hospital 2]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#4968 van Buul [cluster:1]"] <- "#4968 van Buul [Nursing home residents]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#4968 van Buul [cluster:2]"] <- "#4968 van Buul [Healthcare workers]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#5273 Theuring [cluster:1]"] <- "#5273 Theuring [School students and staff]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#5273 Theuring [cluster:2]"] <- "#5273 Theuring [Household members]"
+
+
+data=asymptomaticQ1[order(asymptomaticQ1$setting,1/(1/asymptomaticQ1$events+1/(asymptomaticQ1$total-asymptomaticQ1$events))),]
+
+data[is.na(data$setting),]$record_id
+data=data[!is.na(data$setting),]
+
+asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
+                    byvar=setting,# tau.common =TRUE,
+                    prediction = TRUE,
+                    control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
+
+asym_plot
+
+png(file = 'forest_meta_Q1.png',width=25,height=70, res=600, units="cm") 
+
+forest(asym_plot,  col.square=data$setting, sortvar = 1/seTE,
+       #squaresize = 1/(1/data$events+1/(data$total-data$events)),
+       #sortvar = 1/(1/events+1/(total-events)), 
+       subgroup=TRUE, 
+       just.studlab="left", colgap.studlab="2cm",
+       #leftcols = c("label", "setting", "age", "design", "asym_denom"),
+       #leftcols=c("studlab", "record_id", "event", "n"),
+       xlab = "",just="left",comb.random=TRUE,test.subgroup.random=FALSE,
+       comb.fixed=FALSE,test.subgroup.fixed=FALSE, predict=T)#, study.results=TRUE,test.subgroup=TRUE)
+dev.off()
+
+#sort by standard error
+#read meta book and figure it out
+#same as precision plot
+pdf(file = 'forest_meta_Q1.pdf', width = 10, height = 30) 
+
+forest(asym_plot,  col.square=data$setting,sortvar = 1/(sqrt(seTE)),
+       #squaresize = 1/(1/data$events+1/(data$total-data$events)),
+       #sortvar = 1/(1/events+1/(total-events)), 
+       subgroup=TRUE, 
+       just.studlab="left", colgap.studlab="2cm",
+       #leftcols = c("label", "setting", "age", "design", "asym_denom"),
+       #leftcols=c("studlab", "record_id", "event", "n"),
+       xlab = "",just="left",comb.random=TRUE,test.subgroup.random=FALSE,
+       comb.fixed=FALSE,test.subgroup.fixed=FALSE, predict=T)#, study.results=TRUE,test.subgroup=TRUE)
+dev.off()
+
+##########################################
+# Q2.1 forest plot
+##########################################
+  
+# get the data directly from redcap: 
+# report #172 is Q2.1 SAR:
+url <- "https://redcap.ispm.unibe.ch/api/"
+token <- "F2725F15FE84D2832E2793BB23B0A62B"
+formData2_1 <- list("token"=token,
+                    content='report',
+                    format='csv',
+                    report_id='172',
+                    csvDelimiter='',
+                    rawOrLabel='raw',
+                    rawOrLabelHeaders='raw',
+                    exportCheckboxLabel='false',
+                    returnFormat='json'
+)
+response2_1 <- httr::POST(url, body = formData2_1, encode = "form")
+asymptomaticQ2_1 <- httr::content(response2_1)
+
+#clean data
+asymptomaticQ2_1[asymptomaticQ2_1=="9999;9999"]=NA #indicate as missing
+asymptomaticQ2_1[asymptomaticQ2_1=="9999"]=NA #indicate as missing
+asymptomaticQ2_1=asymptomaticQ2_1%>% #separate symp SAR into 2 variables
+  separate(q3_sar_s, c("Ec","Nc"), ";", remove=FALSE) 
+asymptomaticQ2_1=asymptomaticQ2_1%>% #separate asymp SAR into 2 variables
+  separate(q3_sar_a, c("Ee_a","Ne_a"), ";", remove=FALSE) 
+asymptomaticQ2_1=asymptomaticQ2_1%>% #separate presymp SAR into 2 variables
+  separate(q3_sar_p, c("Ee_p","Ne_p"), ";", remove=FALSE) 
+
+asymptomaticQ2_1=asymptomaticQ2_1 %>% #change values to numeric
+  mutate(Ec=as.numeric(Ec),
+         Nc=as.numeric(Nc),
+         Ee_a=as.numeric(Ee_a),
+         Ne_a=as.numeric(Ne_a),
+         Ee_p=as.numeric(Ee_p),
+         Ne_p=as.numeric(Ne_p))
+
+#create new df with asymp/presymp as subgroups
+q2_1_df_a <- asymptomaticQ2_1 %>%
+  select("record_id", "author_1", "Ee_a", "Ne_a", "Ec", "Nc", "region", "year") %>%
+  rename(Ee = Ee_a,
+         Ne = Ne_a) %>%
+  filter(!is.na(Ee)) %>%
+  mutate(group = "Asymptomatic")
+q2_1_df_p <- asymptomaticQ2_1 %>%
+  select("record_id", "author_1", "Ee_p", "Ne_p", "Ec", "Nc", "region", "year") %>%
+  rename(Ee = Ee_p,
+         Ne = Ne_p) %>%
+  filter(!is.na(Ee)) %>%
+  mutate(group = "Presymptomatic")
+#bind rows
+q2_1_df <- bind_rows(q2_1_df_a, q2_1_df_p)
+
+
+#metaanalysis for asymptomatic transmission
+
+q2_1_asymp <- metabin(event.e = Ee,
+                      n.e = Ne,
+                      event.c = Ec,
+                      n.c = Nc, 
+                      data = q2_1_df,
+                      studlab = author_1,
+                      prediction = TRUE,
+                      sm = "RR",
+                      method = "MH",
+                      MH.exact = TRUE, 
+                      byvar = group)
+q2_1_asymp
+
+
+pdf(file = 'forest_meta_Q2_1.pdf', width = 8, height = 6)
+
+forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE)
+
+dev.off()
+
+png(file = 'forest_meta_Q2_1.png', width=25,height=13, res=600, units="cm")
+
+forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE)
+
+dev.off()
+
+
+##########################################
+# supplementary information - by precision
+##########################################
+
+#metaanalysis for asymptomatic transmission
+
+q2_1_asymp_precision <- metabin(event.e = Ee,
+                                n.e = Ne,
+                                event.c = Ec,
+                                n.c = Nc, 
+                                data = q2_1_df,
+                                studlab = author_1,
+                                sm = "RR",
+                                byvar = group)
+
+png(file = 'forest_meta_Q2_1_precision.png', width = 600, height = 480)
+
+forest(q2_1_asymp_precision, sortvar = -seTE, overall = FALSE)
+
+dev.off()
+
+
+##########################################
+# table on characteristics of Q2.1 studies
+##########################################
+
+#get data
+Q2_1_table <- httr::content(response2_1)
+
+
+#clean countries
+Q2_1_table <- Q2_1_table %>%
+  mutate(country = ifelse(country == 10, "Australia", country),
+         country = ifelse(country == 11, "Austria", country),
+         country = ifelse(country == 15, "Bahrain", country),
+         country = ifelse(country == 19, "Belgium", country),
+         country = ifelse(country == 28, "Brunei", country),
+         country = ifelse(country == 34, "Canada", country),
+         country = ifelse(country == 40, "China", country),
+         country = ifelse(country == 41, "Colombia", country),
+         country = ifelse(country == 51, "Denmark", country),
+         country = ifelse(country == 62, "France", country),
+         country = ifelse(country == 63, "French Guyana", country),
+         country = ifelse(country == 67, "Germany", country),
+         country = ifelse(country == 69, "Greece", country),
+         country = ifelse(country == 78, "Iceland", country),
+         country = ifelse(country == 79, "India", country),
+         country = ifelse(country == 83, "Ireland", country),
+         country = ifelse(country == 85, "Italy", country),
+         country = ifelse(country == 87, "Japan", country),
+         country = ifelse(country == 92, "Kuwait", country),
+         country = ifelse(country == 105, "Malaysia", country),
+         country = ifelse(country == 121, "Netherlands", country),
+         country = ifelse(country == 128, "Norway", country),
+         country = ifelse(country == 888, "Other", country),
+         country = ifelse(country == 138, "Portugal", country),
+         country = ifelse(country == 146, "Saudi Arabia", country),
+         country = ifelse(country == 157, "South Korea", country),
+         country = ifelse(country == 160, "Spain", country),
+         country = ifelse(country == 174, "Turkey", country),
+         country = ifelse(country == 176, "Uganda", country),
+         country = ifelse(country == 180, "United Kingdom", country),
+         country = ifelse(country == 181, "United States of America", country),
+         country = ifelse(country == 185, "Vietnam", country))
+#clean regions
+
+Q2_1_table$region[Q2_1_table$region == "none" | Q2_1_table$region == "None."] <- NA
+#create location variable
+Q2_1_table$location <- Q2_1_table$country
+Q2_1_table <- Q2_1_table %>%
+  mutate(location = ifelse(!is.na(region), paste0(country, ", ", region), country))
+#drop country and region variables
+Q2_1_table$country <- NULL
+Q2_1_table$region <- NULL
+
+#author column
+Q2_1_table$study <- paste0(Q2_1_table$author_1, " (", Q2_1_table$year, ")")
+Q2_1_table$author_1 <- NULL
+Q2_1_table$record_id <- NULL
+Q2_1_table$year <- NULL
+
+
+#clean settings
+Q2_1_table$setting <- "Not available"
+Q2_1_table <- Q2_1_table %>%
+  mutate(setting = ifelse(setting2 == 1, "Contact investigation", setting),
+         setting = ifelse(setting2 == 2, "Contact investigation, aggregated", setting),
+         setting = ifelse(setting2 == 3, "Outbreak investigation", setting),
+         setting = ifelse(setting2 == 4, "Statistical model", setting),
+         setting = ifelse(setting2 == 5, "Screening", setting),
+         setting = ifelse(setting2 == 6, "Hospitalised adults", setting),
+         setting = ifelse(setting2 == 7, "Hospitalised children", setting),
+         setting = ifelse(setting2 == 8, "Hospitalised children and adults", setting),
+         setting = ifelse(setting2 == 9, "Screening: hospitalised patients", setting),
+         setting = ifelse(setting2 == 10, "Screening: general population", setting),
+         setting = ifelse(setting2 == 11, "Screening: occupational", setting))
+Q2_1_table$setting2 <- NULL
+
+#reorder columns
+Q2_1_table <- data.frame(Q2_1_table$study,
+                         Q2_1_table$setting,
+                         Q2_1_table$location)
+
+names(Q2_1_table) <- c("study", "setting", "location")
+
+
+###############################################################
+# Question 2.2: results output ################################
+# Proportion of transmission from asymp or pre-symp ###########
+###############################################################
+
+# get the data directly from REDCap: 
+# report #157 is Q2.2:
+
+url <- "https://redcap.ispm.unibe.ch/api/"
+token <- "F2725F15FE84D2832E2793BB23B0A62B"
+formData2_2 <- list("token"=token,
+                    content='report',
+                    format='csv',
+                    report_id='157',
+                    csvDelimiter='',
+                    rawOrLabel='raw',
+                    rawOrLabelHeaders='raw',
+                    exportCheckboxLabel='false',
+                    returnFormat='csv'
+)
+response2_2 <- httr::POST(url, body = formData2_2, encode = "form")
+asymptomaticQ2_2 <- httr::content(response2_2)
+
+#clean data
+asymptomaticQ2_2[asymptomaticQ2_2=="9999;9999"]=NA #indicate as missing
+asymptomaticQ2_2[asymptomaticQ2_2 == "9999"] = NA #indicate as missing
+
+#create a separate dataset for the records with >1 result
+two_models <- asymptomaticQ2_2
+#separate into 2 variables
+two_models = two_models %>% 
+  separate(q3_pp_m, c("q3_pp_m_1","q3_pp_m_2"), ";")
+two_models = two_models %>% 
+  separate(q3_pp_l, c("q3_pp_l_1","q3_pp_l_2"), ";") 
+two_models = two_models %>%
+  separate(q3_pp_u, c("q3_pp_u_1","q3_pp_u_2"), ";")
+two_models = two_models %>% 
+  separate(q3_setting, c("q3_setting_1","q3_setting_2"), ";") 
+
+two_models <- two_models %>% #change values to numeric
+  mutate(q3_pp_m_1=as.numeric(q3_pp_m_1),
+         q3_pp_m_2=as.numeric(q3_pp_m_2),
+         q3_pp_l_1=as.numeric(q3_pp_l_1),
+         q3_pp_l_2=as.numeric(q3_pp_l_2),
+         q3_pp_u_1=as.numeric(q3_pp_u_1),
+         q3_pp_u_2=as.numeric(q3_pp_u_2))
+
+
+two_models <- two_models[!is.na(two_models$q3_pp_m_2),]
+
+substrRight <- function(x, n){
+  substr(x, nchar(x)-n+1, nchar(x))
+}
+
+L1 <- two_models %>%
+  pivot_longer(cols = c(6:7),
+               names_to = "model",
+               values_to = "q3_pp_m") 
+L1$label <- paste(L1$author_1, " [", substrRight(L1$model, 1), "]", sep = "")
+L2 <- two_models %>%
+  pivot_longer(cols = c(8:9),
+               names_to = "model",
+               values_to = "q3_pp_l") %>%
+  select("record_id", "model", "q3_pp_l", "author_1")
+L2$label <- paste(L2$author_1, " [", substrRight(L2$model, 1), "]", sep = "")
+L2 <- L2 %>% select("q3_pp_l", "label")
+L3 <- two_models %>%
+  pivot_longer(cols = c(10:11),
+               names_to = "model",
+               values_to = "q3_pp_u") %>%
+  select("record_id", "model", "q3_pp_u", "author_1")
+L3$label <- paste(L3$author_1, " [", substrRight(L3$model, 1), "]", sep = "")
+L3 <- L3 %>% select("q3_pp_u", "label")
+L4 <- two_models %>%
+  pivot_longer(cols = c(13:14),
+               names_to = "model",
+               values_to = "setting") %>%
+  select("record_id", "model", "setting", "author_1")
+L4$label <- paste(L4$author_1, " [", substrRight(L4$model, 1), "]", sep = "")
+L4 <- L4 %>% select("setting", "label")
+#merge together
+Lall <- merge(L2, L3, by = "label")   
+Lall <- merge(Lall, L4, by = "label") 
+Lall <- merge(Lall, L1, by = "label")
+Lall <- Lall %>%
+  select("record_id", "author_1", "q3_pa_m", "q3_pa_l", "q3_pa_u", 
+         "q3_pp_m", "q3_pp_l", "q3_pp_u", "question_3_complete", "setting", 
+         "label")
+
+#clean original dataset
+asymptomaticQ2_2$label <- asymptomaticQ2_2$author_1
+asymptomaticQ2_2 <- asymptomaticQ2_2 %>%
+  mutate(setting = q3_setting)
+asymptomaticQ2_2$q3_setting <- NULL
+asymptomaticQ2_2 <- as.data.frame(asymptomaticQ2_2)
+attr(asymptomaticQ2_2, 'spec') <- NULL
+str(asymptomaticQ2_2)
+asymptomaticQ2_2$q3_pp_m <- as.numeric(asymptomaticQ2_2$q3_pp_m)
+asymptomaticQ2_2$q3_pp_l <- as.numeric(asymptomaticQ2_2$q3_pp_l)
+asymptomaticQ2_2$q3_pp_u <- as.numeric(asymptomaticQ2_2$q3_pp_u)
+
+
+
+#add extra rows to original dataset
+Q2_2 <- bind_rows(asymptomaticQ2_2, Lall)
+#if q3_pp_m and q3_pa_m both NA then delete
+Q2_2 <- Q2_2[!is.na(Q2_2$q3_pa_m) | !is.na(Q2_2$q3_pp_m),]
+
+#create new variable for all estimates and indicate asymp/presymp with new variable
+#fill Q2_2 first with estimates from q3_pp_m then q3_pa_m
+Q2_2 <- Q2_2 %>%
+  mutate(estimate = ifelse(!is.na(q3_pp_m),
+                           q3_pp_m,
+                           q3_pa_m),
+         lower_bound = ifelse(!is.na(q3_pp_m),
+                                 q3_pp_l,
+                                 q3_pa_l),
+         upper_bound = ifelse(!is.na(q3_pp_m),
+                                 q3_pp_u,
+                                 q3_pa_u),
+         subgroup = ifelse(!is.na(q3_pp_m),
+                           "presymp",
+                           "asymp"))
+#some records have presymp estimates in estimate now - must make new observation
+both <- Q2_2 %>%
+  filter(!is.na(Q2_2$q3_pa_m) & !is.na(Q2_2$q3_pp_m)) %>%
+  mutate(estimate = q3_pa_m,
+         lower_bound = q3_pa_l,
+         upper_bound = q3_pa_u,
+         subgroup = "asymp")
+Q2_2 <- bind_rows(Q2_2, both)
+#remove unnecessary cols
+Q2_2 <- Q2_2 %>%
+  select(c("record_id", "label", "setting", "estimate", "lower_bound", "upper_bound", "subgroup"))
+#round numbers to 2 decimal points
+Q2_2$estimate <- round(Q2_2$estimate, digits = 2)
+Q2_2$lower_bound <- round(Q2_2$lower_bound, digits = 2)
+Q2_2$upper_bound <- round(Q2_2$upper_bound, digits = 2)
+
+###############################################################
+# forest plot
+
+
+#prepare data
+Q2_2_df <- Q2_2
+#create label for proportions
+Q2_2_df$prop <- sprintf("%2.2f", Q2_2_df$estimate)
+#create label for 95% CIs
+Q2_2_df$CI_lower <- sprintf("%2.2f", Q2_2_df$lower_bound)
+Q2_2_df$CI_upper <- sprintf("%2.2f", Q2_2_df$upper_bound)
+Q2_2_df$CIs <- paste("[", Q2_2_df$CI_lower, #paste together 95% CIs
+                     ";", Q2_2_df$CI_upper, "]", 
+                     sep = "")
+Q2_2_df <- Q2_2_df %>%
+  mutate(CI = ifelse(is.na(Q2_2_df$CI_lower), NA, CIs))
+Q2_2_df$CI[Q2_2_df$CI == "[NA;NA]"] <- NA
+str(Q2_2_df)
+#col to indicate headings/studies in plot
+Q2_2_df$type <- 2
+#new row for asymptomatic label in plot
+Asymp_label <- data.frame(NA, "Asymptomatic transmission", NA, NA, NA, NA, NA, 
+                          NA, NA, NA, NA, NA, 1)
+names(Asymp_label) <- names(Q2_2_df)
+#new row for asymptomatic label in plot
+Presymp_label <- data.frame(NA, "Presymptomatic transmission", NA, NA, NA, NA, NA, 
+                            NA, NA, NA, NA, NA, 1)
+names(Presymp_label) <- names(Q2_2_df)
+#add to exisiting dataframe
+Q2_2_df <- rbind(Q2_2_df, Asymp_label, Presymp_label)
+#font indicator
+Q2_2_df$fontface = ifelse(Q2_2_df$type == 1, "italic","plain")
+str(Q2_2_df$fontface)
+
+#arrange studies by subgroup
+asymp_n <- sum(Q2_2_df$subgroup == "asymp", #number of asymp studies
+               na.rm = TRUE) 
+presymp_n <- sum(Q2_2_df$subgroup == "presymp", #number of presymp studies
+                 na.rm = TRUE) 
+Q2_2_df$line[Q2_2_df$label == "Asymptomatic transmission"] <- 1
+#new row for space in plot
+space <- data.frame(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA)
+names(space) <- names(Q2_2_df)
+#add to exisiting dataframe
+Q2_2_df <- rbind(Q2_2_df, space)
+Q2_2_df$line[is.na(Q2_2_df$label)] <- 2 + asymp_n
+Q2_2_df$line[Q2_2_df$label == "Presymptomatic transmission"] <- 3 + asymp_n
+Q2_2_df_a <- Q2_2_df %>% #order the asymp studies
+  filter(subgroup == "asymp") %>%
+  mutate(line = 2:(asymp_n + 1))
+Q2_2_df_p <- Q2_2_df %>% #order the presymp studies
+  filter(subgroup == "presymp") %>%
+  mutate(line = (asymp_n + 4):(presymp_n + asymp_n + 3))
+Q2_2_df <- Q2_2_df[is.na(Q2_2_df$record_id),]
+#join all rows again
+Q2_2_df <- rbind(Q2_2_df, Q2_2_df_a, Q2_2_df_p)
+
+#create forest plot
+p <- ggplot() + 
+  geom_point(data = Q2_2_df, #add estimates 
+             aes(y = line, 
+                 x = estimate),
+             fill = "gray", 
+             shape = 22, 
+             color = "black",
+             size = 4) +
+  geom_errorbarh(data = Q2_2_df, #add error bars 
+                 aes(y = line, 
+                     xmin = lower_bound, 
+                     xmax = upper_bound), 
+                 height=0.3) +
+  geom_text(aes(y = c(-1, -1, -1),  #add cols for study, estimates and CIs
+                x = c(-0.2, 1.05, 1.12), 
+                label=c("Study", "Prop.", "95% CI")), 
+            hjust = 0, 
+            fontface = "bold") +
+  geom_text(data = Q2_2_df, #add estimate labels
+            aes(y = line, 
+                x = 1.05, 
+                label = prop), 
+            hjust = 0) +
+  geom_text(data = Q2_2_df, #add CI labels
+            aes(y = line,
+                x = 1.12,
+                label = CI), 
+            hjust = 0) +
+  geom_text(data = Q2_2_df, #add study labels
+            aes(y= line, 
+                x=-0.2, 
+                label = label,
+                hjust = 0,
+                fontface = fontface)) +
+  theme_void() + #remove background
+  scale_y_reverse() +
+  geom_segment(data = Q2_2_df, #add line below point estimates
+               aes(y = max(line) + 1, x = 0, xend = 1, 
+                   yend = max(line) + 1)) +
+  geom_segment(data = Q2_2_df, #add dash for 0
+               aes(y = max(line) + 1, yend = max(line) + 1.3, 
+                   x = 0, xend = 0)) +
+  geom_segment(data = Q2_2_df, #add dash for 0.25
+               aes(y = max(line) + 1, yend = max(line) + 1.3,
+                   x = 0.25, xend = 0.25)) +
+  geom_segment(data = Q2_2_df, #add dash for 0.5
+               aes(y = max(line)+1, yend=max(line) + 1.3,
+                   x=0.5, xend=0.5)) +
+  geom_segment(data = Q2_2_df, #add dash for 0.75
+               aes(y = max(line) + 1, yend = max(line) + 1.3,
+                   x=0.75, xend = 0.75)) +
+  geom_segment(data = Q2_2_df, #add dash for 1
+               aes(y = max(line) + 1, 
+                   yend = max(line) + 1.3,
+                   x = 1, xend = 1)) +
+  geom_text(aes(y = rep(max(Q2_2_df$line) + 2,5), #add numbers to line
+                x = 0:4/4, 
+                label = c(0.00,0.25,0.5,0.75,1.00))) +
+  scale_x_continuous()
+
+
+
+p
+
+#create image file
+png(file="forest_Q2_2.png", 
+    res=300, 
+    height=20, width=50, units="cm")
+p
+dev.off()
+
+
+##########################################
+# table on characteristics of Q2.2 studies
+##########################################
+
+#get data
+Q2_2_table <- httr::content(response2_2)
+
+#author column
+Q2_2_table$study <- paste0(Q2_2_table$author_1, " (", Q2_2_table$year, ")")
+Q2_2_table$author_1 <- NULL
+Q2_2_table$record_id <- NULL
+Q2_2_table$year <- NULL
+
+#subset df
+Q2_2_table <- Q2_2_table %>%
+  select(study, q3_setting)
+
+
+```
+
+## Introduction 
+
+There is ongoing discussion about the level of asymptomatic severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) infection. The authors of a narrative review report a range of proportions of participants positive for SARS-CoV-2 but asymptomatic in different studies from 6 to 96% [1]. The discrepancy results, in part, from the interpretation of studies that report a proportion of asymptomatic people with SARS-CoV-2 detected at a single point. The studies cited include both people who will remain asymptomatic throughout and those, known as pre-symptomatic, who will develop symptoms of coronavirus disease 2019 (covid-19) if followed up [2]. The full spectrum and distribution of covid-19, from completely asymptomatic, to mild and non-specific symptoms, viral pneumonia, respiratory distress syndrome, and death are not yet known [3]. Without follow up, however, the proportions of asymptomatic and pre-symptomatic infections cannot be determined.  
+
+Accurate estimates of the proportions of true asymptomatic and pre-symptomatic infections are needed urgently because their contribution to overall SARS-CoV-2 transmission at the population level will determine the appropriate balance of control measures [3]. If the predominant route of transmission is from people who have symptoms, then strategies should focus on testing, followed by isolation of infected individuals and quarantine of their contacts. If, however, most transmission is from people without symptoms, social distancing measures that reduce contact with people who might be infectious, should be prioritised, enhanced by active case-finding through testing of asymptomatic people.  
+
+Something about vaccines and variants, which we can’t address  
+
+The objectives of this study were to address three questions: 1. Amongst people who become infected with SARS-CoV-2, what proportion does not experience symptoms at all during their infection? 2.1 what is the infectiousness of people with asymptomatic and presymptomatic, compared with symptomatic SARS-CoV-2 infection?. 3. What proportion of SARS-CoV-2 transmission is accounted for by people who are either asymptomatic throughout infection, or pre-symptomatic? 
+
+## Methods  
+We conducted a living systematic review, a systematic review that provides an online summary of findings and is updated when relevant new evidence becomes available [4]. The review follows a published protocol (https://osf.io/9ewys/), which describes in detail the methods used to speed up review tasks [5] and to assess relevant evidence rapidly during a public health emergency [6]. Previous versions of the review have been published as preprints [7,8] or peer-reviewed. We report our findings according to the statement on preferred reporting items for systematic reviews and meta-analyses 2020 (S1 PRISMA Checklist) [9]. Ethics committee review was not required for this study. Box 1 shows our definitions of symptoms, asymptomatic infection and pre-symptomatic status. We use the term asymptomatic SARS-CoV-2 infection for people without symptoms of covid-19 who remain asymptomatic throughout the course of infection. We use the term pre-symptomatic for people who do not have symptoms of covid-19 when enrolled in a study, but who develop symptoms during adequate follow-up.  
+
+
+# Information sources and search  
+
+We conducted the first search on March 25, 2020 and updated it on April 20, and June 10, 2020, September 28, 2020, January 29, 2021, and weekly thereafter. We searched the covid-19 living evidence database [10], which is generated using automated workflow processes [5] to: i) provide daily updates of searches of four electronic databases: Medline Pubmed, Ovid Embase, bioRxiv and medRxiv, using medical subject headings and free text keywords for SARS-CoV-2 infection and covid-19; ii) de-duplicate the records; iii) tag records that are preprints; and iv) allow searches of titles and abstracts using Boolean operators. We used the search function to identify studies of asymptomatic or pre-symptomatic SARS-CoV-2 infection using a search string of medical subject headings and free text keywords (supporting information, S1 Text). We also examined articles suggested by experts and the reference lists of retrieved mathematical modelling studies and systematic reviews. Reports from this living rapid systematic review will be updated at three-monthly intervals, with continuously updated searches. 
+# Eligibility criteria 
+We included studies in any language of people with SARS-CoV-2 diagnosed by reverse transcriptase PCR (RT-PCR) that documented follow-up and symptom status at the beginning and end of follow-up, or investigated the contribution to SARS-CoV-2 transmission of asymptomatic or pre-symptomatic infection. We included contact tracing investigations, cohort studies, case-control studies and statistical and mathematical modelling studies. We excluded the following study types: case reports of a single patient and case series where participants were not enrolled consecutively. Where multiple records included data from the same study population, we linked the records and extracted data from the most complete report. 
+Include a section here on changes to the protocol 
+# Study selection and data extraction 
+Reviewers worked in pairs to screen records using an application programming interface in the electronic data capture system (REDCap, Vanderbilt University, USA). One reviewer selected potentially eligible studies and a second reviewer verified all included and excluded studies. We reported the identification, exclusion and inclusion of studies in a flowchart (S1 Fig). The reviewers determined which of the three review questions each study addressed, using the definitions in Box 1. One reviewer extracted data using a pre-piloted extraction form in REDCap and a second reviewer verified the extracted data using the query system. A third reviewer adjudicated on disagreements that could not be resolved by discussion. We contacted study authors for clarification where the study description was insufficient to reach a decision on inclusion or if reported data in the manuscript were internally inconsistent. The extracted variables included, but were not limited to, study design, country and/or region, study setting, population, age, primary outcomes and length of follow-up. From empirical studies, we extracted raw numbers of individuals with any outcome and its relevant denominator. From statistical and mathematical modelling studies we extracted proportions and uncertainty intervals reported by the authors.  
+
+![Box 1. Definitions of symptoms and symptom status in a person with SARS-CoV-2 infections](Box1.png)
+
+The primary outcomes for each review question were: 1. Proportion with asymptomatic SARS-CoV-2 infection who did not experience symptoms at all during follow-up;  2.1 the secondary attack rate from asymptomatic or pre-symptomatic index cases, compared with symptomatic cases. 2.2. Estimated proportion (with uncertainty interval) of SARS-CoV-2 transmission accounted for by people who are asymptomatic or pre-symptomatic. 
+
+# Risk of bias in included studies 
+
+Two authors independently assessed the risk of bias. A third reviewer resolved disagreements. We developed a tool with specific questions about selection and information biases [11]. The adapted tool included items about inclusion criteria, measurement of asymptomatic status, follow-up of course of disease, and statistical analysis. We added items about selection biases affecting the study population from a tool for the assessment of risk of bias in prevalence studies [12]. For mathematical modelling studies, we used a checklist for assessing relevance and credibility [13]. 
+
+# Synthesis of the evidence 
+
+We used the metaprop and metabin functions from the meta package (version 4.11-0) [14] in R (version 3.5.1) to display the study findings in forest plots and synthesise their findings. The 95% confidence intervals (CI) for each study are estimated using the Clopper-Pearson method [15]. We examined heterogeneity visually in forest plots. We stratified studies according to the methods used to identify people with asymptomatic SARS-CoV-2 infection and the study setting. To synthesise proportions from comparable studies, in terms of design and population, we used stratified random effects meta-analysis. For the stratified and overall summary estimates we calculated prediction intervals, to represent the likely range of proportions that would be obtained in subsequent studies conducted in similar settings [16]. We calculated the secondary attack rate as the number of cases among contacts as a proportion of all close contacts ascertained. We did not account for potential clustering of contacts because the included studies did not report the size of clusters. We compared the secondary attack rate from asymptomatic or pre-symptomatic index cases with that from symptomatic cases. If there were no events in a group, we added 0.5 to each cell in the 2x2 table. We used random effects meta-analysis with the Mantel-Haenszel method to estimate a summary risk ratio (with 95% CI).  
+
+
+## Results 
+The living evidence database contained a total of >200,000 records about SARS-CoV-2 or COVID-19 by 30 July 2021. The searches for studies about asymptomatic or pre-symptomatic SARS-CoV-2, on 25 March, 20 April and 10 June, resulted in 89, 230 and 688 records for screening (S1 Fig). In the first version of the review [7], 11 articles were eligible for inclusion [17-27], version 2 [8] identified another 26 eligible records [28-53], and version 3 identified another 61 eligible records [54-114]. After excluding  four articles for which more recent data became available in a subsequent version [25,29,30,35], the total number of articles included was 94 (S1 Table) [17-24,26-28,31-34,36-114]. The types of evidence changed across the three versions of the review (S1 Table). In the first version, six of 11 studies were contact investigations of single family clusters with a total of 39 people. In the next versions, study designs included larger investigations of contacts and outbreaks, screening of defined groups and studies of hospitalised adults and children. Across all three review versions, data from 79 empirical observational studies were collected in 19 countries or territories (Tables 1 and 2) and included 6832 people with SARS-CoV-2 infection. Forty seven of the studies, including 3802 infected people were done in China (S2 Table). At the time of their inclusion in the review, 23 of the included records were preprints; six of these had been published in peer-reviewed journals by 17 July 2020 [19,20,27,81,82,106].  
+
+# Proportion of people with asymptomatic SARS-CoV-2 infection 
+
+We included 79 studies that reported empirical data about 6616 people with SARS-CoV-2 infection (1287 defined as having asymptomatic infection) [17,18,21-23,26-28,31,32,34,36,39-45,47-50,52-54,56-62,64,66-68,70-77,79-90,92-112,114] and one statistical modelling study [24] (Table 1). The sex distribution of the people with asymptomatic infection was reported in 41/79 studies and the median age was reported in 35/79 studies (Table 1). The results of the studies were heterogeneous (S2 Fig). We defined seven strata, according to the method of selection of asymptomatic status and study settings. Study findings within some of these strata were more consistent (Fig 1). We considered the statistical modelling study of passengers on the Diamond Princess cruise ship passengers [24] separately, because of the different method of analysis and overlap with the study population reported by Tabata S, et al. [27].  
+
+```{r table1, ft.split=TRUE, tab.cap='Table 1. Characteristics of studies included for Q1', echo = FALSE}
+table1 <- as_grouped_data(Q1_table, groups = "setting")
+
+table1 %>% 
+  as_flextable() %>% 
+  set_header_labels(setting = "Setting",
+                    location = "Country, region", 
+                    study = "Study",
+                    total_SARS_n = "Total SARS-CoV-2, n",
+                    asymp_SARS_n = "Asymptomatic SARS-CoV-2, n",
+                    sex = "Sex of asymptomatic people",         
+                    age = "Age of asymptomatic people, years, median",            
+                    follow_up = "Follow-up method") %>%
+  set_table_properties(layout = "autofit") %>%
+  footnote(i = 1, j = 7,
+           value = as_paragraph("Follow-up according to protocol (1: 14 days after last possible exposure; 2: 7 days after diagnosis; 3: until negative RT-PCR result)."),
+           ref_symbols = "a",
+           part = "header") #add footnote
+```
+
+
+![Figure 1. Forest plot of proportion  of people with asymptomatic SARS-CoV-2 infection, stratified by setting and ordered by precision](forest_meta_Q1.png)
+
+The main risks of bias across all categories of empirical studies were in the selection and enrolment of people with asymptomatic infection and mismeasurement of asymptomatic status because of absent or incomplete definitions (S3 Fig). Sources of bias specific to studies in particular settings are discussed with the relevant results.  
+
+
+```{r table2, ft.split=TRUE, tab.cap='Table 1. Characteristics of studies included for Q2.1', echo = FALSE}
+#create table
+Q2_1_table <- Q2_1_table %>%
+  arrange(setting)
+
+table2 <- as_grouped_data(Q2_1_table, groups = "setting")
+
+table2 %>% 
+  as_flextable() %>% 
+  set_header_labels(setting = "Setting",
+                    location = "Country, region", 
+                    study = "Study") %>%
+  set_table_properties(layout = "autofit") %>%
+  theme_vanilla() 
+
+```
+
+
+![Figure 2.1. Forest plot of secondary attack rate comparing infections in contacts of asymptomatic and presymptomatic index cases with infections in contacts of symptomatic cases, ordered by precision](forest_meta_Q2_1.png)
+```{r table3, ft.split=TRUE, tab.cap='Table 1. Characteristics of studies included for Q2.2', echo = FALSE}
+#create table
+table2 <- flextable(Q2_2_table)
+
+table2 %>% 
+  set_header_labels(study = "Study",
+                    q3_setting = "Setting") %>%
+  set_table_properties(layout = "autofit") %>%
+  theme_vanilla() 
+
+```
+
+![Figure 4. Forest plot of proportion of SARS-CoV-2 infection resulting from asymptomatic or presymptomatic transmission](forest_Q2_2.png)

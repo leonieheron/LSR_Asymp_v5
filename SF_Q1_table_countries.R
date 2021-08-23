@@ -1,0 +1,110 @@
+###############################################################
+# Question 1: results output                         ##########
+# Proportion of asymptomatic cases                   ##########
+###############################################################
+
+#load the libraries
+library(meta)
+library(readxl)
+library(tidyverse)
+library(httr) # use to retrieve data from REDCap
+library(kableExtra)
+library(flextable)
+library(dplyr)
+library(Rcpp)
+
+
+##########################################
+# table on characteristics of Q1 studies
+##########################################
+
+#download data
+# get the data directly from redcap:
+# report #155 is Q1:
+url <- "https://redcap.ispm.unibe.ch/api/"
+token <- "F2725F15FE84D2832E2793BB23B0A62B"
+formData <- list("token"=token,
+                 content='report',
+                 format='csv',
+                 report_id='155',
+                 csvDelimiter='',
+                 rawOrLabel='raw',
+                 rawOrLabelHeaders='raw',
+                 exportCheckboxLabel='false',
+                 returnFormat='csv'
+)
+response <- httr::POST(url, body = formData, encode = "form")
+Q1_table_countries <- httr::content(response)
+
+#clean countries
+Q1_table_countries <- Q1_table_countries %>%
+  mutate(country = ifelse(country == 10, "Australia", country),
+         country = ifelse(country == 11, "Austria", country),
+         country = ifelse(country == 15, "Bahrain", country),
+         country = ifelse(country == 19, "Belgium", country),
+         country = ifelse(country == 28, "Brunei", country),
+         country = ifelse(country == 34, "Canada", country),
+         country = ifelse(country == 40, "China", country),
+         country = ifelse(country == 41, "Colombia", country),
+         country = ifelse(country == 51, "Denmark", country),
+         country = ifelse(country == 62, "France", country),
+         country = ifelse(country == 63, "French Guyana", country),
+         country = ifelse(country == 67, "Germany", country),
+         country = ifelse(country == 69, "Greece", country),
+         country = ifelse(country == 78, "Iceland", country),
+         country = ifelse(country == 79, "India", country),
+         country = ifelse(country == 83, "Ireland", country),
+         country = ifelse(country == 85, "Italy", country),
+         country = ifelse(country == 87, "Japan", country),
+         country = ifelse(country == 92, "Kuwait", country),
+         country = ifelse(country == 105, "Malaysia", country),
+         country = ifelse(country == 121, "Netherlands", country),
+         country = ifelse(country == 128, "Norway", country),
+         country = ifelse(country == 888, "Other", country),
+         country = ifelse(country == 138, "Portugal", country),
+         country = ifelse(country == 146, "Saudi Arabia", country),
+         country = ifelse(country == 157, "South Korea", country),
+         country = ifelse(country == 160, "Spain", country),
+         country = ifelse(country == 174, "Turkey", country),
+         country = ifelse(country == 176, "Uganda", country),
+         country = ifelse(country == 180, "United Kingdom", country),
+         country = ifelse(country == 181, "United States of America", country),
+         country = ifelse(country == 185, "Vietnam", country))
+
+#clean case numbers
+#total SARS-CoV-2 n
+Q1_table_countries$q1_c1_total[is.na(Q1_table_countries$q1_c1_total)] <- 0
+Q1_table_countries$q1_c2_total[is.na(Q1_table_countries$q1_c2_total)] <- 0
+Q1_table_countries$q1_c1_event[is.na(Q1_table_countries$q1_c1_event)] <- 0
+Q1_table_countries$q1_c2_event[is.na(Q1_table_countries$q1_c2_event)] <- 0
+
+Q1_table_countries$total_SARS_n <- Q1_table_countries$q1_c1_total + Q1_table_countries$q1_c2_total
+Q1_table_countries$asymp_SARS_n <- Q1_table_countries$q1_c1_event + Q1_table_countries$q1_c2_event
+
+#remove unnecessary cols
+Q1_table_countries <- Q1_table_countries %>%
+  select(country, total_SARS_n, asymp_SARS_n)
+
+#group by countries to calculate n, total cases, total asymp cases
+Q1_table_countries <- Q1_table_countries %>%
+  group_by(country) %>%
+  summarise(total_SARS = sum(total_SARS_n),
+            total_asymp_SARS = sum(asymp_SARS_n),
+            n = n())
+
+#arrange by number of studies
+Q1_table_countries <- Q1_table_countries %>%
+  arrange(desc(n))
+
+table1_countries <- flextable(Q1_table_countries)
+
+table1_countries %>% 
+  set_header_labels(country = "Country",
+                    total_SARS = "Total SARS-CoV-2, n",
+                    total_asymp_SARS = "Total asymptomatic SARS-CoV-2, n",
+                    n = "Total number of studies") %>%
+  set_table_properties(layout = "autofit") %>%
+  theme_vanilla()
+
+
+
