@@ -303,6 +303,12 @@ forest(asym_plot,  col.square=data$setting,sortvar = 1/(sqrt(seTE)),
        comb.fixed=FALSE,test.subgroup.fixed=FALSE, predict=T)#, study.results=TRUE,test.subgroup=TRUE)
 dev.off()
 
+
+q1_nstudies <- nrow(asym_plot$data) #total number of studies included in q1
+q1_nppl <- prettyNum(sum(asymptomaticQ1$total), big.mark = ",") #total number of people included in q1
+q1_nasymp <-  prettyNum(sum(asymptomaticQ1$events), big.mark = ",") #number of people asymptomatic included in q1
+
+
 ##########################################
 # Q2.1 forest plot
 ##########################################
@@ -387,6 +393,7 @@ forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE)
 
 dev.off()
 
+q2_1_nstudies <- nrow(q2_1_asymp$data) #total number of studies included in q1
 
 ##########################################
 # supplementary information - by precision
@@ -780,8 +787,16 @@ Q2_2_table$year <- NULL
 Q2_2_table <- Q2_2_table %>%
   select(study, q3_setting)
 
+q2_2_nstudies <- nrow(Q2_2_table) #total number of studies included in q1
+
+
 
 ```
+
+## ABSTRACT
+
+There is disagreement about the level of asymptomatic severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) infection. We conducted a living systematic review and meta-analysis to address three questions: 1. amongst people who become infected with SARS-CoV-2, what proportion does not experience symptoms at all during their infection? 2. Amongst people with SARS-CoV-2 infection who are asymptomatic when diagnosed, what proportion will develop symptoms later? 2.13. What is the infectiousness of asymptomatic and pre-symptomatic, compared with symptomatic, SARS-CoV-2 infection? 2.2. What proportion of SARS-CoV-2 transmission is accounted for by people who are either asymptomatic throughout infection, or pre-symptomatic?  We searched PubMed, Embase, bioRxiv and medRxiv using a database of SARS-CoV-2 literature that is updated daily, on 25 March 2020, 20 April 2020, and 10 June 2020, 28 Sept 2020, 29 Jan 2021 and weekly thereafter. Studies of people with SARS-CoV-2 diagnosed by reverse transcriptase PCR that documented follow-up and symptom status at the beginning and end of follow-up, or modelling studies were included. One reviewer extracted data and a second verified the extraction, with disagreement resolved by discussion or a third reviewer. Risk of bias in empirical studies was assessed with an adapted bespoke checklist for case series and the relevance and credibility of modelling studies were assessed using a published checklist. **We included a total of `r q1_nstudies` studies that reported empirical data about `r q1_nppl` people with SARS-CoV-2 infection (`r q1_nasymp` defined as having asymptomatic infection), `r q2_1_nstudies` studies for Q2.1, and `r q2_2_nstudies` studies for Q2.2.** The overall estimate of the proportion of people who become infected with SARS-CoV-2 and remain asymptomatic throughout infection was 20% (95% CI 17-25) with a prediction interval of 3-67% in 79 studies that addressed this review question. There was some evidence that biases in the selection of participants influence the estimate. In seven studies of defined populations screened for SARS-CoV-2 and then followed, 31% (95% CI 26-37%, prediction interval 24-38%) remained asymptomatic. The proportion of people that is pre-symptomatic could not be summarised, owing to heterogeneity. The secondary attack rate was lower in contacts of people with asymptomatic infection than those with symptomatic infection (relative risk 0.35, 95% CI 0.10-1.27). Modelling studies fit to data found a higher proportion of all SARS-CoV-2 infections resulting from transmission from pre-symptomatic individuals than from asymptomatic individuals. Limitations of the review include that most included studies were not designed to estimate the proportion of asymptomatic SARS-CoV-2 infections and were at risk of selection biases, we did not consider the possible impact of false negative RT-PCR results, which would underestimate the proportion of asymptomatic infections, and that the database does not include all sources.  
+The findings of this living systematic review suggest that most people who become infected with SARS-CoV-2 will not remain asymptomatic throughout the course of the infection. The contribution of pre-symptomatic and asymptomatic infections to overall SARS-CoV-2 transmission means that combination prevention measures, with enhanced hand hygiene, masks, testing tracing and isolation strategies and social distancing, will continue to be needed. 
 
 ## Introduction 
 
@@ -824,7 +839,7 @@ The living evidence database contained a total of >200,000 records about SARS-Co
 
 # Proportion of people with asymptomatic SARS-CoV-2 infection 
 
-We included 79 studies that reported empirical data about 6616 people with SARS-CoV-2 infection (1287 defined as having asymptomatic infection) [17,18,21-23,26-28,31,32,34,36,39-45,47-50,52-54,56-62,64,66-68,70-77,79-90,92-112,114] and one statistical modelling study [24] (Table 1). The sex distribution of the people with asymptomatic infection was reported in 41/79 studies and the median age was reported in 35/79 studies (Table 1). The results of the studies were heterogeneous (S2 Fig). We defined seven strata, according to the method of selection of asymptomatic status and study settings. Study findings within some of these strata were more consistent (Fig 1). We considered the statistical modelling study of passengers on the Diamond Princess cruise ship passengers [24] separately, because of the different method of analysis and overlap with the study population reported by Tabata S, et al. [27].  
+**We included `r q1_nstudies` studies that reported empirical data about `r q1_nppl` people with SARS-CoV-2 infection (`r q1_nasymp` defined as having asymptomatic infection) (Table 1).** The sex distribution of the people with asymptomatic infection was reported in 41/79 studies and the median age was reported in 35/79 studies (Table 1). The results of the studies were heterogeneous (S2 Fig). We defined seven strata, according to the method of selection of asymptomatic status and study settings. Study findings within some of these strata were more consistent (Fig 1). We considered the statistical modelling study of passengers on the Diamond Princess cruise ship passengers [24] separately, because of the different method of analysis and overlap with the study population reported by Tabata S, et al. [27].  
 
 ```{r table1, ft.split=TRUE, tab.cap='Table 1. Characteristics of studies included for Q1', echo = FALSE}
 table1 <- as_grouped_data(Q1_table, groups = "setting")
