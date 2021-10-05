@@ -107,8 +107,8 @@ Q1_table <- Q1_table %>%
          setting = ifelse(setting2 == 6, "Hospitalised adults", setting),
          setting = ifelse(setting2 == 7, "Hospitalised children", setting),
          setting = ifelse(setting2 == 8, "Hospitalised children and adults", setting),
-         setting = ifelse(setting2 == 9, "Screening: hospitalised patients", setting),
-         setting = ifelse(setting2 == 10, "Screening: general population", setting),
+         setting = ifelse(setting2 == 9, "Screening: institutional setting", setting),
+         setting = ifelse(setting2 == 10, "Screening: community setting", setting),
          setting = ifelse(setting2 == 11, "Screening: occupational", setting))
 Q1_table$setting2 <- NULL
 
@@ -215,17 +215,20 @@ settings=c("Contact investigation",
            "Screening",
            "Hospitalised adults",
            "Hospitalised children",
-           "Hospitalised adults & children")
+           "Hospitalised adults & children",
+           "Screening: institutional setting",
+           "Screening: community setting",
+           "Screening: occupational")
 
 
-asymptomaticQ1$setting2<-factor(asymptomaticQ1$setting2, levels=1:8, labels=settings)
+asymptomaticQ1$setting2<-factor(asymptomaticQ1$setting2, levels=1:11, labels=settings)
 #combine contact investigation and contact investigation aggregated
 asymptomaticQ1$setting2[asymptomaticQ1$setting2 == "Contact investigation, aggregated"] <- "Contact investigation"
 
 # minor cleaning
 asymptomaticQ1[asymptomaticQ1==9999]=NA
 
-asymptomaticQ1$setting=asymptomaticQ1$setting2
+asymptomaticQ1$setting = asymptomaticQ1$setting2
 
 
 data_long1 <- gather(asymptomaticQ1, cluster, total, c(q1_c1_total,q1_c2_total,q1_c3_total), factor_key=TRUE) %>% 
@@ -260,12 +263,25 @@ asymptomaticQ1$label[asymptomaticQ1$label == "#4968 van Buul [cluster:1]"] <- "#
 asymptomaticQ1$label[asymptomaticQ1$label == "#4968 van Buul [cluster:2]"] <- "#4968 van Buul [Healthcare workers]"
 asymptomaticQ1$label[asymptomaticQ1$label == "#5273 Theuring [cluster:1]"] <- "#5273 Theuring [School students and staff]"
 asymptomaticQ1$label[asymptomaticQ1$label == "#5273 Theuring [cluster:2]"] <- "#5273 Theuring [Household members]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#2751 van den Besselaar [cluster:1]"] <- "#2751 van den Besselaar [Healthcare workers]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#2751 van den Besselaar [cluster:2]"] <- "#2751 van den Besselaar [Residents]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#2826 Taylor [cluster:1]"] <- "#2826 Taylor [Healthcare personnel]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#2826 Taylor [cluster:2]"] <- "#2826 Taylor [Residents]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#3719 Ladhani [cluster:1]"] <- "#3719 Ladhani [Residents]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#3719 Ladhani [cluster:2]"] <- "#3719 Ladhani [Healthcare workers]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#5551 Vohra [cluster:1]"] <- "#5551 Vohra [Presurgical patients]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#5551 Vohra [cluster:2]"] <- "#5551 Vohra [Undergoing chemotherapy]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#6526 Garibaldi [cluster:1]"] <- "#6526 Garibaldi [Residents]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#6526 Garibaldi [cluster:2]"] <- "#6526 Garibaldi [Staff]"
 
 
 data=asymptomaticQ1[order(asymptomaticQ1$setting,1/(1/asymptomaticQ1$events+1/(asymptomaticQ1$total-asymptomaticQ1$events))),]
 
 data[is.na(data$setting),]$record_id
 data=data[!is.na(data$setting),]
+
+#cut data at end of jan 31
+data <- data[data$record_id <= 5296, ]
 
 asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
                     byvar=setting,# tau.common =TRUE,
@@ -274,7 +290,7 @@ asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label,
 
 asym_plot
 
-png(file = 'forest_meta_Q1.png',width=25,height=70, res=600, units="cm") 
+png(file = 'forest_meta_Q1.png',width=25,height=80, res=600, units="cm") 
 
 forest(asym_plot,  col.square=data$setting, sortvar = 1/seTE,
        #squaresize = 1/(1/data$events+1/(data$total-data$events)),
@@ -820,8 +836,6 @@ We included studies in any language of people with SARS-CoV-2 diagnosed by rever
 Include a section here on changes to the protocol 
 # Study selection and data extraction 
 Reviewers worked in pairs to screen records using an application programming interface in the electronic data capture system (REDCap, Vanderbilt University, USA). One reviewer selected potentially eligible studies and a second reviewer verified all included and excluded studies. We reported the identification, exclusion and inclusion of studies in a flowchart (S1 Fig). The reviewers determined which of the three review questions each study addressed, using the definitions in Box 1. One reviewer extracted data using a pre-piloted extraction form in REDCap and a second reviewer verified the extracted data using the query system. A third reviewer adjudicated on disagreements that could not be resolved by discussion. We contacted study authors for clarification where the study description was insufficient to reach a decision on inclusion or if reported data in the manuscript were internally inconsistent. The extracted variables included, but were not limited to, study design, country and/or region, study setting, population, age, primary outcomes and length of follow-up. From empirical studies, we extracted raw numbers of individuals with any outcome and its relevant denominator. From statistical and mathematical modelling studies we extracted proportions and uncertainty intervals reported by the authors.  
-
-![Box 1. Definitions of symptoms and symptom status in a person with SARS-CoV-2 infections](Box1.png)
 
 The primary outcomes for each review question were: 1. Proportion with asymptomatic SARS-CoV-2 infection who did not experience symptoms at all during follow-up;  2.1 the secondary attack rate from asymptomatic or pre-symptomatic index cases, compared with symptomatic cases. 2.2. Estimated proportion (with uncertainty interval) of SARS-CoV-2 transmission accounted for by people who are asymptomatic or pre-symptomatic. 
 
