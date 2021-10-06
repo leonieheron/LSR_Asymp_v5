@@ -8,7 +8,7 @@ output:
   toc_float: true
   theme: united
   highlight: tango
-#always_allow_html: true
+  #always_allow_html: true
 ---
 
 ```{r setup, include=FALSE}
@@ -140,8 +140,14 @@ dev.off()
 # Countries included in Q1                           ##########
 ###############################################################
 
-
+library(dplyr)
 Q1_table_countries <- httr::content(response)
+
+#censor until 5296 (31 Jan) plus the published versions of preprints
+pub_preprints <- c(5565, 6219, 6685, 7030, 7465, 8249, 9442, 9484) #published version of preprints before 31 Jan
+
+Q1_table_countries <- Q1_table_countries %>%
+  filter(record_id %in%  pub_preprints | record_id <= 5296)
 
 #clean countries
 Q1_table_countries <- Q1_table_countries %>%
@@ -149,6 +155,7 @@ Q1_table_countries <- Q1_table_countries %>%
          country = ifelse(country == 11, "Austria", country),
          country = ifelse(country == 15, "Bahrain", country),
          country = ifelse(country == 19, "Belgium", country),
+         country = ifelse(country == 27, "Brazil", country),
          country = ifelse(country == 28, "Brunei", country),
          country = ifelse(country == 34, "Canada", country),
          country = ifelse(country == 40, "China", country),
@@ -167,6 +174,7 @@ Q1_table_countries <- Q1_table_countries %>%
          country = ifelse(country == 105, "Malaysia", country),
          country = ifelse(country == 121, "Netherlands", country),
          country = ifelse(country == 128, "Norway", country),
+         country = ifelse(country == 130, "Pakistan", country),
          country = ifelse(country == 888, "Other", country),
          country = ifelse(country == 138, "Portugal", country),
          country = ifelse(country == 146, "Saudi Arabia", country),
