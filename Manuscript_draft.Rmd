@@ -3,6 +3,7 @@ title: "Occurrence and transmission potential of asymptomatic and pre-symptomati
 author: "Diana Buitrago-Garcia, Aziz Mert Ipekci, Leonie Heron, Stefanie Hossmann, Hira Imeri, Georgia Salanti, Nicola Low"
 date: "`r format(Sys.time(), '%d/%m/%y')`"
 output: html_document
+  
 #always_allow_html: true
 ---
 
@@ -21,7 +22,6 @@ library(RCurl)
 library(tidyr)
 library(ggplot2)
 library(metafor)
-
 
 ##########################################
 # table on characteristics of Q1 studies
@@ -46,6 +46,14 @@ formData <- list("token"=token,
 )
 response <- httr::POST(url, body = formData, encode = "form")
 Q1_table <- httr::content(response)
+#cut data at end of jan 31
+published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+Q1_table <- Q1_table %>%
+  filter(record_id <= 5296 | record_id %in% published_preprints)
+Q1_table <- Q1_table %>%
+  select(-contains("rob")) %>%
+  select(-contains("risk_of_bias")) %>%
+  select(-journal)
 
 #clean countries
 Q1_table <- Q1_table %>%
@@ -53,6 +61,7 @@ Q1_table <- Q1_table %>%
          country = ifelse(country == 11, "Austria", country),
          country = ifelse(country == 15, "Bahrain", country),
          country = ifelse(country == 19, "Belgium", country),
+         country = ifelse(country == 27, "Brazil", country),
          country = ifelse(country == 28, "Brunei", country),
          country = ifelse(country == 34, "Canada", country),
          country = ifelse(country == 40, "China", country),
@@ -70,8 +79,10 @@ Q1_table <- Q1_table %>%
          country = ifelse(country == 92, "Kuwait", country),
          country = ifelse(country == 105, "Malaysia", country),
          country = ifelse(country == 121, "Netherlands", country),
-         country = ifelse(country == 128, "Norway", country),
+         country = ifelse(country == 130, "N", country),
+         country = ifelse(country == 28, "Brunei", country),
          country = ifelse(country == 888, "Other", country),
+         country = ifelse(country == 128, "Norway", country),
          country = ifelse(country == 138, "Portugal", country),
          country = ifelse(country == 146, "Saudi Arabia", country),
          country = ifelse(country == 157, "South Korea", country),
@@ -99,8 +110,7 @@ Q1_table$year <- NULL
 
 #clean settings
 Q1_table <- Q1_table %>%
-  mutate(setting = ifelse(setting2 == 1, "Contact investigation", setting),
-         setting = ifelse(setting2 == 2, "Contact investigation, aggregated", setting),
+  mutate(setting = ifelse(setting2 == 1 | setting2 == 2, "Contact investigation", setting),
          setting = ifelse(setting2 == 3, "Outbreak investigation", setting),
          setting = ifelse(setting2 == 4, "Statistical model", setting),
          setting = ifelse(setting2 == 5, "Screening", setting),
@@ -155,31 +165,58 @@ Q1_table$follow_up <- NULL
 
 Q1_table$fup___2[Q1_table$fup___2 == 1] <- 2
 Q1_table$fup___3[Q1_table$fup___3 == 1] <- 3
+Q1_table$fup___4[Q1_table$fup___4 == 1] <- 4
 Q1_table <- Q1_table %>%
-  mutate(follow_up = ifelse(fup___1 != 0 & fup___2 != 0 & fup___3 != 0,
-                            paste0(fup___1, ", ", fup___2, ", ", fup___3),
+  mutate(follow_up = ifelse(fup___1 != 0 & fup___2 != 0 & fup___3 != 0 & fup___4 != 0,
+                            paste0(fup___1, ", ", fup___2, ", ", fup___3, ", ", fup___4),
                             NA)) %>%
-  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 0 & fup___3 == 0,
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 0 & fup___3 == 0 & fup___4 == 0,
                             1,
                             follow_up)) %>%
-  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 2 & fup___3 == 0,
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 2 & fup___3 == 0 & fup___4 == 0,
                             2,
                             follow_up)) %>%
-  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 0 & fup___3 == 3,
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 0 & fup___3 == 3 & fup___4 == 0,
                             3,
                             follow_up)) %>%
-  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 2 & fup___3 == 0,
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 0 & fup___3 == 0 & fup___4 == 4,
+                            4,
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 2 & fup___3 == 0 & fup___4 == 0,
                             "1, 2",
                             follow_up)) %>%
-  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 0 & fup___3 == 3,
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 0 & fup___3 == 3 & fup___4 == 0,
                             "1, 3",
                             follow_up)) %>%
-  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 2 & fup___3 == 3,
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 2 & fup___3 == 3 & fup___4 == 0,
                             "2, 3",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 0 & fup___3 == 0 & fup___4 == 4,
+                            "1, 4",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 2 & fup___3 == 0 & fup___4 == 4,
+                            "2, 4",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 0 & fup___3 == 3 & fup___4 == 4,
+                            "3, 4",
+                            follow_up)) %>%
+mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 2 & fup___3 == 0 & fup___4 == 4,
+                          "1, 2, 4",
+                          follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 2 & fup___3 == 3 & fup___4 == 0,
+                            "1, 2, 3",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 0 & fup___3 == 3 & fup___4 == 4,
+                            "1, 3, 4",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 2 & fup___3 == 3 & fup___4 == 4,
+                            "2, 3, 4",
                             follow_up))
-Q1_table$fup___1 <- NULL
-Q1_table$fup___2 <- NULL
-Q1_table$fup___3 <- NULL
+check <- Q1_table %>%
+  select(fup___1, fup___2, fup___3, fup___4, follow_up)
+Q1_table <- Q1_table %>%
+  select(-contains("fup"))
+
   
 names(Q1_table)
 Q1_table$source <- NULL
@@ -200,6 +237,8 @@ Q1_table$asymp_SARS_n_c2 <- NULL
 
 Q1_table <- Q1_table %>%
   arrange(setting)
+
+Q1_table <- Q1_table[, c(1, 3, 2, 4, 5, 6, 7, 8)]
 
 ##########################################
 # Q1 forest plot
@@ -257,8 +296,6 @@ asymptomaticQ1$label[asymptomaticQ1$label == "#4479 Harada [cluster:2]"] <- "#44
 #asymptomaticQ1$label[asymptomaticQ1$label == "#2826 Taylor [cluster:2]"] <- "#2826 Taylor []"
 asymptomaticQ1$label[asymptomaticQ1$label == "#2892 Kennelly [cluster:1]"] <- "#2892 Kennelly [Nursing home residents]"
 asymptomaticQ1$label[asymptomaticQ1$label == "#2892 Kennelly [cluster:2]"] <- "#2892 Kennelly [Nursing home staff]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#2802 Bender [cluster:1]"] <- "#2802 Bender [Hospital 1]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#2802 Bender [cluster:2]"] <- "#2802 Bender [Hospital 2]"
 asymptomaticQ1$label[asymptomaticQ1$label == "#4968 van Buul [cluster:1]"] <- "#4968 van Buul [Nursing home residents]"
 asymptomaticQ1$label[asymptomaticQ1$label == "#4968 van Buul [cluster:2]"] <- "#4968 van Buul [Healthcare workers]"
 asymptomaticQ1$label[asymptomaticQ1$label == "#5273 Theuring [cluster:1]"] <- "#5273 Theuring [School students and staff]"
@@ -281,7 +318,10 @@ data[is.na(data$setting),]$record_id
 data=data[!is.na(data$setting),]
 
 #cut data at end of jan 31
-data <- data[data$record_id <= 5296, ]
+published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+data <- data %>%
+  filter(record_id <= 5296 | record_id %in% published_preprints)
+
 
 asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
                     byvar=setting,# tau.common =TRUE,
@@ -830,9 +870,13 @@ table1 %>%
                     follow_up = "Follow-up method") %>%
   set_table_properties(layout = "autofit") %>%
   footnote(i = 1, j = 7,
-           value = as_paragraph("Follow-up according to protocol (1: 14 days after last possible exposure; 2: 7 days after diagnosis; 3: until negative RT-PCR result)."),
+           value = as_paragraph("Follow-up according to protocol (1: 14 days after last possible exposure; 2: 7 days after diagnosis; 3: until negative RT-PCR result; 4:>7 days after diagnosis). NR = not reported."),
            ref_symbols = "a",
            part = "header") #add footnote
+
+
+#print(flextable, preview = "docx") #to print in word
+
 ```
 
 
