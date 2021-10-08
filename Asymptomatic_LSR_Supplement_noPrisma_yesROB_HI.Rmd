@@ -418,22 +418,17 @@ outbreakinv_rob_trafficlight <- rob_traffic_light(data = outbreakinv,
                                                            tool = "Generic",
                                                            psize = 10,
                                                            overall = FALSE)
-
-
 p2 <- outbreakinv_rob_trafficlight +
   ggplot2::labs(
-    caption = "  
-    Domains:
-  D1: Representativeness of the sample (selection bias)
-  D2: Characteristics of non-respondents (selection bias)
-  D3: Symptom assessment (information bias)
-  D4: Recording of symptoms (information bias)
-  D5: Classification of asymptomatic status (misclassification bias)
-  D6: Selective reporting of symptoms status (attrition bias)")
+    caption = " ") + 
+  ggplot2::ggtitle("Outbreak investigation") +
+  ggplot2::theme(legend.position = "none")
 
-p2 <- p2 + 
-  ggplot2::ggtitle("Outbreak investigation")
 p3 <- ggarrange(p1,p2,heights = c(1, 1.7), ncol = 1, nrow = 2)
+
+p3 <- annotate_figure(p3, top = text_grob("Question 1", 
+                                      color = "black", face = "bold", size = 21))
+
 
 dev.new()
 png("q1_1_new.png", width = 1000, height = 1500)
@@ -503,6 +498,7 @@ p6 <- p6 +
 
 
 p7 <- ggarrange(p4,p5,p6, heights = c(1.1, 1, 1), ncol = 1, nrow = 3)
+
 dev.new()
 png("q1_2_new.png", width = 1400, height = 2200)
 p7
@@ -597,7 +593,7 @@ We retained publications that used the keywords listed below in the title or abs
 
 ![ROB Q1_1](q1_1_new.png)
 ![ROB Q1_1](q1_2_new.png)
-![ROB Q1_1](q2_new.png)
+
 
 ***
 
