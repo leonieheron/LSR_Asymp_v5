@@ -350,12 +350,12 @@ response_rob <- httr::POST(urlrob, body = formDatarob, encode = "form")
 rob_records <- httr::content(response_rob)
 
 rob_records$authoryear <- paste0(rob_records$author_1, " (", rob_records$year, ")")
-rob_records <- rob_records[1:166,]
+rob_records <- rob_records[rob_records$record_id < "5566", ]
 
 
-#added a new column HI
+#prepare a dataset
 df_rob <- rob_records %>%
-  select(record_id,author_1, authoryear,quest___1, q3_sar, setting2, 
+  select(record_id,author_1, authoryear, quest___1, q3_sar, setting2, 
          rob_1, rob_2, rob_3, rob_4, rob_5, rob_6, 
          risk_of_bias_update_3_complete)
 df_rob['setting'] <- NA
@@ -392,7 +392,7 @@ q1_rob$D6 <- ifelse(q1_rob$D6 == 1, "High", ifelse(q1_rob$D6 == 2, "Unclear", "L
 
 ####Plots filtered by settings#########
 
-#1. "Contact investigation"
+#1. "Contact investigation" and "Contact investigation, aggregated"
 contactinvestigation <- q1_rob %>% 
   filter(setting == "Contact investigation" | setting == "Contact investigation, aggregated") %>%
   select(Study, D1, D2, D3, D4, D5, D6)
@@ -436,7 +436,7 @@ p2 <- p2 +
 p3 <- ggarrange(p1,p2,heights = c(1, 1.7), ncol = 1, nrow = 2)
 
 dev.new()
-png("q1_1_new.png", height = 1500, width = 1100)
+png("q1_1_new.png", width = 1000, height = 1500)
 p3
 graphics.off()
 
@@ -528,6 +528,8 @@ We retained publications that used the keywords listed below in the title or abs
 ## Risk of bias in studies included in review question 1 and review question 2.
 
 ![ROB Q1_1](q1_1_new.png)
+![ROB Q1_1](q1_2_new.png)
+![ROB Q1_1](q2_new.png)
 
 ***
 
