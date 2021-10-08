@@ -503,6 +503,11 @@ p6 <- p6 +
 
 
 p7 <- ggarrange(p4,p5,p6, heights = c(1.1, 1, 1), ncol = 1, nrow = 3)
+dev.new()
+png("q1_2_new.png", width = 1400, height = 2200)
+p7
+graphics.off()
+
 
 
 ```
