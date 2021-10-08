@@ -215,113 +215,116 @@ Q1_table_countries <- Q1_table_countries %>%
 #download packages
 library(devtools)
 library(dplyr)
-install_github("nealhaddaway/PRISMA2020")
+#install_github("nealhaddaway/PRISMA2020")
 
 #create df from example csv file
-PRISMA <- read.csv("PRISMA.csv")
+#PRISMA <- read.csv("PRISMA.csv")
 
 #set the REDCap IDs
 #last REDCap ID in previous version
-last_ID_prev <- 1000
+#last_ID_prev <- 1000
 #last REDCap ID in current version
-last_ID_current <- 5296
+#last_ID_current <- 5296
 #load all records in redcap
 
 # get the data directly from redcap:
-url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
-formData <- list("token"=token,
-                 content='report',
-                 format='csv',
-                 report_id='158',
-                 csvDelimiter='',
-                 rawOrLabel='raw',
-                 rawOrLabelHeaders='raw',
-                 exportCheckboxLabel='false',
-                 returnFormat='csv'
-)
-response_all <- httr::POST(url, body = formData, encode = "form")
-all_records <- httr::content(response_all)
+# url <- "https://redcap.ispm.unibe.ch/api/"
+# token <- "F2725F15FE84D2832E2793BB23B0A62B"
+# formData <- list("token"=token,
+#                  content='report',
+#                  format='csv',
+#                  report_id='158',
+#                  csvDelimiter='',
+#                  rawOrLabel='raw',
+#                  rawOrLabelHeaders='raw',
+#                  exportCheckboxLabel='false',
+#                  returnFormat='csv'
+# )
+# response_all <- httr::POST(url, body = formData, encode = "form")
+# all_records <- httr::content(response_all)
+# 
+# #find number of studies identified in databases since previous update
+# current_records <- all_records[last_ID_prev:last_ID_current, ]
+# PRISMA$n[PRISMA$data == "database_results"] <- nrow(current_records[!is.na(current_records$record_id), ]) - 1 #1 was added manually 9484
+# 
+# #find number included in review
+# PRISMA$n[PRISMA$data == "new_studies"] <- nrow(current_records %>% filter(review == 1))
+# 
+# #find number of duplicates removed before screening
+# PRISMA$n[PRISMA$data == "duplicates"] <- nrow(current_records %>% filter(ex_reas == 14))
+# #find number of records screening
+# PRISMA$n[PRISMA$data == "records_screened"] <- nrow(current_records) - 
+#   nrow(current_records %>% filter(ex_reas == 14))
+# #add number of studies found via other methods 
+# #1 study #9484 was added manually - it's the published v of a preprint
+# #as a result, I need to minus 1 record from the database result
+# PRISMA$n[PRISMA$box == "othstud"] <- 1
+# 
+# #find number of records excluded from title and abstract
+# PRISMA$n[PRISMA$data == "records_excluded"] <- nrow(current_records %>% filter(ex_reas == 1))
+# check <- current_records %>% filter(ex_reas == 1)
+# #current records left after title and abstract screening
+# full_text_screen <- current_records %>% filter(ex_reas != 14 & ex_reas != 1)
+# 
+# #find number of full texts retrieved
+# PRISMA$n[PRISMA$data == "dbr_sought_reports"] <- nrow(current_records) - 
+#   (nrow(current_records %>% filter(ex_reas == 14)) + 
+#   nrow(current_records %>% filter(ex_reas == 1)))
+# 
+# #find number of full texts screened
+# PRISMA$n[PRISMA$data == "dbr_assessed"] <- nrow(current_records) - 
+#   (nrow(current_records %>% filter(ex_reas == 14)) + 
+#      nrow(current_records %>% filter(ex_reas == 1)))
+# 
+# #find number included in previous version
+# prev_records <- all_records[1:last_ID_prev, ]
+# PRISMA$n[PRISMA$data == "previous_studies"] <- nrow(prev_records[prev_records$review == 1, ])
+# 
+# #calculate total studies included
+# PRISMA$n[PRISMA$data == "total_studies"] <- nrow(prev_records[prev_records$review == 1, ]) +
+#   nrow(current_records[current_records$review == 1, ])
+# 
+# # studies excluded
+# excl_11 <-  nrow(current_records %>% filter(ex_reas == 11))
+# excl_12 <-  nrow(current_records %>% filter(ex_reas == 12))
+# excl_13 <-  nrow(current_records %>% filter(ex_reas == 13))
+# excl_15 <-  nrow(current_records %>% filter(ex_reas == 15))
+# excl_16 <-  nrow(current_records %>% filter(ex_reas == 16))
+# excl_17 <-  nrow(current_records %>% filter(ex_reas == 17))
+# excl_19 <-  nrow(current_records %>% filter(ex_reas == 19))
+# excl_20 <-  nrow(current_records %>% filter(ex_reas == 20))
+# excl_21 <-  nrow(current_records %>% filter(ex_reas == 21))
+# excl_18 <-  nrow(current_records %>% filter(ex_reas == 18))
+# 
+# excl_reasons <- paste0("Publication not on COVID-19, ", excl_11, 
+#                        "; No original data, ", excl_12, 
+#                        "; Data included in other publication, ", excl_13, 
+#                        "; Insufficient extractable data, ", excl_15, 
+#                        "; Study design inappropriate, ", excl_16, 
+#                        "; No PCR/serological test, ", excl_17, 
+#                        "; Math. model not in review scope, ", excl_19, 
+#                        "; Inadequate follow-up time, ", excl_20, 
+#                        "; Preprint of published article, ", excl_21, 
+#                        "; Other, ", excl_18)
+# excl_reasons
+# PRISMA$n[PRISMA$data == "dbr_excluded"] <- excl_reasons
+# 
+# #fix some text in the flowchart data
+# PRISMA$boxtext[PRISMA$data == "identification"] <- "Identification"
+# PRISMA$boxtext[PRISMA$box == "prevstud"] <- "Previous studies"
+# 
+#   
+# #read data
+# flowchart <- PRISMA2020::PRISMA_data(PRISMA)
+# flowchart
+# #generate flowchart
+# PRISMA2020::PRISMA_flowdiagram(data = flowchart, other = FALSE)
+# flowchart_plot <- PRISMA2020::PRISMA_flowdiagram(data = flowchart, other = FALSE)
+#                                
+# PRISMA2020::PRISMA_save(flowchart_plot, filename = "PRISMA2020_flowdiagram.png", filetype = "png", overwrite = TRUE)                               
 
-#find number of studies identified in databases since previous update
-current_records <- all_records[last_ID_prev:last_ID_current, ]
-PRISMA$n[PRISMA$data == "database_results"] <- nrow(current_records[!is.na(current_records$record_id), ]) - 1 #1 was added manually 9484
 
-#find number included in review
-PRISMA$n[PRISMA$data == "new_studies"] <- nrow(current_records %>% filter(review == 1))
-
-#find number of duplicates removed before screening
-PRISMA$n[PRISMA$data == "duplicates"] <- nrow(current_records %>% filter(ex_reas == 14))
-#find number of records screening
-PRISMA$n[PRISMA$data == "records_screened"] <- nrow(current_records) - 
-  nrow(current_records %>% filter(ex_reas == 14))
-#add number of studies found via other methods 
-#1 study #9484 was added manually - it's the published v of a preprint
-#as a result, I need to minus 1 record from the database result
-PRISMA$n[PRISMA$box == "othstud"] <- 1
-
-#find number of records excluded from title and abstract
-PRISMA$n[PRISMA$data == "records_excluded"] <- nrow(current_records %>% filter(ex_reas == 1))
-check <- current_records %>% filter(ex_reas == 1)
-#current records left after title and abstract screening
-full_text_screen <- current_records %>% filter(ex_reas != 14 & ex_reas != 1)
-
-#find number of full texts retrieved
-PRISMA$n[PRISMA$data == "dbr_sought_reports"] <- nrow(current_records) - 
-  (nrow(current_records %>% filter(ex_reas == 14)) + 
-  nrow(current_records %>% filter(ex_reas == 1)))
-
-#find number of full texts screened
-PRISMA$n[PRISMA$data == "dbr_assessed"] <- nrow(current_records) - 
-  (nrow(current_records %>% filter(ex_reas == 14)) + 
-     nrow(current_records %>% filter(ex_reas == 1)))
-
-#find number included in previous version
-prev_records <- all_records[1:last_ID_prev, ]
-PRISMA$n[PRISMA$data == "previous_studies"] <- nrow(prev_records[prev_records$review == 1, ])
-
-#calculate total studies included
-PRISMA$n[PRISMA$data == "total_studies"] <- nrow(prev_records[prev_records$review == 1, ]) +
-  nrow(current_records[current_records$review == 1, ])
-
-# studies excluded
-excl_11 <-  nrow(current_records %>% filter(ex_reas == 11))
-excl_12 <-  nrow(current_records %>% filter(ex_reas == 12))
-excl_13 <-  nrow(current_records %>% filter(ex_reas == 13))
-excl_15 <-  nrow(current_records %>% filter(ex_reas == 15))
-excl_16 <-  nrow(current_records %>% filter(ex_reas == 16))
-excl_17 <-  nrow(current_records %>% filter(ex_reas == 17))
-excl_19 <-  nrow(current_records %>% filter(ex_reas == 19))
-excl_20 <-  nrow(current_records %>% filter(ex_reas == 20))
-excl_21 <-  nrow(current_records %>% filter(ex_reas == 21))
-excl_18 <-  nrow(current_records %>% filter(ex_reas == 18))
-
-excl_reasons <- paste0("Publication not on COVID-19, ", excl_11, 
-                       "; No original data, ", excl_12, 
-                       "; Data included in other publication, ", excl_13, 
-                       "; Insufficient extractable data, ", excl_15, 
-                       "; Study design inappropriate, ", excl_16, 
-                       "; No PCR/serological test, ", excl_17, 
-                       "; Math. model not in review scope, ", excl_19, 
-                       "; Inadequate follow-up time, ", excl_20, 
-                       "; Preprint of published article, ", excl_21, 
-                       "; Other, ", excl_18)
-excl_reasons
-PRISMA$n[PRISMA$data == "dbr_excluded"] <- excl_reasons
-
-#fix some text in the flowchart data
-PRISMA$boxtext[PRISMA$data == "identification"] <- "Identification"
-PRISMA$boxtext[PRISMA$box == "prevstud"] <- "Previous studies"
-
-  
-#read data
-flowchart <- PRISMA2020::PRISMA_data(PRISMA)
-flowchart
-#generate flowchart
-PRISMA2020::PRISMA_flowdiagram(data = flowchart, other = FALSE)
-flowchart_plot <- PRISMA2020::PRISMA_flowdiagram(data = flowchart, other = FALSE)
-                               
-PRISMA2020::PRISMA_save(flowchart_plot, filename = "PRISMA2020_flowdiagram.png", filetype = "png", overwrite = TRUE)                               
+#######ROB Analysis HI##########
 
 
 
@@ -406,7 +409,7 @@ We retained publications that used the keywords listed below in the title or abs
 ***
 
 ## PRISMA 2020 Flowchart
-![Figure 3. PRISMA 2020 Flow Diagram](PRISMA2020_flowdiagram.png)
+*In progress.*
 ***
 
 ## Risk of bias in studies included in review question 1 and review question 2.
