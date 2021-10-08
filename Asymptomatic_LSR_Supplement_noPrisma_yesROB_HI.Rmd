@@ -435,10 +435,10 @@ p2 <- p2 +
   ggplot2::ggtitle("Outbreak investigation")
 p3 <- ggarrange(p1,p2,heights = c(1, 1.7), ncol = 1, nrow = 2)
 
+dev.new()
 png("q1_1_new.png", height = 1500, width = 1100)
 p3
-dev.set(dev.next())
-dev.off()
+graphics.off()
 
 
 
