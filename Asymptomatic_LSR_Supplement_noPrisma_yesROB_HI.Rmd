@@ -504,6 +504,50 @@ png("q1_2_new.png", width = 1400, height = 2200)
 p7
 graphics.off()
 
+###ROB analysis for Q2.1
+q2_rob <- df_rob %>%
+  filter(!is.na(rob_1)) %>%
+  filter(record_id != 122) %>%
+  filter(q3_sar == 1)  %>%
+  select(authoryear, rob_1, rob_2, rob_3, rob_4, rob_5, rob_6) %>%
+  rename(Study = authoryear, D1 = rob_1, D2 = rob_2, D3 = rob_3, D4 = rob_4,
+         D5 = rob_5, D6 = rob_6)
+
+q2_rob$D1 <- ifelse(q2_rob$D1 == 1, "High", ifelse(q2_rob$D1 == 2, "Unclear", "Low"))
+q2_rob$D2 <- ifelse(q2_rob$D2 == 1, "High", ifelse(q2_rob$D2 == 2, "Unclear", "Low"))
+q2_rob$D3 <- ifelse(q2_rob$D3 == 1, "High", ifelse(q2_rob$D3 == 2, "Unclear", "Low"))
+q2_rob$D4 <- ifelse(q2_rob$D4 == 1, "High", ifelse(q2_rob$D4 == 2, "Unclear", "Low"))
+q2_rob$D5 <- ifelse(q2_rob$D5 == 1, "High", ifelse(q2_rob$D5 == 2, "Unclear", "Low"))
+q2_rob$D6 <- ifelse(q2_rob$D6 == 1, "High", ifelse(q2_rob$D6 == 2, "Unclear", "Low"))
+
+q2_plot_ds <- q2_rob %>% 
+  select(Study, D1, D2, D3, D4, D5, D6)
+
+q2_rob_trafficlight <- rob_traffic_light(data = q2_plot_ds,
+                                                    tool = "Generic",
+                                                    psize = 10,
+                                                    overall = FALSE)
+
+
+p8 <- q2_rob_trafficlight +
+  ggplot2::labs(
+    caption = "
+    Domains:
+  D1: Representativeness of the sample (selection bias)
+  D2: Characteristics of non-respondents (selection bias)
+  D3: Symptom assessment (information bias)
+  D4: Recording of symptoms (information bias)
+  D5: Classification of asymptomatic status (misclassification bias)
+  D6: Selective reporting of symptoms status (attrition bias)")
+
+p8 <- p8 + 
+  ggplot2::ggtitle("Question 2.1") +
+  theme(plot.title = element_text(hjust = 0.5)) + theme(plot.title = element_text(size = 16, face = "bold"))
+
+dev.new()
+png("q2_new.png", width = 1000, height = 300)
+p8
+graphics.off()
 
 
 ```
@@ -593,7 +637,7 @@ We retained publications that used the keywords listed below in the title or abs
 
 ![ROB Q1_1](q1_1_new.png)
 ![ROB Q1_1](q1_2_new.png)
-
+![ROB Q1_1](q2_new.png)
 
 ***
 
