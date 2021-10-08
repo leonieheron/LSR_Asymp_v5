@@ -441,6 +441,69 @@ p3
 graphics.off()
 
 
+# 9. "Screening: institutional setting"
+institutional <- q1_rob %>% 
+  filter(setting == "Screening: institutional setting") %>%
+  select(Study, D1, D2, D3, D4, D5, D6)
+#Records: 21 studies
+
+institutional_rob_trafficlight <- rob_traffic_light(data = institutional,
+                                                    tool = "Generic",
+                                                    psize = 10,
+                                                    overall = FALSE)
+p4 <- institutional_rob_trafficlight +
+  ggplot2::labs(
+    caption = " ") + 
+  ggplot2::ggtitle("Screening: institutional setting") +
+  ggplot2::theme(legend.position = "none")
+
+# 10. "Screening: community setting"
+communityset <- q1_rob %>% 
+  filter(setting == "Screening: community setting") %>%
+  select(Study, D1, D2, D3, D4, D5, D6)
+#Records: 17 studies
+
+communityset_rob_trafficlight <- rob_traffic_light(data = communityset,
+                                                   tool = "Generic",
+                                                   psize = 10,
+                                                   overall = FALSE)
+
+p5 <- communityset_rob_trafficlight +
+  ggplot2::labs(
+    caption = " ") + 
+  ggplot2::ggtitle("Screening: community setting") +
+  ggplot2::theme(legend.position = "none")
+
+
+# 11. "Screening: occupational"
+occupationalset <- q1_rob %>% 
+  filter(setting == "Screening: occupational") %>%
+  select(Study, D1, D2, D3, D4, D5, D6)
+#Records: 12 studies
+
+occupationalset_rob_trafficlight <- rob_traffic_light(data = occupationalset,
+                                                      tool = "Generic",
+                                                      psize = 10,
+                                                      overall = FALSE)
+
+
+p6 <- occupationalset_rob_trafficlight +
+  ggplot2::labs(
+    caption = "
+    Domains:
+  D1: Representativeness of the sample (selection bias)
+  D2: Characteristics of non-respondents (selection bias)
+  D3: Symptom assessment (information bias)
+  D4: Recording of symptoms (information bias)
+  D5: Classification of asymptomatic status (misclassification bias)
+  D6: Selective reporting of symptoms status (attrition bias)")
+
+p6 <- p6 + 
+  ggplot2::ggtitle("Screening: occupational")
+
+
+p7 <- ggarrange(p4,p5,p6, heights = c(1.1, 1, 1), ncol = 1, nrow = 3)
+
 
 ```
 
