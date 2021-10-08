@@ -327,7 +327,7 @@ library(dplyr)
 #######ROB Analysis HI##########
 
 library(dplyr)
-install.packages("ggpubr")
+#install.packages("ggpubr")
 library("ggpubr")
 
 #use the package as a new source. Some functions of the package are changed by HI
@@ -379,8 +379,8 @@ q1_rob <- df_rob %>%
   filter(!is.na(rob_1)) %>%
   filter(record_id != 122) %>%
   filter(quest___1 == 1)  %>%
-  select(authoryearId, rob_1, rob_2, rob_3, rob_4, rob_5, rob_6, record_id, quest___1, q3_sar, setting) %>%
-  rename(Study = authoryearId, D1 = rob_1, D2 = rob_2, D3 = rob_3, D4 = rob_4,
+  select(authoryear, rob_1, rob_2, rob_3, rob_4, rob_5, rob_6, record_id, quest___1, q3_sar, setting) %>%
+  rename(Study = authoryear, D1 = rob_1, D2 = rob_2, D3 = rob_3, D4 = rob_4,
          D5 = rob_5, D6 = rob_6)
 
 q1_rob$D1 <- ifelse(q1_rob$D1 == 1, "High", ifelse(q1_rob$D1 == 2, "Unclear", "Low"))
@@ -433,9 +433,12 @@ p2 <- outbreakinv_rob_trafficlight +
 
 p2 <- p2 + 
   ggplot2::ggtitle("Outbreak investigation")
-
 p3 <- ggarrange(p1,p2,heights = c(1, 1.7), ncol = 1, nrow = 2)
 
+png("q1_1_new.png", height = 1500, width = 1100)
+p3
+dev.set(dev.next())
+dev.off()
 
 
 
@@ -523,10 +526,8 @@ We retained publications that used the keywords listed below in the title or abs
 ***
 
 ## Risk of bias in studies included in review question 1 and review question 2.
-*In progress.*
-```{r screenplot, echo=FALSE}
-p1
-```
+
+![ROB Q1_1](q1_1_new.png)
 
 ***
 
