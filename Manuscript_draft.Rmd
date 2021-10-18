@@ -611,9 +611,9 @@ p <- ggplot() +
                    yend = max(line) + 1.3,
                    x = 1, xend = 1)) +
   geom_text(aes(y = rep(max(Q2_2_df$line) + 2,5), #add numbers to line
-                x = 0:4/4, 
-                label = c(0.00,0.25,0.5,0.75,1.00))) +
-  scale_x_continuous(breaks = seq(from = 0, to = 1, by = 0.25))
+                x = 0:4/4,
+                label = c(0, 0.25, 0.5, 0.75, 1))) +
+  scale_x_continuous(breaks = seq(from = 0, to = 1, by = 0.5))
 
 
 
@@ -622,7 +622,7 @@ p
 #create image file
 png(file="forest_Q2_2.png", 
     res=300, 
-    height=20, width=30, units="cm")
+    height=35, width=42, units="cm")
 p
 dev.off()
 
@@ -643,9 +643,11 @@ Q2_2_table$year <- NULL
 #subset df
 Q2_2_table <- Q2_2_table %>%
   select(study, q3_setting)
+
+#some pre-processing HI
 Q2_2_table$q3_setting <- gsub(";([[:alpha:]])", "; \\1", Q2_2_table$q3_setting)
 Q2_2_table$q3_setting <- gsub("/([[:alpha:]])", ", \\1", Q2_2_table$q3_setting)
-
+Q2_2_table$q3_setting[15] <- gsub(",", ";",Q2_2_table$q3_setting[15])
 q2_2_nstudies <- nrow(Q2_2_table) #total number of studies included in q1
 
 
