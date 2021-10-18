@@ -643,7 +643,8 @@ Q2_2_table$year <- NULL
 #subset df
 Q2_2_table <- Q2_2_table %>%
   select(study, q3_setting)
-
+Q2_2_table$q3_setting <- gsub(";([[:alpha:]])", "; \\1", Q2_2_table$q3_setting)
+Q2_2_table$q3_setting <- gsub("/([[:alpha:]])", ", \\1", Q2_2_table$q3_setting)
 q2_2_nstudies <- nrow(Q2_2_table) #total number of studies included in q1
 
 
