@@ -672,14 +672,28 @@ Q2_1_table <- Q2_1_table %>%
   arrange(setting)
 
 table2 <- as_grouped_data(Q2_1_table, groups = "setting")
-
-table2 %>% 
-  as_flextable() %>% 
+table2 <- flextable(table2)
+table2 <- table2 %>%
   set_header_labels(setting = "Setting",
                     location = "Country, region", 
                     study = "Study") %>%
   set_table_properties(layout = "autofit") %>%
-  theme_vanilla() 
+  theme_vanilla()
+table2 <- width(table2, width = 10)
+table2
+
+Q2_1_table <- Q2_1_table %>%
+  arrange(setting)
+table2 <- as_grouped_data(Q2_1_table, groups = "setting")
+table2 %>%
+  as_flextable() %>%
+  set_header_labels(setting = "Setting",
+                    location = "Country, region", 
+                    study = "Study") %>%
+  set_table_properties(layout = "autofit") %>% fit_to_width(20) %>% 
+  theme_vanilla()
+
+
 
 ```
 
