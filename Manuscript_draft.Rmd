@@ -190,6 +190,10 @@ asymptomaticQ2_1 <- httr::content(response2_1)
 #clean data
 asymptomaticQ2_1[asymptomaticQ2_1=="9999;9999"]=NA #indicate as missing
 asymptomaticQ2_1[asymptomaticQ2_1=="9999"]=NA #indicate as missing
+
+#added for now
+asymptomaticQ2_1 <- asymptomaticQ2_1[asymptomaticQ2_1$record_id < "5296", ]
+
 asymptomaticQ2_1=asymptomaticQ2_1%>% #separate symp SAR into 2 variables
   separate(q3_sar_s, c("Ec","Nc"), ";", remove=FALSE) 
 asymptomaticQ2_1=asymptomaticQ2_1%>% #separate asymp SAR into 2 variables
@@ -221,6 +225,7 @@ q2_1_df_p <- asymptomaticQ2_1 %>%
 #bind rows
 q2_1_df <- bind_rows(q2_1_df_a, q2_1_df_p)
 
+#Note: Chaw is missing
 
 #metaanalysis for asymptomatic transmission
 
