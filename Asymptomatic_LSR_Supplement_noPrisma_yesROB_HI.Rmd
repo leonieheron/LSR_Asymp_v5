@@ -351,7 +351,7 @@ rob_records <- httr::content(response_rob)
 
 rob_records$authoryear <- paste0(rob_records$author_1, " (", rob_records$year, ")")
 #rob_records <- rob_records[rob_records$record_id < "5566", ]
-rob_records <- rob_records[rob_records$record_id < "5296", ]
+rob_records <- rob_records[rob_records$record_id < 5296, ]
 
 #prepare a dataset
 df_rob <- rob_records %>%
@@ -485,13 +485,18 @@ occupationalset_rob_trafficlight <- rob_traffic_light(data = occupationalset,
 p6 <- occupationalset_rob_trafficlight +
   ggplot2::labs(
     caption = "
-    Domains:
-  D1: Representativeness of the sample (selection bias)
-  D2: Characteristics of non-respondents (selection bias)
-  D3: Symptom assessment (information bias)
-  D4: Recording of symptoms (information bias)
-  D5: Classification of asymptomatic status (misclassification bias)
-  D6: Selective reporting of symptoms status (attrition bias)")
+    Domains
+
+    Selection Bias:
+  D1.1: Representativeness of the sample
+  D1.2: Characteristics of non-respondents
+    Information Bias:
+  D2.1: Symptom assessment
+  D2.1: Recording of symptoms
+    Misclassification bias:
+  D3: Classification of asymptomatic status
+    Attrition bias:
+  D4: Selective reporting of symptoms status")
 
 p6 <- p6 + 
   ggplot2::ggtitle("Screening: occupational")
@@ -532,13 +537,18 @@ q2_rob_trafficlight <- rob_traffic_light(data = q2_plot_ds,
 p8 <- q2_rob_trafficlight +
   ggplot2::labs(
     caption = "
-    Domains:
-  D1: Representativeness of the sample (selection bias)
-  D2: Characteristics of non-respondents (selection bias)
-  D3: Symptom assessment (information bias)
-  D4: Recording of symptoms (information bias)
-  D5: Classification of asymptomatic status (misclassification bias)
-  D6: Selective reporting of symptoms status (attrition bias)")
+    Domains
+
+    Selection Bias:
+  D1.1: Representativeness of the sample
+  D1.2: Characteristics of non-respondents
+    Information Bias:
+  D2.1: Symptom assessment
+  D2.1: Recording of symptoms
+    Misclassification bias:
+  D3: Classification of asymptomatic status
+    Attrition bias:
+  D4: Selective reporting of symptoms status")
 
 p8 <- p8 + 
   ggplot2::ggtitle("Question 2.1") +
