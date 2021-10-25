@@ -192,7 +192,7 @@ asymptomaticQ2_1[asymptomaticQ2_1=="9999;9999"]=NA #indicate as missing
 asymptomaticQ2_1[asymptomaticQ2_1=="9999"]=NA #indicate as missing
 
 #added for now
-asymptomaticQ2_1 <- asymptomaticQ2_1[asymptomaticQ2_1$record_id < "5296", ]
+asymptomaticQ2_1 <- asymptomaticQ2_1[asymptomaticQ2_1$record_id < 5296, ]
 
 asymptomaticQ2_1=asymptomaticQ2_1%>% #separate symp SAR into 2 variables
   separate(q3_sar_s, c("Ec","Nc"), ";", remove=FALSE) 
