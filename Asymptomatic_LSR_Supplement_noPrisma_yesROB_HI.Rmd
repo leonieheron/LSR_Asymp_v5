@@ -556,7 +556,7 @@ p8 <- p8 +
   theme(plot.title = element_text(hjust = 0.5)) + theme(plot.title = element_text(size = 16, face = "bold"))
 
 dev.new()
-png("q2_new.png", width = 1000, height = 400)
+png("q2_new.png", width = 1000, height = 350)
 p8
 graphics.off()
 
