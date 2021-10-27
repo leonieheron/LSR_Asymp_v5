@@ -357,8 +357,13 @@ rob_records <- rob_records %>%
   filter(record_id %in%  pub_preprints | record_id <= 5296)
 
 #prepare a dataset
+# df_rob <- rob_records %>%
+#   select(record_id,author_1, authoryear, quest___1, q3_sar, setting2, 
+#          rob_1, rob_2, rob_3, rob_4, rob_5, rob_6, 
+#          risk_of_bias_update_3_complete)
+
 df_rob <- rob_records %>%
-  select(record_id,author_1, authoryear, quest___1, q3_sar, setting2, 
+  select(record_id,author_1, quest___1, q3_sar, setting2, 
          rob_1, rob_2, rob_3, rob_4, rob_5, rob_6, 
          risk_of_bias_update_3_complete)
 df_rob['setting'] <- NA
@@ -384,21 +389,21 @@ q1_rob <- df_rob %>%
   filter(quest___1 == 1)  %>%
   select(authoryear, rob_1, rob_2, rob_3, rob_4, rob_5, rob_6, record_id, quest___1, q3_sar, setting) %>%
   rename(Study = authoryear, D1 = rob_1, D2 = rob_2, D3 = rob_3, D4 = rob_4,
-         D5 = rob_5, D6 = rob_6)
+         D5 = rob_5, `6` = rob_6)
 
 q1_rob$D1 <- ifelse(q1_rob$D1 == 1, "High", ifelse(q1_rob$D1 == 2, "Unclear", "Low"))
 q1_rob$D2 <- ifelse(q1_rob$D2 == 1, "High", ifelse(q1_rob$D2 == 2, "Unclear", "Low"))
 q1_rob$D3 <- ifelse(q1_rob$D3 == 1, "High", ifelse(q1_rob$D3 == 2, "Unclear", "Low"))
 q1_rob$D4 <- ifelse(q1_rob$D4 == 1, "High", ifelse(q1_rob$D4 == 2, "Unclear", "Low"))
 q1_rob$D5 <- ifelse(q1_rob$D5 == 1, "High", ifelse(q1_rob$D5 == 2, "Unclear", "Low"))
-q1_rob$D6 <- ifelse(q1_rob$D6 == 1, "High", ifelse(q1_rob$D6 == 2, "Unclear", "Low"))
+q1_rob$`6` <- ifelse(q1_rob$`6` == 1, "High", ifelse(q1_rob$`6` == 2, "Unclear", "Low"))
 
 ####Plots filtered by settings#########
 
 #1. "Contact investigation" and "Contact investigation, aggregated"
 contactinvestigation <- q1_rob %>% 
   filter(setting == "Contact investigation" | setting == "Contact investigation, aggregated") %>%
-  select(Study, D1, D2, D3, D4, D5, D6)
+  select(Study, D1, D2, D3, D4, D5, `6`)
 
 contactinvestigation_rob_trafficlight <- rob_traffic_light(data = contactinvestigation,
                                          tool = "Generic",
@@ -415,7 +420,7 @@ p1 <- contactinvestigation_rob_trafficlight +
 # 3. "Outbreak investigation"
 outbreakinv <- q1_rob %>% 
   filter(setting == "Outbreak investigation") %>%
-  select(Study, D1, D2, D3, D4, D5, D6)
+  select(Study, D1, D2, D3, D4, D5, `6`)
 
 outbreakinv_rob_trafficlight <- rob_traffic_light(data = outbreakinv,
                                                            tool = "Generic",
@@ -442,7 +447,7 @@ graphics.off()
 # 9. "Screening: institutional setting"
 institutional <- q1_rob %>% 
   filter(setting == "Screening: institutional setting") %>%
-  select(Study, D1, D2, D3, D4, D5, D6)
+  select(Study, D1, D2, D3, D4, D5, `6`)
 #Records: 21 studies
 
 institutional_rob_trafficlight <- rob_traffic_light(data = institutional,
@@ -458,7 +463,7 @@ p4 <- institutional_rob_trafficlight +
 # 10. "Screening: community setting"
 communityset <- q1_rob %>% 
   filter(setting == "Screening: community setting") %>%
-  select(Study, D1, D2, D3, D4, D5, D6)
+  select(Study, D1, D2, D3, D4, D5, `6`)
 #Records: 17 studies
 
 communityset_rob_trafficlight <- rob_traffic_light(data = communityset,
@@ -476,7 +481,7 @@ p5 <- communityset_rob_trafficlight +
 # 11. "Screening: occupational"
 occupationalset <- q1_rob %>% 
   filter(setting == "Screening: occupational") %>%
-  select(Study, D1, D2, D3, D4, D5, D6)
+  select(Study, D1, D2, D3, D4, D5, `6`)
 #Records: 12 studies
 
 occupationalset_rob_trafficlight <- rob_traffic_light(data = occupationalset,
@@ -491,15 +496,15 @@ p6 <- occupationalset_rob_trafficlight +
     Domains
 
     Selection Bias:
-  D1.1: Representativeness of the sample
-  D1.2: Characteristics of non-respondents
+  1: Representativeness of the sample
+  2: Characteristics of non-respondents
     Information Bias:
-  D2.1: Symptom assessment
-  D2.1: Recording of symptoms
+  3: Symptom assessment
+  4: Recording of symptoms
     Misclassification bias:
-  D3: Classification of asymptomatic status
+  5: Classification of asymptomatic status
     Attrition bias:
-  D4: Selective reporting of symptoms status")
+  6: Selective reporting of symptoms status")
 
 p6 <- p6 + 
   ggplot2::ggtitle("Screening: occupational")
@@ -517,17 +522,17 @@ q2_rob <- df_rob %>%
   filter(q3_sar == 1)  %>%
   select(authoryear, rob_1, rob_2, rob_3, rob_4, rob_5, rob_6) %>%
   rename(Study = authoryear, D1 = rob_1, D2 = rob_2, D3 = rob_3, D4 = rob_4,
-         D5 = rob_5, D6 = rob_6)
+         D5 = rob_5, `6` = rob_6)
 
 q2_rob$D1 <- ifelse(q2_rob$D1 == 1, "High", ifelse(q2_rob$D1 == 2, "Unclear", "Low"))
 q2_rob$D2 <- ifelse(q2_rob$D2 == 1, "High", ifelse(q2_rob$D2 == 2, "Unclear", "Low"))
 q2_rob$D3 <- ifelse(q2_rob$D3 == 1, "High", ifelse(q2_rob$D3 == 2, "Unclear", "Low"))
 q2_rob$D4 <- ifelse(q2_rob$D4 == 1, "High", ifelse(q2_rob$D4 == 2, "Unclear", "Low"))
 q2_rob$D5 <- ifelse(q2_rob$D5 == 1, "High", ifelse(q2_rob$D5 == 2, "Unclear", "Low"))
-q2_rob$D6 <- ifelse(q2_rob$D6 == 1, "High", ifelse(q2_rob$D6 == 2, "Unclear", "Low"))
+q2_rob$`6` <- ifelse(q2_rob$`6` == 1, "High", ifelse(q2_rob$`6` == 2, "Unclear", "Low"))
 
 q2_plot_ds <- q2_rob %>% 
-  select(Study, D1, D2, D3, D4, D5, D6)
+  select(Study, D1, D2, D3, D4, D5, `6`)
 
 q2_rob_trafficlight <- rob_traffic_light(data = q2_plot_ds,
                                                     tool = "Generic",
@@ -541,15 +546,15 @@ p8 <- q2_rob_trafficlight +
     Domains
 
     Selection Bias:
-  D1.1: Representativeness of the sample
-  D1.2: Characteristics of non-respondents
+  1: Representativeness of the sample
+  2: Characteristics of non-respondents
     Information Bias:
-  D2.1: Symptom assessment
-  D2.1: Recording of symptoms
+  3: Symptom assessment
+  4: Recording of symptoms
     Misclassification bias:
-  D3: Classification of asymptomatic status
+  5: Classification of asymptomatic status
     Attrition bias:
-  D4: Selective reporting of symptoms status")
+  6: Selective reporting of symptoms status")
 
 p8 <- p8 + 
   ggplot2::ggtitle("Question 2.1") +
