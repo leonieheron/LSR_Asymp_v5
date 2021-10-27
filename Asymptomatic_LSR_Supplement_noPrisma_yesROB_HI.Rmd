@@ -349,7 +349,7 @@ formDatarob <- list("token"=tokenrob,
 response_rob <- httr::POST(urlrob, body = formDatarob, encode = "form")
 rob_records <- httr::content(response_rob)
 
-rob_records$authoryear <- paste0(rob_records$author_1, " (", rob_records$year, ")")
+# rob_records$authoryear <- paste0(rob_records$author_1, " (", rob_records$year, ")")
 
 #censor until 5296 (31 Jan) plus the published versions of preprints
 pub_preprints <- c(5565, 6219, 6685, 7030, 7465, 8249, 9442, 9484) #published version of preprints before 31 Jan
@@ -387,8 +387,8 @@ q1_rob <- df_rob %>%
   filter(!is.na(rob_1)) %>%
   filter(record_id != 122) %>%
   filter(quest___1 == 1)  %>%
-  select(authoryear, rob_1, rob_2, rob_3, rob_4, rob_5, rob_6, record_id, quest___1, q3_sar, setting) %>%
-  rename(Study = authoryear, D1 = rob_1, D2 = rob_2, D3 = rob_3, D4 = rob_4,
+  select(author_1, rob_1, rob_2, rob_3, rob_4, rob_5, rob_6, record_id, quest___1, q3_sar, setting) %>%
+  rename(Study = author_1, D1 = rob_1, D2 = rob_2, D3 = rob_3, D4 = rob_4,
          D5 = rob_5, `6` = rob_6)
 
 q1_rob$D1 <- ifelse(q1_rob$D1 == 1, "High", ifelse(q1_rob$D1 == 2, "Unclear", "Low"))
@@ -520,8 +520,8 @@ graphics.off()
 ###ROB analysis for Q2.1
 q2_rob <- df_rob %>%
   filter(q3_sar == 1)  %>%
-  select(authoryear, rob_1, rob_2, rob_3, rob_4, rob_5, rob_6) %>%
-  rename(Study = authoryear, D1 = rob_1, D2 = rob_2, D3 = rob_3, D4 = rob_4,
+  select(author_1, rob_1, rob_2, rob_3, rob_4, rob_5, rob_6) %>%
+  rename(Study = author_1, D1 = rob_1, D2 = rob_2, D3 = rob_3, D4 = rob_4,
          D5 = rob_5, `6` = rob_6)
 
 q2_rob$D1 <- ifelse(q2_rob$D1 == 1, "High", ifelse(q2_rob$D1 == 2, "Unclear", "Low"))
