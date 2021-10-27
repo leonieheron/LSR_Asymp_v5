@@ -225,7 +225,10 @@ q2_1_df_p <- asymptomaticQ2_1 %>%
 #bind rows
 q2_1_df <- bind_rows(q2_1_df_a, q2_1_df_p)
 
-#Note: Chaw is missing
+#cut data at end of jan 31
+published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+q2_1_df <- q2_1_df %>%
+  filter(record_id <= 5296 | record_id %in% published_preprints)
 
 #metaanalysis for asymptomatic transmission
 
@@ -239,7 +242,9 @@ q2_1_asymp <- metabin(event.e = Ee,
                       sm = "RR",
                       method = "MH",
                       MH.exact = TRUE, 
-                      byvar = group)
+                      byvar = group, 
+                      comb.random = TRUE,
+                      comb.fixed = FALSE)
 q2_1_asymp
 
 
