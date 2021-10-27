@@ -592,7 +592,7 @@ rob_traffic_light_generic <- function(data,
   adjust_caption <- get_caption_adjustment(rob.tidy)
   
   # Set sizes
-  ssize <- psize - (psize / 2)
+  ssize <- psize - (psize / 4)
   
   # name the provided judgement labels with appropriate judgement levels to
   # enable this to be passed as a named character variable to the
@@ -626,11 +626,8 @@ rob_traffic_light_generic <- function(data,
       labels = judgement_labels
     ) +
     ggplot2::scale_shape_manual(values = c(
-      #l = 43,
-      #s = 45,
-      #h = 120
-      l = 83,
-      s = 85,
+      l = 43,
+      s = 45,
       h = 120
     ),
     labels = judgement_labels)
@@ -832,7 +829,7 @@ rob_summ_theme <- function(overall = TRUE, max_domain_column){
         fill = judgement,
         weight = Weights
       ),
-      width = 1,
+      width = 0.7,
       position = "fill",
       color = "black"
     ),
@@ -895,8 +892,8 @@ rob_tf_theme <-function(rob.tidy,
                           factor(domain, levels = domain_names),
                         switch = "y",
                         space = "free"),
-    ggplot2::geom_point(size = 6),
-    ggplot2::geom_point(size = 4,
+    ggplot2::geom_point(size = 4),
+    ggplot2::geom_point(size = 2,
                         colour = "black",
                         #colour = "white",
                         ggplot2::aes(shape = judgement)),
@@ -953,15 +950,15 @@ rob_tf_theme <-function(rob.tidy,
         t = -0.2, r = 0,
         b = adjust_caption, l = -10, unit = "cm"
       ),
-      strip.text.x = ggplot2::element_text(size = 15),
+      strip.text.x = ggplot2::element_text(size = 10),
       strip.text.y.left = ggplot2::element_text(
         angle = 0,
-        size = 15
-      ), legend.text = ggplot2::element_text(size = 14),
-      legend.title = ggplot2::element_text(size = 14),
+        size = 10
+      ), legend.text = ggplot2::element_text(size = 9),
+      legend.title = ggplot2::element_text(size = 9),
       strip.background = ggplot2::element_rect(fill = "#ffffff"),
       plot.caption = ggplot2::element_text(
-        size = 15,
+        size = 10,
         hjust = 0, vjust = 1
       )
     ),
