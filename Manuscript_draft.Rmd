@@ -7,7 +7,7 @@ output: html_document
 #always_allow_html: true
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
 #download packages
@@ -242,21 +242,19 @@ q2_1_asymp <- metabin(event.e = Ee,
                       sm = "RR",
                       method = "MH",
                       MH.exact = TRUE, 
-                      byvar = group, 
+                      byvar = group,
                       comb.random = TRUE,
-                      comb.fixed = FALSE)
+                      comb.fixed = FALSE, 
+                      label.e = "",
+                      label.c = "Symptomatic")
 q2_1_asymp
 
 
 pdf(file = 'forest_meta_Q2_1.pdf', width = 8, height = 6)
 
-forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE)
-
-dev.off()
-
-png(file = 'forest_meta_Q2_1.png', width=25,height=13, res=600, units="cm")
-
-forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE)
+forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE,
+       overall.hetstat = FALSE,
+       leftlabs = c(NA, "      E", "      N", "            E", "        N"))
 
 dev.off()
 
