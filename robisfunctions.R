@@ -845,7 +845,7 @@ rob_summ_theme <- function(overall = TRUE, max_domain_column){
       axis.ticks.y = ggplot2::element_blank(),
       axis.line.x = ggplot2::element_line(
         colour = "black",
-        size = 1,
+        size = 2,
         linetype = "solid"
       ),
       legend.position = "bottom",
@@ -858,7 +858,7 @@ rob_summ_theme <- function(overall = TRUE, max_domain_column){
       ),
       legend.title = ggplot2::element_blank(),
       legend.key.size = ggplot2::unit(1, "lines"),
-      legend.text = ggplot2::element_text(size = 10)
+      legend.text = ggplot2::element_text(size = 15)
     ),
     bold_overall = ggplot2::theme(axis.text.y = ggplot2::element_text(
       size = 15,
@@ -954,11 +954,11 @@ rob_tf_theme <-function(rob.tidy,
       strip.text.y.left = ggplot2::element_text(
         angle = 0,
         size = 10
-      ), legend.text = ggplot2::element_text(size = 14),
-      legend.title = ggplot2::element_text(size = 14),
+      ), legend.text = ggplot2::element_text(size = 15),
+      legend.title = ggplot2::element_text(size = 20),
       strip.background = ggplot2::element_rect(fill = "#ffffff"),
       plot.caption = ggplot2::element_text(
-        size = 10,
+        size = 15,
         hjust = 0, vjust = 1
       )
     ),
