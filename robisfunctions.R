@@ -829,7 +829,7 @@ rob_summ_theme <- function(overall = TRUE, max_domain_column){
         fill = judgement,
         weight = Weights
       ),
-      width = 0.7,
+      width = 1,
       position = "fill",
       color = "black"
     ),
@@ -845,7 +845,7 @@ rob_summ_theme <- function(overall = TRUE, max_domain_column){
       axis.ticks.y = ggplot2::element_blank(),
       axis.line.x = ggplot2::element_line(
         colour = "black",
-        size = 0.5,
+        size = 1,
         linetype = "solid"
       ),
       legend.position = "bottom",
@@ -857,18 +857,18 @@ rob_summ_theme <- function(overall = TRUE, max_domain_column){
         colour = "black"
       ),
       legend.title = ggplot2::element_blank(),
-      legend.key.size = ggplot2::unit(0.75, "lines"),
-      legend.text = ggplot2::element_text(size = 6)
+      legend.key.size = ggplot2::unit(1, "lines"),
+      legend.text = ggplot2::element_text(size = 10)
     ),
     bold_overall = ggplot2::theme(axis.text.y = ggplot2::element_text(
-      size = 10,
+      size = 15,
       color = "black"
     ))
   )
   
   if (overall) {
     standard[["bold_overall"]] <-
-      ggplot2::theme(axis.text.y = ggtext::element_markdown(size = 10,
+      ggplot2::theme(axis.text.y = ggtext::element_markdown(size = 15,
                                                             color = "black",
                                                             face = c("bold", rep("plain",max_domain_column))))
   }
@@ -950,12 +950,12 @@ rob_tf_theme <-function(rob.tidy,
         t = -0.2, r = 0,
         b = adjust_caption, l = -10, unit = "cm"
       ),
-      strip.text.x = ggplot2::element_text(size = 10),
+      strip.text.x = ggplot2::element_text(size = 15),
       strip.text.y.left = ggplot2::element_text(
         angle = 0,
         size = 10
-      ), legend.text = ggplot2::element_text(size = 9),
-      legend.title = ggplot2::element_text(size = 9),
+      ), legend.text = ggplot2::element_text(size = 14),
+      legend.title = ggplot2::element_text(size = 14),
       strip.background = ggplot2::element_rect(fill = "#ffffff"),
       plot.caption = ggplot2::element_text(
         size = 10,
