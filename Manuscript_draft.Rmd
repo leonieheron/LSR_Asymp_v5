@@ -436,27 +436,69 @@ L1 <- two_models %>%
   pivot_longer(cols = c(6:7),
                names_to = "model",
                values_to = "q3_pp_m") 
-L1$label <- paste(L1$author_1, " [", substrRight(L1$model, 1), "]", sep = "")
+
+L1$label <- "Value"
+for (i in 1:nrow(L1)) {
+  if (L1$model[i] == "q3_pp_m_1") {
+  L1$label[i] <- paste(L1$author_1[i], " [", L1$q3_setting_1[i], "]", sep = "")
+  }else{
+    L1$label[i] <- paste(L1$author_1[i], " [", L1$q3_setting_2[i], "]", sep = "")
+  }
+  
+}
+L1$label2 <- paste(L1$author_1, " [", substrRight(L1$model, 1), "]", sep = "")
+
+
 L2 <- two_models %>%
   pivot_longer(cols = c(8:9),
                names_to = "model",
                values_to = "q3_pp_l") %>%
-  select("record_id", "model", "q3_pp_l", "author_1")
-L2$label <- paste(L2$author_1, " [", substrRight(L2$model, 1), "]", sep = "")
+  select("record_id", "model", "q3_pp_l", "author_1", "q3_setting_1", "q3_setting_2")
+
+L2$label2 <- paste(L2$author_1, " [", substrRight(L2$model, 1), "]", sep = "")
+L2$label <- "Value"
+for (i in 1:nrow(L2)) {
+  if (L2$model[i] == "q3_pp_l_1") {
+  L2$label[i] <- paste(L2$author_1[i], " [", L2$q3_setting_1[i], "]", sep = "")
+  }else{
+    L2$label[i] <- paste(L2$author_1[i], " [", L2$q3_setting_2[i], "]", sep = "")
+  }
+  
+}
+
 L2 <- L2 %>% select("q3_pp_l", "label")
+
+
 L3 <- two_models %>%
   pivot_longer(cols = c(10:11),
                names_to = "model",
                values_to = "q3_pp_u") %>%
-  select("record_id", "model", "q3_pp_u", "author_1")
-L3$label <- paste(L3$author_1, " [", substrRight(L3$model, 1), "]", sep = "")
+  select("record_id", "model", "q3_pp_u", "author_1", "q3_setting_1", "q3_setting_2")
+
+L3$label <- "Value"
+i = 1
+for (i in 1:nrow(L3)) {
+  if (L3$model[i] == "q3_pp_u_1") {
+  L3$label[i] <- paste(L3$author_1[i], " [", L3$q3_setting_1[i], "]", sep = "")
+  }else{
+    L3$label[i] <- paste(L3$author_1[i], " [", L3$q3_setting_2[i], "]", sep = "")
+  }
+  
+}
+
+L3$label2 <- paste(L3$author_1, " [", substrRight(L3$model, 1), "]", sep = "")
+
 L3 <- L3 %>% select("q3_pp_u", "label")
+
+
 L4 <- two_models %>%
   pivot_longer(cols = c(13:14),
                names_to = "model",
                values_to = "setting") %>%
   select("record_id", "model", "setting", "author_1")
-L4$label <- paste(L4$author_1, " [", substrRight(L4$model, 1), "]", sep = "")
+L4$label2 <- paste(L4$author_1, " [", substrRight(L4$model, 1), "]", sep = "")
+L4$label <- paste(L4$author_1, " [", L4$setting, "]", sep = "")
+
 L4 <- L4 %>% select("setting", "label")
 #merge together
 Lall <- merge(L2, L3, by = "label")   
@@ -539,7 +581,7 @@ str(Q2_2_df)
 Q2_2_df$type <- 2
 #new row for asymptomatic label in plot
 Asymp_label <- data.frame(NA, "Asymptomatic transmission", NA, NA, NA, NA, NA, 
-                          NA, NA, NA, NA, NA, 1)
+                          NA, NA, NA, NA, NA,1)
 names(Asymp_label) <- names(Q2_2_df)
 #new row for asymptomatic label in plot
 Presymp_label <- data.frame(NA, "Presymptomatic transmission", NA, NA, NA, NA, NA, 
