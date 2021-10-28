@@ -406,6 +406,7 @@ asymptomaticQ2_2[asymptomaticQ2_2 == "9999"] = NA #indicate as missing
 
 #create a separate dataset for the records with >1 result
 two_models <- asymptomaticQ2_2
+two_models$author_1 <- gsub(",","",two_models$author_1)
 #separate into 2 variables
 two_models = two_models %>% 
   separate(q3_pp_m, c("q3_pp_m_1","q3_pp_m_2"), ";")
