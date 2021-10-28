@@ -256,7 +256,7 @@ forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE,
        leftlabs = c(NA, "      E", "      N", "            E", "        N"))
 
 
-pdf(file = 'forest_meta_Q2_1.pdf', width = 8, height = 6)
+pdf(file = 'forest_meta_Q2_1.pdf', width = 10, height = 6)
 
 forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE,
        overall.hetstat = FALSE,
