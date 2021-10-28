@@ -130,7 +130,7 @@ asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label,
 
 asym_plot
 
-png(file = 'forest_meta_Q1.png',width=25,height=80, res=600, units="cm") 
+png(file = 'forest_meta_Q1.png',width=28,height=70, res=600, units="cm") 
 
 forest(asym_plot,  col.square=data$setting, sortvar = 1/seTE,
        #squaresize = 1/(1/data$events+1/(data$total-data$events)),
