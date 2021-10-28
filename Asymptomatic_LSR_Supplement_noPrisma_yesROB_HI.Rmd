@@ -510,7 +510,7 @@ p6 <- p6 +
   ggplot2::ggtitle("Screening: occupational")
 
 
-p7 <- ggarrange(p4,p5,p6, heights = c(1.1, 1, 0.7), ncol = 1, nrow = 3)
+p7 <- ggarrange(p4,p5,p6, heights = c(1, 0.8, 0.8), ncol = 1, nrow = 3)
 
 dev.new()
 png("q1_2_new.png", width = 1000, height = 2500)
