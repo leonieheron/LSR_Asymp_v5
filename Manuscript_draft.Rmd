@@ -91,26 +91,25 @@ asymptomaticQ1$label=paste0("#", asymptomaticQ1$record_id, " ", asymptomaticQ1$a
 asymptomaticQ1$label=paste0("#", asymptomaticQ1$record_id, " ", asymptomaticQ1$author_1,ifelse(!is.na(asymptomaticQ1$cluster),paste0(" [cluster:",asymptomaticQ1$cluster,"]"),"")) # [FU: ",asymptomaticQ1$fup_median,"]")
 
 #change clusters to descriptions
-asymptomaticQ1$label[asymptomaticQ1$label == "#4479 Harada [cluster:1]"] <- "#4479 Harada [Patients]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#4479 Harada [cluster:2]"] <- "#4479 Harada [Healthcare workers]"
-#asymptomaticQ1$label[asymptomaticQ1$label == "#2826 Taylor [cluster:1]"] <- "#2826 Taylor []" #clarify
-#asymptomaticQ1$label[asymptomaticQ1$label == "#2826 Taylor [cluster:2]"] <- "#2826 Taylor []"
-asymptomaticQ1$label[asymptomaticQ1$label == "#2892 Kennelly [cluster:1]"] <- "#2892 Kennelly [Nursing home residents]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#2892 Kennelly [cluster:2]"] <- "#2892 Kennelly [Nursing home staff]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#4968 van Buul [cluster:1]"] <- "#4968 van Buul [Nursing home residents]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#4968 van Buul [cluster:2]"] <- "#4968 van Buul [Healthcare workers]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#5273 Theuring [cluster:1]"] <- "#5273 Theuring [School students and staff]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#5273 Theuring [cluster:2]"] <- "#5273 Theuring [Household members]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#2751 van den Besselaar [cluster:1]"] <- "#2751 van den Besselaar [Healthcare workers]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#2751 van den Besselaar [cluster:2]"] <- "#2751 van den Besselaar [Residents]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#2826 Taylor [cluster:1]"] <- "#2826 Taylor [Healthcare personnel]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#2826 Taylor [cluster:2]"] <- "#2826 Taylor [Residents]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#3719 Ladhani [cluster:1]"] <- "#3719 Ladhani [Residents]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#3719 Ladhani [cluster:2]"] <- "#3719 Ladhani [Healthcare workers]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#5551 Vohra [cluster:1]"] <- "#5551 Vohra [Presurgical patients]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#5551 Vohra [cluster:2]"] <- "#5551 Vohra [Undergoing chemotherapy]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#6526 Garibaldi [cluster:1]"] <- "#6526 Garibaldi [Residents]"
-asymptomaticQ1$label[asymptomaticQ1$label == "#6526 Garibaldi [cluster:2]"] <- "#6526 Garibaldi [Staff]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#4479 Harada S [cluster:1]"] <- "#4479 Harada S [Patients]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#4479 Harada S [cluster:2]"] <- "#4479 Harada S [Healthcare workers]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#2892 Kennelly SP [cluster:1]"] <- "#2892 Kennelly SP [Nursing home residents]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#2892 Kennelly SP [cluster:2]"] <- "#2892 Kennelly SP [Nursing home staff]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#4968 van Buul LW [cluster:1]"] <- "#4968 van Buul LW [Nursing home residents]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#4968 van Buul LW [cluster:2]"] <- "#4968 van Buul LW [Healthcare workers]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#9442 Theuring S [cluster:1]"] <- "#9442 Theuring S [School students and staff]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#9442 Theuring S [cluster:2]"] <- "#9442 Theuring S [Household members]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#7465 van den Besselaar JH [cluster:1]"] <- "#7465 van den Besselaar JH [Healthcare workers]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#7465 van den Besselaar JH [cluster:2]"] <- "#7465 van den Besselaar JH [Residents]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#2826 Taylor J [cluster:1]"] <- "#2826 Taylor J [Healthcare personnel]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#2826 Taylor J [cluster:2]"] <- "#2826 Taylor J [Residents]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#3719 Ladhani SN [cluster:1]"] <- "#3719 Ladhani SN [Residents]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#3719 Ladhani SN [cluster:2]"] <- "#3719 Ladhani SN [Healthcare workers]"
+#asymptomaticQ1$label[asymptomaticQ1$label == "#5551 Vohra [cluster:1]"] <- "#5551 Vohra [Presurgical patients]"
+#asymptomaticQ1$label[asymptomaticQ1$label == "#5551 Vohra [cluster:2]"] <- "#5551 Vohra [Undergoing chemotherapy]"
+#asymptomaticQ1$label[asymptomaticQ1$label == "#6526 Garibaldi [cluster:1]"] <- "#6526 Garibaldi [Residents]"
+#asymptomaticQ1$label[asymptomaticQ1$label == "#6526 Garibaldi [cluster:2]"] <- "#6526 Garibaldi [Staff]"
+
 
 
 data=asymptomaticQ1[order(asymptomaticQ1$setting,1/(1/asymptomaticQ1$events+1/(asymptomaticQ1$total-asymptomaticQ1$events))),]
@@ -147,7 +146,7 @@ dev.off()
 #sort by standard error
 #read meta book and figure it out
 #same as precision plot
-pdf(file = 'forest_meta_Q1.pdf', width = 10, height = 30) 
+pdf(file = 'forest_meta_Q1.pdf', width = 10, height = 28) 
 
 forest(asym_plot,  col.square=data$setting,sortvar = 1/(sqrt(seTE)),
        #squaresize = 1/(1/data$events+1/(data$total-data$events)),
