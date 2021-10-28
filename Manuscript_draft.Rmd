@@ -457,6 +457,7 @@ L2 <- two_models %>%
 
 L2$label2 <- paste(L2$author_1, " [", substrRight(L2$model, 1), "]", sep = "")
 L2$label <- "Value"
+i = 1
 for (i in 1:nrow(L2)) {
   if (L2$model[i] == "q3_pp_l_1") {
   L2$label[i] <- paste(L2$author_1[i], " [", L2$q3_setting_1[i], "]", sep = "")
