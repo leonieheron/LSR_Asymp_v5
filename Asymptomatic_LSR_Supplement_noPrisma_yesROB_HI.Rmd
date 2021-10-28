@@ -510,10 +510,10 @@ p6 <- p6 +
   ggplot2::ggtitle("Screening: occupational")
 
 
-p7 <- ggarrange(p4,p5,p6, heights = c(1.1, 1, 1), ncol = 1, nrow = 3)
+p7 <- ggarrange(p4,p5,p6, heights = c(1.1, 1, 0.7), ncol = 1, nrow = 3)
 
 dev.new()
-png("q1_2_new.png", width = 1000, height = 2900)
+png("q1_2_new.png", width = 1000, height = 2500)
 p7
 graphics.off()
 
@@ -558,10 +558,10 @@ p8 <- q2_rob_trafficlight +
 
 p8 <- p8 + 
   ggplot2::ggtitle("Question 2.1") +
-  theme(plot.title = element_text(hjust = 0.5)) + theme(plot.title = element_text(size = 16, face = "bold"))
+  theme(plot.title = element_text(hjust = 0.5)) + theme(plot.title = element_text(size = 20, face = "bold"))
 
 dev.new()
-png("q2_new.png", width = 1400, height = 500)
+png("q2_new.png", width = 1000, height = 500)
 p8
 graphics.off()
 
