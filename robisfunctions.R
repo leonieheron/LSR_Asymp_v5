@@ -953,7 +953,7 @@ rob_tf_theme <-function(rob.tidy,
       strip.text.x = ggplot2::element_text(size = 15),
       strip.text.y.left = ggplot2::element_text(
         angle = 0,
-        size = 10
+        size = 15
       ), legend.text = ggplot2::element_text(size = 15),
       legend.title = ggplot2::element_text(size = 20),
       strip.background = ggplot2::element_rect(fill = "#ffffff"),
