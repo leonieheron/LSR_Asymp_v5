@@ -256,6 +256,13 @@ forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE,
        overall.hetstat = FALSE,
        leftlabs = c(NA, "      E", "      N", "            E", "        N"))
 
+
+pdf(file = 'forest_meta_Q2_1.pdf', width = 8, height = 6)
+
+forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE,
+       overall.hetstat = FALSE,
+       leftlabs = c(NA, "      E", "      N", "            E", "        N"))
+
 dev.off()
 
 q2_1_nstudies <- nrow(q2_1_asymp$data) #total number of studies included in q1
@@ -275,95 +282,100 @@ q2_1_asymp_precision <- metabin(event.e = Ee,
                                 sm = "RR",
                                 byvar = group)
 
-png(file = 'forest_meta_Q2_1_precision.png', width = 600, height = 480)
+png(file = 'forest_meta_Q2_1.png', width = 600, height = 300)
 
-forest(q2_1_asymp_precision, sortvar = -seTE, overall = FALSE)
+forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE,
+       overall.hetstat = FALSE,
+       leftlabs = c(NA, "      E", "      N", "            E", "        N"))
 
 dev.off()
+
 
 
 ##########################################
 # table on characteristics of Q2.1 studies
 ##########################################
 
+#table not necessary - all studies in q2.1 described in full table on q1, and numbers are in forest plot
+
 #get data
-Q2_1_table <- httr::content(response2_1)
+#Q2_1_table <- httr::content(response2_1)
 
 
 #clean countries
-Q2_1_table <- Q2_1_table %>%
-  mutate(country = ifelse(country == 10, "Australia", country),
-         country = ifelse(country == 11, "Austria", country),
-         country = ifelse(country == 15, "Bahrain", country),
-         country = ifelse(country == 19, "Belgium", country),
-         country = ifelse(country == 28, "Brunei", country),
-         country = ifelse(country == 34, "Canada", country),
-         country = ifelse(country == 40, "China", country),
-         country = ifelse(country == 41, "Colombia", country),
-         country = ifelse(country == 51, "Denmark", country),
-         country = ifelse(country == 62, "France", country),
-         country = ifelse(country == 63, "French Guyana", country),
-         country = ifelse(country == 67, "Germany", country),
-         country = ifelse(country == 69, "Greece", country),
-         country = ifelse(country == 78, "Iceland", country),
-         country = ifelse(country == 79, "India", country),
-         country = ifelse(country == 83, "Ireland", country),
-         country = ifelse(country == 85, "Italy", country),
-         country = ifelse(country == 87, "Japan", country),
-         country = ifelse(country == 92, "Kuwait", country),
-         country = ifelse(country == 105, "Malaysia", country),
-         country = ifelse(country == 121, "Netherlands", country),
-         country = ifelse(country == 128, "Norway", country),
-         country = ifelse(country == 888, "Other", country),
-         country = ifelse(country == 138, "Portugal", country),
-         country = ifelse(country == 146, "Saudi Arabia", country),
-         country = ifelse(country == 157, "South Korea", country),
-         country = ifelse(country == 160, "Spain", country),
-         country = ifelse(country == 174, "Turkey", country),
-         country = ifelse(country == 176, "Uganda", country),
-         country = ifelse(country == 180, "United Kingdom", country),
-         country = ifelse(country == 181, "United States of America", country),
-         country = ifelse(country == 185, "Vietnam", country))
+#Q2_1_table <- Q2_1_table %>%
+ # mutate(country = ifelse(country == 10, "Australia", country),
+  #       country = ifelse(country == 11, "Austria", country),
+  #       country = ifelse(country == 15, "Bahrain", country),
+  #       country = ifelse(country == 19, "Belgium", country),
+  #       country = ifelse(country == 28, "Brunei", country),
+  #       country = ifelse(country == 34, "Canada", country),
+  #       country = ifelse(country == 40, "China", country),
+  #       country = ifelse(country == 41, "Colombia", country),
+  #       country = ifelse(country == 51, "Denmark", country),
+  #       country = ifelse(country == 62, "France", country),
+  #       country = ifelse(country == 63, "French Guyana", country),
+  #       country = ifelse(country == 67, "Germany", country),
+  #       country = ifelse(country == 69, "Greece", country),
+  #       country = ifelse(country == 78, "Iceland", country),
+  #       country = ifelse(country == 79, "India", country),
+  #       country = ifelse(country == 83, "Ireland", country),
+  #       country = ifelse(country == 85, "Italy", country),
+  #       country = ifelse(country == 87, "Japan", country),
+  #       country = ifelse(country == 92, "Kuwait", country),
+  #       country = ifelse(country == 105, "Malaysia", country),
+  #       country = ifelse(country == 121, "Netherlands", country),
+  #       country = ifelse(country == 128, "Norway", country),
+  #       country = ifelse(country == 888, "Other", country),
+  #       country = ifelse(country == 138, "Portugal", country),
+  #       country = ifelse(country == 146, "Saudi Arabia", country),
+  #       country = ifelse(country == 157, "South Korea", country),
+  #       country = ifelse(country == 160, "Spain", country),
+  #       country = ifelse(country == 174, "Turkey", country),
+  #       country = ifelse(country == 176, "Uganda", country),
+  #       country = ifelse(country == 180, "United Kingdom", country),
+  #       country = ifelse(country == 181, "United States of America", country),
+  #       country = ifelse(country == 185, "Vietnam", country))
 #clean regions
 
-Q2_1_table$region[Q2_1_table$region == "none" | Q2_1_table$region == "None."] <- NA
+#Q2_1_table$region[Q2_1_table$region == "none" | Q2_1_table$region == "None."] <- NA
 #create location variable
-Q2_1_table$location <- Q2_1_table$country
-Q2_1_table <- Q2_1_table %>%
-  mutate(location = ifelse(!is.na(region), paste0(country, ", ", region), country))
+#Q2_1_table$location <- Q2_1_table$country
+#Q2_1_table <- Q2_1_table %>%
+#  mutate(location = ifelse(!is.na(region), paste0(country, ", ", region), country))
 #drop country and region variables
-Q2_1_table$country <- NULL
-Q2_1_table$region <- NULL
+#Q2_1_table$country <- NULL
+#Q2_1_table$region <- NULL
 
 #author column
-Q2_1_table$study <- paste0(Q2_1_table$author_1, " (", Q2_1_table$year, ")")
-Q2_1_table$author_1 <- NULL
-Q2_1_table$record_id <- NULL
-Q2_1_table$year <- NULL
+#Q2_1_table$study <- paste0(Q2_1_table$author_1, " (", Q2_1_table$year, ")")
+#Q2_1_table$author_1 <- NULL
+#Q2_1_table$record_id <- NULL
+#Q2_1_table$year <- NULL
 
 
 #clean settings
-Q2_1_table$setting <- "Not available"
-Q2_1_table <- Q2_1_table %>%
-  mutate(setting = ifelse(setting2 == 1, "Contact investigation", setting),
-         setting = ifelse(setting2 == 2, "Contact investigation, aggregated", setting),
-         setting = ifelse(setting2 == 3, "Outbreak investigation", setting),
-         setting = ifelse(setting2 == 4, "Statistical model", setting),
-         setting = ifelse(setting2 == 5, "Screening", setting),
-         setting = ifelse(setting2 == 6, "Hospitalised adults", setting),
-         setting = ifelse(setting2 == 7, "Hospitalised children", setting),
-         setting = ifelse(setting2 == 8, "Hospitalised children and adults", setting),
-         setting = ifelse(setting2 == 9, "Screening: hospitalised patients", setting),
-         setting = ifelse(setting2 == 10, "Screening: general population", setting),
-         setting = ifelse(setting2 == 11, "Screening: occupational", setting))
-Q2_1_table$setting2 <- NULL
+#Q2_1_table$setting <- "Not available"
+#Q2_1_table <- Q2_1_table %>%
+ # mutate(setting = ifelse(setting2 == 1, "Contact investigation", setting),
+#         setting = ifelse(setting2 == 2, "Contact investigation, aggregated", setting),
+#         setting = ifelse(setting2 == 3, "Outbreak investigation", setting),
+#         setting = ifelse(setting2 == 4, "Statistical model", setting),
+#         setting = ifelse(setting2 == 5, "Screening", setting),
+#         setting = ifelse(setting2 == 6, "Hospitalised adults", setting),
+#         setting = ifelse(setting2 == 7, "Hospitalised children", setting),
+#         setting = ifelse(setting2 == 8, "Hospitalised children and adults", setting),
+#         setting = ifelse(setting2 == 9, "Screening: hospitalised patients", setting),
+#         setting = ifelse(setting2 == 10, "Screening: general population", setting),
+#         setting = ifelse(setting2 == 11, "Screening: occupational", setting))
+#Q2_1_table$setting2 <- NULL
 
 #reorder columns
-Q2_1_table <- data.frame(Q2_1_table$study,
-                         Q2_1_table$setting,
-                         Q2_1_table$location)
+#Q2_1_table <- data.frame(Q2_1_table$study,
+ #                        Q2_1_table$setting,
+#                         Q2_1_table$location)
 
-names(Q2_1_table) <- c("study", "setting", "location")
+#names(Q2_1_table) <- c("study", "setting", "location")
 
 
 ###############################################################
