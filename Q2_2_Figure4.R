@@ -84,7 +84,22 @@ dig=2
 r<-function(x){format(round(as.numeric(x),2),dig=2)}
 
 
-dataG$label=ifelse(dataG$type==2,
+# dataG$label=ifelse(dataG$type==2,
+#                    paste0(dataG$label, " ", ifelse(!is.na(dataG$Q3set),paste0("[",dataG$Q3set,"]"),"")),dataG$label)
+
+dataG$label=ifelse(dataG$label=="   Ganyani T",
+                   paste0(dataG$label, " ", ifelse(!is.na(dataG$Q3set),paste0("[",dataG$Q3set,"]"),"")),dataG$label)
+
+dataG$label=ifelse(dataG$label=="   Peak CM",
+                   paste0(dataG$label, " ", ifelse(!is.na(dataG$Q3set),paste0("[",dataG$Q3set,"]"),"")),dataG$label)
+dataG$label=ifelse(dataG$label=="   Tindale LC",
+                   paste0(dataG$label, " ", ifelse(!is.na(dataG$Q3set),paste0("[",dataG$Q3set,"]"),"")),dataG$label)
+
+dataG$label=ifelse(dataG$label=="   Zhang W",
+                   paste0(dataG$label, " ", ifelse(!is.na(dataG$Q3set),paste0("[",dataG$Q3set,"]"),"")),dataG$label)
+
+
+dataG$label=ifelse(dataG$label=="   Casey M",
                    paste0(dataG$label, " ", ifelse(!is.na(dataG$Q3set),paste0("[",dataG$Q3set,"]"),"")),dataG$label)
 
 dataG$fontface=ifelse(dataG$type==1, "italic","plain")
