@@ -440,12 +440,15 @@ L1 <- two_models %>%
 L1$label <- "Value"
 for (i in 1:nrow(L1)) {
   if (L1$model[i] == "q3_pp_m_1") {
-    sett <- L1$q3_setting_1[i]
+  L1$label[i] <- paste(L1$author_1[i], " [", L1$q3_setting_1[i], "]", sep = "")
   }else{
-    sett <- L1$q3_setting_2[i]
+    L1$label[i] <- paste(L1$author_1[i], " [", L1$q3_setting_2[i], "]", sep = "")
   }
-    L1$label[i] <- paste(L1$author_1[i], " [", sett, "]", sep = "")
-  }
+  
+}
+
+
+
 L1$label2 <- paste(L1$author_1, " [", substrRight(L1$model, 1), "]", sep = "")
 
 
@@ -466,6 +469,17 @@ for (i in 1:nrow(L2)) {
   }
   L2$label[i] <- paste(L2$author_1[i], " [", sett, "]", sep = "")
 }
+
+for (i in 1:nrow(L2)) {
+  if (L2$model[i] == "q3_pp_l_1") {
+  L2$label[i] <- paste(L2$author_1[i], " [", L2$q3_setting_1[i], "]", sep = "")
+  }else{
+    L2$label[i] <- paste(L2$author_1[i], " [", L2$q3_setting_2[i], "]", sep = "")
+  }
+  
+}
+
+
 
 L2 <- L2 %>% select("q3_pp_l", "label")
 
