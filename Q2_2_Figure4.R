@@ -119,8 +119,8 @@ p=ggplot()+
   theme(legend.position = "none")
 p
 
-#png(file="forest_ggplotQ3_20200714.png", res=300, height=9, width=25, units="cm")
-pdf(file="Figure4.pdf", height=12/2, width=25/3)
+png(file="forest_ggplotQ3_20200714.png", res=300, height=17, width=20, units="cm")
+#pdf(file="Figure4.pdf", height=12/2, width=25/3)
 p
 dev.off()
 
