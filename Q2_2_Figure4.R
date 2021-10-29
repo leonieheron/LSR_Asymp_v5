@@ -1,21 +1,5 @@
 
-## Q3 = Figure4 #####
-
-
-library(RCurl)
-result <- postForm(
-  uri='https://redcap.ispm.unibe.ch/api/',
-  token='F2725F15FE84D2832E2793BB23B0A62B',
-  content='report',
-  format='csv',
-  report_id='157',
-  rawOrLabel='label',
-  rawOrLabelHeaders='raw',
-  exportCheckboxLabel='false',
-  returnFormat='json'
-)
-tmp<-textConnection(result)
-asymptomaticQ3<-read.csv(tmp, stringsAsFactors = FALSE)
+## Q2.2 = Figure4 #####
 
 
 url <- "https://redcap.ispm.unibe.ch/api/"
