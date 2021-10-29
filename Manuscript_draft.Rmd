@@ -499,15 +499,20 @@ p=ggplot()+
   xlim(c(-2,2.5))+
   theme(legend.position = "none")
 
+#create image file
 
 p
 
-#create image file
-png(file="forest_Q2_2.png", 
-    res=300, 
-    height=35, width=42, units="cm")
+png(file="forest_Q2_2.png", res=300, height=17, width=20, units="cm")
+#pdf(file="Figure4.pdf", height=12/2, width=25/3)
 p
 dev.off()
+
+# png(file="forest_Q2_2.png", 
+#     res=300, 
+#     height=35, width=42, units="cm")
+# p
+# dev.off()
 
 
 ############Old Codes###############
