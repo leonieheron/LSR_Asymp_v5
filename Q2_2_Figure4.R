@@ -97,8 +97,6 @@ dataG$label=ifelse(dataG$label=="   Tindale LC",
 
 dataG$label=ifelse(dataG$label=="   Zhang W",
                    paste0(dataG$label, " ", ifelse(!is.na(dataG$Q3set),paste0("[",dataG$Q3set,"]"),"")),dataG$label)
-
-
 dataG$label=ifelse(dataG$label=="   Casey M",
                    paste0(dataG$label, " ", ifelse(!is.na(dataG$Q3set),paste0("[",dataG$Q3set,"]"),"")),dataG$label)
 
