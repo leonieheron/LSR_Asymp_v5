@@ -494,11 +494,11 @@ L3$label <- "Value"
 i = 1
 for (i in 1:nrow(L3)) {
   if (L3$model[i] == "q3_pp_u_1") {
-    sett -> L3$q3_setting_1[i]
+    L3$label[i] <- paste(L3$author_1[i], " [", L3$q3_setting_1[i], "]", sep = "")
   }else{
-    sett -> L3$q3_setting_2[i]
+    L3$label[i] <- paste(L3$author_1[i], " [", L3$q3_setting_2[i], "]", sep = "")
   }
-  L3$label[i] <- paste(L3$author_1[i], " [", sett, "]", sep = "")
+  
 }
 
 L3$label2 <- paste(L3$author_1, " [", substrRight(L3$model, 1), "]", sep = "")
