@@ -15,20 +15,20 @@ formData2_2 <- list("token"=token,
                     returnFormat='csv'
 )
 response2_2 <- httr::POST(url, body = formData2_2, encode = "form")
-asymptomaticQ3 <- httr::content(response2_2)
+asymptomaticQ2_2 <- httr::content(response2_2)
 
 
 library(dplyr)
 
-asymptomaticQ3 = asymptomaticQ3 %>% filter(!(q3_pp_m=="" & is.na(q3_pa_m)))
-asymptomaticQ3$q3_setting=ifelse(asymptomaticQ3$q3_setting=="",NA,asymptomaticQ3$q3_setting)
+asymptomaticQ2_2 = asymptomaticQ2_2 %>% filter(!(q3_pp_m=="" & is.na(q3_pa_m)))
+asymptomaticQ2_2$q3_setting=ifelse(asymptomaticQ2_2$q3_setting=="",NA,asymptomaticQ2_2$q3_setting)
 
-s <- strsplit(asymptomaticQ3$q3_setting, split = ";")
-pp_m <- strsplit(asymptomaticQ3$q3_pp_m, split = ";")
-pp_l <- strsplit(asymptomaticQ3$q3_pp_l, split = ";")
-pp_u <- strsplit(asymptomaticQ3$q3_pp_u, split = ";")
+s <- strsplit(asymptomaticQ2_2$q3_setting, split = ";")
+pp_m <- strsplit(asymptomaticQ2_2$q3_pp_m, split = ";")
+pp_l <- strsplit(asymptomaticQ2_2$q3_pp_l, split = ";")
+pp_u <- strsplit(asymptomaticQ2_2$q3_pp_u, split = ";")
 
-dfQ3a=data.frame(label=rep(paste0("   ",asymptomaticQ3$author_1), sapply(pp_m, length)),
+dfQ3a=data.frame(label=rep(paste0("   ",asymptomaticQ2_2$author_1), sapply(pp_m, length)),
                  Q3set=unlist(s),
                  p = as.numeric(unlist(pp_m)), 
                  l = as.numeric(unlist(pp_l)),
@@ -40,11 +40,11 @@ dfQ3a=data.frame(label=rep(paste0("   ",asymptomaticQ3$author_1), sapply(pp_m, l
 dfQ3a[dfQ3a==9999]<-NA
 dfQ3a=dfQ3a[!is.na(dfQ3a$p),]
 
-dfQ3b=data.frame(label=paste0("   ",asymptomaticQ3$author_1),
+dfQ3b=data.frame(label=paste0("   ",asymptomaticQ2_2$author_1),
                  Q3set=NA,
-                 p = asymptomaticQ3$q3_pa_m, 
-                 l = asymptomaticQ3$q3_pa_l,
-                 h = asymptomaticQ3$q3_pa_u,
+                 p = asymptomaticQ2_2$q3_pa_m, 
+                 l = asymptomaticQ2_2$q3_pa_l,
+                 h = asymptomaticQ2_2$q3_pa_u,
                  setting="Asymptomatic",stringsAsFactors = FALSE)
 
 dfQ3b[dfQ3b==9999]<-NA
