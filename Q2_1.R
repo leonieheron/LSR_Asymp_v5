@@ -1,16 +1,20 @@
-###############################################################
-# Question 2.1: results output ################################
-# Secondary attack rate from asymp or pre-symp cases ##########
-###############################################################
 
-
-#load libraries
-library(RCurl)
+#download packages
+library(meta)
+library(readxl)
+library(tidyverse)
+library(httr) # use to retrieve data from REDCap
+library(kableExtra)
+library(flextable)
 library(dplyr)
+library(RCurl)
 library(tidyr)
 library(ggplot2)
-library(meta)
 library(metafor)
+
+##########################################
+# Q2.1 forest plot
+##########################################
 
 # get the data directly from redcap: 
 # report #172 is Q2.1 SAR:
@@ -32,6 +36,10 @@ asymptomaticQ2_1 <- httr::content(response2_1)
 #clean data
 asymptomaticQ2_1[asymptomaticQ2_1=="9999;9999"]=NA #indicate as missing
 asymptomaticQ2_1[asymptomaticQ2_1=="9999"]=NA #indicate as missing
+
+#added for now
+asymptomaticQ2_1 <- asymptomaticQ2_1[asymptomaticQ2_1$record_id < 5296, ]
+
 asymptomaticQ2_1=asymptomaticQ2_1%>% #separate symp SAR into 2 variables
   separate(q3_sar_s, c("Ec","Nc"), ";", remove=FALSE) 
 asymptomaticQ2_1=asymptomaticQ2_1%>% #separate asymp SAR into 2 variables
@@ -47,67 +55,74 @@ asymptomaticQ2_1=asymptomaticQ2_1 %>% #change values to numeric
          Ee_p=as.numeric(Ee_p),
          Ne_p=as.numeric(Ne_p))
 
+#create new df with asymp/presymp as subgroups
+q2_1_df_a <- asymptomaticQ2_1 %>%
+  select("record_id", "author_1", "Ee_a", "Ne_a", "Ec", "Nc", "region", "year") %>%
+  rename(Ee = Ee_a,
+         Ne = Ne_a) %>%
+  filter(!is.na(Ee)) %>%
+  mutate(group = "Asymptomatic")
+q2_1_df_p <- asymptomaticQ2_1 %>%
+  select("record_id", "author_1", "Ee_p", "Ne_p", "Ec", "Nc", "region", "year") %>%
+  rename(Ee = Ee_p,
+         Ne = Ne_p) %>%
+  filter(!is.na(Ee)) %>%
+  mutate(group = "Presymptomatic")
+#bind rows
+q2_1_df <- bind_rows(q2_1_df_a, q2_1_df_p)
+
+#cut data at end of jan 31
+published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+q2_1_df <- q2_1_df %>%
+  filter(record_id <= 5296 | record_id %in% published_preprints)
+
+#add columns for forest plot
+q2_1_df$percent_1 <- paste(round((q2_1_df$Ee/q2_1_df$Ne)*100, 2), "%", sep="")
+
+q2_1_df$percent_2 <- paste(round((q2_1_df$Ec/q2_1_df$Nc)*100, 2), "%", sep="")
+
 #metaanalysis for asymptomatic transmission
 
-q2_1_asymp <- metabin(event.e = Ee_a,
-                      n.e = Ne_a,
+q2_1_asymp <- metabin(event.e = Ee,
+                      n.e = Ne,
                       event.c = Ec,
                       n.c = Nc, 
-                      data = asymptomaticQ2_1[!is.na(asymptomaticQ2_1$Ee_a),],
+                      data = q2_1_df,
                       studlab = author_1,
                       prediction = TRUE,
                       sm = "RR",
                       method = "MH",
-                      MH.exact = TRUE)
+                      MH.exact = TRUE, 
+                      byvar = group,
+                      comb.random = TRUE,
+                      comb.fixed = FALSE, 
+                      label.e = "",
+                      label.c = "Symp.  ",
+                      percent_1 = percent_1,
+                      percent_2 = percent_2)
 q2_1_asymp
 
 
-png(file = 'forest_meta_Q2_1_asymp.png',width=750,height=250)
+pdf(file = 'forest_meta_Q2_1.pdf', width = 8, height = 6)
 
-forest(q2_1_asymp)
-
-dev.off()
-
-#metaanalysis for presymptomatic transmission
-
-q2_1_presymp <- metabin(event.e = Ee_p,
-                        n.e = Ne_p,
-                        event.c = Ec,
-                        n.c = Nc, 
-                        data = asymptomaticQ2_1[!is.na(asymptomaticQ2_1$Ee_p),],
-                        studlab = author_1,
-                        prediction = TRUE,
-                        sm = "RR",
-                        method = "MH",
-                        MH.exact = TRUE)
-
-q2_1_presymp
+forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE,
+       overall.hetstat = FALSE,
+       leftcols = c("studlab", "event.e", "n.e", "percent_1","event.c", "n.c", "percent_2"),
+       leftlabs = c("Author", "Inf.", "N", "%", "Inf.", "N", "%")) #add percent cols!
 
 
-png(file = 'forest_meta_Q2_1_presymp.png',width=750,height=190) 
+pdf(file = 'forest_meta_Q2_1.pdf', width = 10, height = 6)
 
-forest(q2_1_presymp)
+forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE,
+       overall.hetstat = FALSE,
+       leftlabs = c(NA, "Inf.", "N", "Inf.", "N"))
 
 dev.off()
 
-##########################################
-# table on characteristics of Q2.1 studies
-##########################################
-
-
-q2_1_author <- NA
-q2_1_location <- NA
-q2_1_infections_total <- NA
-
-q2_1_infections_asymp <- NA
-
-q2_1_n_infected_symp <- NA
-q2_1_n_total_symp <- NA
-q2_1_n_infected_presymp <- NA
-q2_1_n_total_presymp <- NA
-q2_1_n_infected_asymp <- NA
-q2_1_n_total_asymp <- NA
-
-
-
-
+tiff(filename = "Q2_1.tiff",
+     width = 2450, height = 1400,
+     res = 300)
+forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE,
+       overall.hetstat = FALSE,
+       leftlabs = c(NA, "      E", "      N", "            E", "        N"))
+dev.off()
