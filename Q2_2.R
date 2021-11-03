@@ -11,6 +11,9 @@ library(RCurl)
 library(tidyr)
 library(ggplot2)
 library(metafor)
+library(extrafont)
+loadfonts(device = "win")
+
 
 ###############################################################
 # Question 2.2: results output ################################
@@ -161,7 +164,7 @@ dev.off()
 
 
 tiff(filename = "Q2_2.tiff",
-     width = 2200, height = 2600,
+     width = 1700, height = 1900,
      res = 300)
 p
 dev.off()
