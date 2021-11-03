@@ -100,6 +100,9 @@ dataG$label=ifelse(dataG$label=="   Zhang W",
 dataG$label=ifelse(dataG$label=="   Casey M",
                    paste0(dataG$label, " ", ifelse(!is.na(dataG$Q3set),paste0("[",dataG$Q3set,"]"),"")),dataG$label)
 
+dataG$label=ifelse(dataG$label== "   Moghadas SM",
+                   paste0(dataG$label, " ", ifelse(!is.na(dataG$Q3set),paste0("[",dataG$Q3set,"]"),"")),dataG$label)
+
 dataG$fontface=ifelse(dataG$type==1, "italic","plain")
 
 dataG$label_studyCI=ifelse(!is.na(dataG$h), paste0("[",r(dataG$l),";",r(dataG$h),"]"),NA)
