@@ -178,6 +178,12 @@ Q1_table <- Q1_table %>%
 #clean up follow up
 Q1_table$follow_up <- NULL
 
+#swap order, 3 and 4
+fup4 <- Q1_table$fup___3
+fup3 <- Q1_table$fup___4
+Q1_table$fup___3 <- fup3
+Q1_table$fup___4 <- fup4
+
 Q1_table$fup___2[Q1_table$fup___2 == 1] <- 2
 Q1_table$fup___3[Q1_table$fup___3 == 1] <- 3
 Q1_table$fup___4[Q1_table$fup___4 == 1] <- 4
@@ -233,6 +239,7 @@ Q1_table <- Q1_table %>%
   select(-contains("fup"))
 
 
+
 names(Q1_table)
 Q1_table$source <- NULL
 
@@ -252,6 +259,27 @@ Q1_table$asymp_SARS_n_c2 <- NULL
 
 Q1_table <- Q1_table %>%
   arrange(setting)
+
+#change clusters to descriptions
+Q1_table$study[Q1_table$study == "Harada S, 2020"] <- "Harada S, 2020 [Patients]"
+Q1_table$study[Q1_table$study == "Harada S, 2020 [cluster 2]"] <- "Harada S, 2020 [Healthcare workers]"
+Q1_table$study[Q1_table$study == "Kennelly SP, 2020"] <- "Kennelly SP, 2020 [Nursing home residents]"
+Q1_table$study[Q1_table$study == "Kennelly SP, 2020 [cluster 2]"] <- "Kennelly SP, 2020 [Nursing home staff]"
+Q1_table$study[Q1_table$study == "van Buul LW, 2020"] <- "van Buul LW, 2020 [Nursing home residents]"
+Q1_table$study[Q1_table$study == "van Buul LW, 2020 [cluster 2]"] <- "van Buul LW, 2020 [Healthcare workers]"
+Q1_table$study[Q1_table$study == "Theuring S, 2021"] <- "Theuring S, 2021 [School students and staff]"
+Q1_table$study[Q1_table$study == "Theuring S, 2021 [cluster 2]"] <- "Theuring S, 2021 [Household members]"
+Q1_table$study[Q1_table$study == "van den Besselaar JH, 2021"] <- "van den Besselaar JH, 2021 [Healthcare workers]"
+Q1_table$study[Q1_table$study == "van den Besselaar JH, 2021 [cluster 2]"] <- "van den Besselaar JH, 2021 [Residents]"
+Q1_table$study[Q1_table$study == "Taylor J, 2020"] <- "Taylor J, 2020 [Healthcare personnel]"
+Q1_table$study[Q1_table$study == "Taylor J, 2020 [cluster 2]"] <- "Taylor J, 2020 [Residents]"
+Q1_table$study[Q1_table$study == "Ladhani SN, 2020"] <- "Ladhani SN, 2020 [Residents]"
+Q1_table$study[Q1_table$study == "Ladhani SN, 2020 [cluster 2]"] <- "Ladhani SN, 2020 [Healthcare workers]"
+#asymptomaticQ1$label[asymptomaticQ1$label == "#5551 Vohra [cluster:1]"] <- "#5551 Vohra [Presurgical patients]"
+#asymptomaticQ1$label[asymptomaticQ1$label == "#5551 Vohra [cluster:2]"] <- "#5551 Vohra [Undergoing chemotherapy]"
+#asymptomaticQ1$label[asymptomaticQ1$label == "#6526 Garibaldi [cluster:1]"] <- "#6526 Garibaldi [Residents]"
+#asymptomaticQ1$label[asymptomaticQ1$label == "#6526 Garibaldi [cluster:2]"] <- "#6526 Garibaldi [Staff]"
+
 
 Q1_table <- Q1_table[, c(1, 3, 2, 4, 5, 6, 7, 8)]
 
