@@ -1,0 +1,283 @@
+---
+title: "Q1 table"
+author: "L Heron"
+date: "10/29/2021"
+output: 
+  word_document:
+  always_allow_html: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+###############################################################
+# Supplementary material                        ##########
+###############################################################
+
+###############################################################
+# Question 1: results output                         ##########
+# Proportion of asymptomatic cases                   ##########
+# Supplementary material: preprints removed          ##########
+###############################################################
+
+#load the libraries
+library(meta)
+library(readxl)
+library(tidyverse)
+library(httr) # use to retrieve data from REDCap
+library(kableExtra)
+library(flextable)
+library(dplyr)
+library(Rcpp)
+library(RCurl)
+library(tidyr)
+library(ggplot2)
+library(metafor)
+
+
+##########################################
+# table on characteristics of Q1 studies
+##########################################
+
+#prepare data for table 1: characteristics of studies included in q1
+
+#download data
+# get the data directly from redcap:
+# report #155 is Q1:
+url <- "https://redcap.ispm.unibe.ch/api/"
+token <- "F2725F15FE84D2832E2793BB23B0A62B"
+formData <- list("token"=token,
+                 content='report',
+                 format='csv',
+                 report_id='155',
+                 csvDelimiter='',
+                 rawOrLabel='raw',
+                 rawOrLabelHeaders='raw',
+                 exportCheckboxLabel='false',
+                 returnFormat='csv'
+)
+response <- httr::POST(url, body = formData, encode = "form")
+Q1_table <- httr::content(response)
+#cut data at end of jan 31
+published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+Q1_table <- Q1_table %>%
+  filter(record_id <= 5296 | record_id %in% published_preprints)
+Q1_table <- Q1_table %>%
+  select(-contains("rob")) %>%
+  select(-contains("risk_of_bias")) %>%
+  select(-journal)
+
+#clean countries
+Q1_table <- Q1_table %>%
+  mutate(country = ifelse(country == 10, "Australia", country),
+         country = ifelse(country == 11, "Austria", country),
+         country = ifelse(country == 15, "Bahrain", country),
+         country = ifelse(country == 19, "Belgium", country),
+         country = ifelse(country == 27, "Brazil", country),
+         country = ifelse(country == 28, "Brunei", country),
+         country = ifelse(country == 34, "Canada", country),
+         country = ifelse(country == 40, "China", country),
+         country = ifelse(country == 41, "Colombia", country),
+         country = ifelse(country == 51, "Denmark", country),
+         country = ifelse(country == 62, "France", country),
+         country = ifelse(country == 63, "French Guyana", country),
+         country = ifelse(country == 67, "Germany", country),
+         country = ifelse(country == 69, "Greece", country),
+         country = ifelse(country == 78, "Iceland", country),
+         country = ifelse(country == 79, "India", country),
+         country = ifelse(country == 83, "Ireland", country),
+         country = ifelse(country == 85, "Italy", country),
+         country = ifelse(country == 87, "Japan", country),
+         country = ifelse(country == 92, "Kuwait", country),
+         country = ifelse(country == 105, "Malaysia", country),
+         country = ifelse(country == 121, "Netherlands", country),
+         country = ifelse(country == 130, "N", country),
+         country = ifelse(country == 28, "Brunei", country),
+         country = ifelse(country == 888, "Other", country),
+         country = ifelse(country == 128, "Norway", country),
+         country = ifelse(country == 138, "Portugal", country),
+         country = ifelse(country == 146, "Saudi Arabia", country),
+         country = ifelse(country == 157, "South Korea", country),
+         country = ifelse(country == 160, "Spain", country),
+         country = ifelse(country == 174, "Turkey", country),
+         country = ifelse(country == 176, "Uganda", country),
+         country = ifelse(country == 180, "United Kingdom", country),
+         country = ifelse(country == 181, "United States of America", country),
+         country = ifelse(country == 185, "Vietnam", country))
+#clean regions
+Q1_table$region[Q1_table$region == "none" | Q1_table$region == "None"] <- NA
+#create location variable
+Q1_table$location <- Q1_table$country
+Q1_table <- Q1_table %>%
+  mutate(location = ifelse(!is.na(region), paste0(Q1_table$country, ", ", Q1_table$region), country))
+#drop country and region variables
+Q1_table$country <- NULL
+Q1_table$region <- NULL
+
+#author column
+Q1_table$study <- Q1_table$author_1
+Q1_table$author_1 <- NULL
+Q1_table$record_id <- NULL
+
+#clean settings
+Q1_table <- Q1_table %>%
+  mutate(setting = ifelse(setting2 == 1 | setting2 == 2, "Contact investigation", setting),
+         setting = ifelse(setting2 == 3, "Outbreak investigation", setting),
+         setting = ifelse(setting2 == 4, "Statistical model", setting),
+         setting = ifelse(setting2 == 5, "Screening", setting),
+         setting = ifelse(setting2 == 6, "Hospitalised adults", setting),
+         setting = ifelse(setting2 == 7, "Hospitalised children", setting),
+         setting = ifelse(setting2 == 8, "Hospitalised children and adults", setting),
+         setting = ifelse(setting2 == 9, "Screening: institutional setting", setting),
+         setting = ifelse(setting2 == 10, "Screening: community setting", setting),
+         setting = ifelse(setting2 == 11, "Screening: occupational", setting))
+Q1_table$setting2 <- NULL
+
+#clean case numbers
+#total SARS-CoV-2 n
+Q1_table$total_SARS_n <- Q1_table$q1_c1_total
+Q1_table$total_SARS_n_c2 <- Q1_table$q1_c2_total #numbers for cluster 2 - must be arranged later
+#asymp n
+Q1_table$asymp_SARS_n <- Q1_table$q1_c1_event
+Q1_table$asymp_SARS_n_c2 <- Q1_table$q1_c2_event #numbers for cluster 2 - must be arranged later
+Q1_table$q1_c1_event <- NULL
+Q1_table$q1_c2_event <- NULL
+Q1_table$q1_c1_total <- NULL
+Q1_table$q1_c2_total <- NULL
+Q1_table$q1_nclus <- NULL
+Q1_table$q1_c3_event <- NULL
+Q1_table$q1_c3_total <- NULL
+Q1_table$comment_q1 <- NULL
+
+#clean sex category
+Q1_table$sex <- "NR"
+Q1_table$q1_female[Q1_table$q1_female == 9999] <- 0
+Q1_table$q1_male[Q1_table$q1_male == 9999] <- 0
+Q1_table <- Q1_table %>%
+  mutate(sex = ifelse(q1_female == 0 & q1_male == 0, "NR", paste0(q1_female, " F, ", q1_male, " M")))
+Q1_table$q1_male <- NULL
+Q1_table$q1_female <- NULL
+
+#clean age category
+
+Q1_table$q1_age_median[Q1_table$q1_age_median == 9999] <- NA
+Q1_table$q1_age_iqr[Q1_table$q1_age_iqr == 9999] <- NA
+Q1_table$age <- as.character(Q1_table$q1_age_median)
+Q1_table$age[is.na(Q1_table$age)] <- "NR"
+Q1_table <- Q1_table %>%
+  mutate(age = ifelse(!is.na(q1_age_iqr), 
+                      paste0(q1_age_median, " IQR ", q1_age_iqr),
+                      age))
+Q1_table$q1_age_iqr <- NULL
+Q1_table$q1_age_median <- NULL
+#remove age range variables 
+Q1_table <- Q1_table %>%
+  select(-contains("agerange"))
+
+#clean up follow up
+Q1_table$follow_up <- NULL
+
+Q1_table$fup___2[Q1_table$fup___2 == 1] <- 2
+Q1_table$fup___3[Q1_table$fup___3 == 1] <- 3
+Q1_table$fup___4[Q1_table$fup___4 == 1] <- 4
+Q1_table <- Q1_table %>%
+  mutate(follow_up = ifelse(fup___1 != 0 & fup___2 != 0 & fup___3 != 0 & fup___4 != 0,
+                            paste0(fup___1, ", ", fup___2, ", ", fup___3, ", ", fup___4),
+                            NA)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 0 & fup___3 == 0 & fup___4 == 0,
+                            1,
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 2 & fup___3 == 0 & fup___4 == 0,
+                            2,
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 0 & fup___3 == 3 & fup___4 == 0,
+                            3,
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 0 & fup___3 == 0 & fup___4 == 4,
+                            4,
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 2 & fup___3 == 0 & fup___4 == 0,
+                            "1, 2",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 0 & fup___3 == 3 & fup___4 == 0,
+                            "1, 3",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 2 & fup___3 == 3 & fup___4 == 0,
+                            "2, 3",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 0 & fup___3 == 0 & fup___4 == 4,
+                            "1, 4",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 2 & fup___3 == 0 & fup___4 == 4,
+                            "2, 4",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 0 & fup___3 == 3 & fup___4 == 4,
+                            "3, 4",
+                            follow_up)) %>%
+mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 2 & fup___3 == 0 & fup___4 == 4,
+                          "1, 2, 4",
+                          follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 2 & fup___3 == 3 & fup___4 == 0,
+                            "1, 2, 3",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 1 & fup___2 == 0 & fup___3 == 3 & fup___4 == 4,
+                            "1, 3, 4",
+                            follow_up)) %>%
+  mutate(follow_up = ifelse(fup___1 == 0 & fup___2 == 2 & fup___3 == 3 & fup___4 == 4,
+                            "2, 3, 4",
+                            follow_up))
+check <- Q1_table %>%
+  select(fup___1, fup___2, fup___3, fup___4, follow_up)
+Q1_table <- Q1_table %>%
+  select(-contains("fup"))
+
+  
+names(Q1_table)
+Q1_table$source <- NULL
+
+#rearrange so that clusters and in one col
+cluster2 <- Q1_table
+cluster2 <- cluster2[!is.na(cluster2$total_SARS_n_c2), ]
+cluster2$total_SARS_n <- cluster2$total_SARS_n_c2
+cluster2$asymp_SARS_n <- cluster2$asymp_SARS_n_c2
+cluster2$total_SARS_n_c2 <- NULL
+cluster2$asymp_SARS_n_c2 <- NULL
+cluster2$study <- paste0(cluster2$study, " [cluster 2]")
+#add clusters to main table
+Q1_table <- bind_rows(Q1_table, cluster2)
+#drop extra cols
+Q1_table$total_SARS_n_c2 <- NULL
+Q1_table$asymp_SARS_n_c2 <- NULL
+
+Q1_table <- Q1_table %>%
+  arrange(setting)
+
+Q1_table <- Q1_table[, c(1, 4, 2, 3, 5, 6, 7, 8)]
+```
+
+## Full Characteristics of Q1 studies
+
+```{r table1, ft.split=TRUE, tab.cap='Table 1. Characteristics of studies included for Q1', echo = FALSE}
+table1 <- as_grouped_data(Q1_table, groups = "setting")
+
+table1 %>% 
+  as_flextable() %>% 
+  set_header_labels(setting = "Setting",
+                    location = "Location", 
+                    year = "Year"
+                    study = "Study",
+                    total_SARS_n = "Total SARS-CoV-2, n",
+                    asymp_SARS_n = "Asymptomatic SARS-CoV-2, n",
+                    sex = "Sex of asymptomatic people",         
+                    age = "Age of asymptomatic people, years, median",            
+                    follow_up = "Follow-up method") %>%
+  set_table_properties(layout = "autofit") %>%
+  footnote(i = 1, j = 7,
+           value = as_paragraph("Follow-up according to protocol (1: 14 days after last possible exposure; 2: 7 days after diagnosis; 3: until negative RT-PCR result; 4:>7 days after diagnosis). NR = not reported."),
+           ref_symbols = "a",
+           part = "header") #add footnote
+
+
+#print(flextable, preview = "docx") #to print in word
+
+```
