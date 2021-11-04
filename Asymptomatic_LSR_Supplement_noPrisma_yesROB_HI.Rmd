@@ -439,7 +439,7 @@ p3 <- annotate_figure(p3, top = text_grob("Question 1",
 
 
 dev.new()
-png("q1_1_new.png", width = 1000, height = 1500)
+pdf("q1_1_new.pdf", width = 1000, height = 1500)
 p3
 graphics.off()
 
@@ -651,7 +651,7 @@ We retained publications that used the keywords listed below in the title or abs
 
 ## Risk of bias in studies included in review question 1 and review question 2.
 
-![ROB Q1_1](q1_1_new.png)
+![ROB Q1_1](q1_1_new.pdf)
 ![ROB Q1_1](q1_2_new.png)
 ![ROB Q1_1](q2_new.png)
 
