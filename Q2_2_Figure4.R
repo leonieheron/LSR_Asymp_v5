@@ -17,6 +17,9 @@ formData2_2 <- list("token"=token,
 response2_2 <- httr::POST(url, body = formData2_2, encode = "form")
 asymptomaticQ2_2 <- httr::content(response2_2)
 
+published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+asymptomaticQ2_2 <- asymptomaticQ2_2 %>%
+  filter(record_id <= 5296 | record_id %in% published_preprints)
 
 library(dplyr)
 
@@ -41,14 +44,28 @@ dfQ3a[dfQ3a==9999]<-NA
 dfQ3a=dfQ3a[!is.na(dfQ3a$p),]
 
 dfQ3b=data.frame(label=paste0("   ",asymptomaticQ2_2$author_1),
-                 Q3set=NA,
+                 Q3set=asymptomaticQ2_2$q3_setting,
                  p = asymptomaticQ2_2$q3_pa_m, 
                  l = asymptomaticQ2_2$q3_pa_l,
                  h = asymptomaticQ2_2$q3_pa_u,
                  setting="Asymptomatic",stringsAsFactors = FALSE)
 
+
 dfQ3b[dfQ3b==9999]<-NA
 dfQ3b=dfQ3b[!is.na(dfQ3b$p),]
+#dfQ3b[5,3:5] <- gsub("%", "",dfQ3b[5,3:5])
+dfQ3b <- rbind(dfQ3b,dfQ3b[2,]) 
+
+dfQ3b[2,] <- gsub(";.*","",dfQ3b[2,])
+dfQ3b[4,] <- gsub(".*;","",dfQ3b[4,])
+dfQ3b[dfQ3b==9999]<-NA
+dfQ3b[dfQ3b=="NA"]<-NA
+dfQ3b$Q3set[3] <-NA
+
+dfQ3b$label=ifelse(dfQ3b$label=="   Moghadas SM",
+                   paste0(dfQ3b$label, " ", ifelse(!is.na(dfQ3b$Q3set),paste0("[",dfQ3b$Q3set,"]"),"")),dfQ3b$label)
+
+dfQ3b$Q3set <- NA
 
 dfQ3=rbind.data.frame(dfQ3b,dfQ3a, stringsAsFactors = FALSE)
 
@@ -108,17 +125,18 @@ dataG$fontface=ifelse(dataG$type==1, "italic","plain")
 dataG$label_studyCI=ifelse(!is.na(dataG$h), paste0("[",r(dataG$l),";",r(dataG$h),"]"),NA)
 dataG$label_study=ifelse(!is.na(dataG$p),r(dataG$p),NA)
 
+library(ggplot2)
 p=ggplot()+ 
   geom_point(data=dataG,aes(y=dataG$line, x=dataG$p),fill="gray", shape=22, color="black",size=4)+
   geom_errorbarh(data=dataG,aes(y=dataG$line, xmin=dataG$l, xmax=dataG$h), height=0.3)+
   
-  geom_text(aes(y=c(-1,-1,-1), x=c(-2,1.25,1.75), label=c("Study","Prop.","95% CI")), hjust = 0, fontface = "bold")+
+  geom_text(aes(y=c(-1,-1,-1), x=c(-1.3,1.25,1.75), label=c("Study","Prop.","95% CI")), hjust = 0, fontface = "bold")+
   
   geom_text(data=dataG,aes(y=dataG$line, x=1.25, label=label_study), hjust = 0)+
   geom_text(data=dataG,aes(y=dataG$line, x=1.75, label=label_studyCI), hjust = 0)+
   
   
-  geom_text(data=dataG,aes(y=dataG$line, x=-2, label=dataG$label), hjust = 0, fontface=dataG$fontface)+
+  geom_text(data=dataG,aes(y=dataG$line, x=-1.3, label=dataG$label), hjust = 0, fontface=dataG$fontface)+
   #geom_rect(data=dataG,aes(xmin=dataG$Pl,xmax=dataG$Ph,ymin=dataG$line-0.1,ymax=dataG$line+0.1),color="black", fill="red")+
   theme_void() + 
   scale_y_reverse()+
