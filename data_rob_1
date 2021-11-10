@@ -1,0 +1,38 @@
+id,record_id,author_1,setting,total,cluster,events,label
+16,713,Böhmer MM,Contact and outbreak investigations,16,NA,1,Böhmer MM
+35,1886,Yang N,Contact and outbreak investigations,10,NA,2,Yang N
+7,396,Schwierzeck V,Contact and outbreak investigations,11,NA,2,Schwierzeck V
+46,2249,Corcorran MA,Contact and outbreak investigations,8,NA,3,Corcorran MA
+47,2470,Pirnay JP,Contact and outbreak investigations,9,NA,4,Pirnay JP
+18,821,Zhang W,Contact and outbreak investigations,12,NA,4,Zhang W
+6,376,Arons MM,Contact and outbreak investigations,47,NA,3,Arons MM
+9,477,Cheng HY,Contact and outbreak investigations,22,NA,4,Cheng HY
+76,4391,Park JH,Contact and outbreak investigations,28,NA,4,Park JH
+20,849,Dora AV,Contact and outbreak investigations,16,NA,6,Dora AV
+5,354,Park SY,Contact and outbreak investigations,95,NA,4,Park SY
+30,1654,Yau K,Contact and outbreak investigations,20,NA,7,Yau K
+103,6685,Tian S,Contact and outbreak investigations,24,NA,7,Tian S
+26,1335,Pavli A,Contact and outbreak investigations,46,NA,7,Pavli A
+42,2091,Luo L,Contact and outbreak investigations,127,NA,8,Luo L
+24,1232,Patel MC,Contact and outbreak investigations,35,NA,13,Patel MC
+175,3719,Ladhani SN,Contact and outbreak investigations,53,2,26,Ladhani SN [Healthcare workers]
+65,3719,Ladhani SN,Contact and outbreak investigations,105,1,46,Ladhani SN [Residents]
+21,1003,Graham N,Contact and outbreak investigations,126,NA,46,Graham N
+71,4090,Shi Q,Contact and outbreak investigations,183,NA,60,Shi Q
+36,1904,Pham QT,Contact and outbreak investigations,208,NA,89,Pham QT
+67,3722,Kasper MR,Contact and outbreak investigations,1271,NA,572,Kasper MR
+50,2774,Viñuela MC,Screening,8,NA,8,Viñuela MC
+4,317,Hoehl S,Screening,2,NA,1,Hoehl S
+56,2932,Berghoff AS,Screening,4,NA,2,Berghoff AS
+32,1723,Kirshblum SC,Screening,12,NA,2,Kirshblum SC
+74,4200,Balestrini S,Screening,17,NA,11,Balestrini S
+80,4674,Alshahrani MS,Screening,18,NA,12,Alshahrani MS
+22,1155,Bogani G,Screening,19,NA,10,Bogani G
+29,1627,Wi YM,Screening,111,NA,7,Wi YM
+17,729,London V,Screening,68,NA,22,London V
+25,1264,Lombardi A,Screening,139,NA,17,Lombardi A
+60,3359,Aslam A,Screening,65,NA,38,Aslam A
+34,1839,Cariani L,Screening,182,NA,32,Cariani L
+77,4407,Hcini N,Screening,137,NA,87,Hcini N
+19,832,Andrikopoulou M,Screening,158,NA,46,Andrikopoulou M
+64,3674,Al-Qahtani M,Screening,188,NA,116,Al-Qahtani M

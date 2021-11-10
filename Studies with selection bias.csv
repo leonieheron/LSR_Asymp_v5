@@ -1,0 +1,105 @@
+record_id,author_1,rob_1: representativeness of sample,rob_2: characteristics of non-respondents,Deemed to be high risk of selection bias according to ROB tool,Deemed to be high risk of selection bias according to Diana's list,Reason given,Agreement
+170,Chang L,High,Low,Yes,Yes,It seems like all blood samples which were positive for COVID was included in the study however because the sample size is really small (4) It is imposible to claim that these 4 people represents over 5000 blood samples(patients) thus I concluded that this study has High risk of bias,Agreement
+317,Hoehl S,Low,Low,No,No,,Agreement
+354,Park SY,Low,Low,No,No,,Agreement
+376,Arons MM,Low,Low,No,No,,Agreement
+396,Schwierzeck V,Low,Low,No,No,,Agreement
+443,Bi Q,High,Low,Yes,Yes,"Two sources of data; quote: ""We defined symptom-based surveillance to include symptomatic screening at airport and train stations, community fever monitoring, home observation of recent travellers to Hubei, and testing of patients admitted to hospital. Contact-based surveillance is the identification of cases through monitoring and testing of close contacts of confirmed cases, independently of their symptom presentation. By protocol, those in the contact-based group were tested for SARS-CoV-2 infection regardless of symptoms, whereas those in the other categories were tested only if they showed signs or symptoms of disease""",Agreement
+477,Cheng HY,Low,Low,No,No,,Agreement
+597,Wu J,High,Unclear,Yes,Yes,"Index cases and contacts with SARS-COV2 during the first outbreak in Zhuhai, Chin-Not All contacts/indexes were included thus high risk of bias",Agreement
+713,Böhmer MM,Low,Low,No,No,,Agreement
+729,London V,Low,Low,No,No,,Agreement
+821,Zhang W,Low,Low,No,No,,Agreement
+832,Andrikopoulou M,Low,Low,No,No,,Agreement
+849,Dora AV,Low,Low,No,No,,Agreement
+1003,Graham N,Low,Low,No,No,,Agreement
+1155,Bogani G,Low,Low,No,No,,Agreement
+1225,Han X,High,Unclear,Yes,Yes,"At Wuhan Pingan Healthcare Diagnostic Center, we reviewed 29,299 asymptomatic persons who were screened for SARS-CoV-2 by reverse transcription PCR (RT-PCR)",Agreement
+1232,Patel MC,Low,Low,No,No,,Agreement
+1264,Lombardi A,Low,Low,No,No,,Agreement
+1335,Pavli A,Low,Low,No,No,,Agreement
+1627,Wi YM,Low,Low,No,No,,Agreement
+1654,Yau K,Low,Low,No,No,,Agreement
+1723,Kirshblum SC,Low,Low,No,No,,Agreement
+1839,Cariani L,Low,Low,No,No,,Agreement
+1886,Yang N,Low,Low,No,No,,Agreement
+1904,Pham QT,Low,Low,No,No,,Agreement
+1960,Tanacan A,High,Unclear,Yes,Yes,It does not clearly state if all pregnant women were tested - but only asymptomatic women were tested so high risk,Agreement
+2091,Luo L,Low,Low,No,No,,Agreement
+2249,Corcorran MA,Low,Low,No,No,,Agreement
+2470,Pirnay JP,Low,Low,No,No,,Agreement
+2774,Viñuela MC,Low,Low,No,No,,Agreement
+2802,Bender WR,High,High,Yes,Yes,"Women who reported viral symptoms, were febrile at
+the time of presentation, or had a known
+SARS-CoV-2 exposure were deemed
+persons under investigation and were
+excluded from this study",Agreement
+2907,Shi SM,High,High,Yes,Yes,"Between March 16, 2020 and April 10, 2020 COVID-19 tests were ordered based on clinical suspicion of the disease or exposure to a confirmed case. Between April 11, 2020 and April 17, 2020, universal testing was implemented and every resident in the facility was tested for COVID19. Patients who tested negative were re-tested based on clinical suspicion of the disease or known exposure to confirmed cases. ",Agreement
+2932,Berghoff AS,Low,Low,No,No,,Agreement
+2987,Edelstein M,High,Unclear,Yes,Yes,This is hard! They are volunteers who agree to report symptoms - so motivated to take part. And might not be representative of all infected. But not sure this affects their probability of being asymptomatic,Agreement
+3359,Aslam A,Low,Low,No,No,,Agreement
+3674,Al-Qahtani M,Low,Low,No,No,,Agreement
+3719,Ladhani SN,Low,Low,No,No,,Agreement
+3722,Kasper MR,Low,Low,No,No,,Agreement
+3921,Adhikari EH,High,Unclear,Yes,Yes,"Partial screening of population; quote: ""Testing was performed for outpatient areas and, before May 14, 2020, for inpatient areas on the basis of symptoms""",Agreement
+4090,Shi Q,Low,Low,No,No,,Agreement
+4200,Balestrini S,Low,Low,No,No,,Agreement
+4391,Park JH,Low,Low,No,No,,Agreement
+4407,Hcini N,Low,Low,No,No,,Agreement
+4674,Alshahrani MS,Low,Low,No,No,,Agreement
+4880,Ferreira VH,High,Unclear,Yes,Yes,"""HCWs were required to be asymptomatic""",Agreement
+5068,Varnell C,High,Unclear,Yes,Yes,"Patients who were registred in the IROC Registry -Those with indication of testing (symptoms, contact or  close contact with a person under investigation) ",Agreement
+5086,Meyers KJ,High,Unclear,Yes,Yes,Inclusion based on symptoms-Adults in a community that were asymptomatic at enrollment ,Agreement
+5238,Pizarro-Sánchez MS,High,High,Yes,Yes,Most testing done due to symptoms or contact with exposed,Agreement
+6685,Tian S,Low,Low,No,No,,Agreement
+3719,Ladhani SN,Low,Low,No,No,,Agreement
+242,Danis K,Unclear,Unclear,Yes,No,,Disagreement
+294,Lavezzo E,Low,Unclear,Yes,No,,Disagreement
+506,Wong J,Low,Unclear,Yes,No,,Disagreement
+598,Rivett L,High,High,Yes,No,,Disagreement
+599,Hijnen D,Low,Unclear,Yes,No,,Disagreement
+622,Treibel TA,Unclear,Unclear,Yes,No,,Disagreement
+665,Brandstetter S,Unclear,Unclear,Yes,No,,Disagreement
+1438,Njuguna H,Unclear,Low,Yes,No,,Disagreement
+1556,Almazeedi S,Low,Unclear,Yes,No,,Disagreement
+1714,Lee JY,Unclear,Unclear,Yes,No,,Disagreement
+1834,Yousaf AR,Low,Unclear,Yes,No,,Disagreement
+1926,Smith E,Low,Unclear,Yes,No,,Disagreement
+1929,Kutsuna S,Low,Unclear,Yes,No,,Disagreement
+2051,Starling A,Unclear,Unclear,Yes,No,,Disagreement
+2054,Eythorsson E,Low,Unclear,Yes,No,,Disagreement
+2103,Plucinski,High,High,Yes,No,,Disagreement
+2218,Kittang BR,Low,Unclear,Yes,No,,Disagreement
+2231,Chamie G,High,Unclear,Yes,No,,Disagreement
+2528,Marossy A,Low,Unclear,Yes,No,,Disagreement
+2650,Stock AD,Unclear,Unclear,Yes,No,,Disagreement
+2826,Taylor J,Unclear,Unclear,Yes,No,,Disagreement
+2892,Kennelly SP,Low,Unclear,Yes,No,,Disagreement
+2909,AbdulRahman A,High,Unclear,Yes,No,,Disagreement
+3273,Romao VC,Low,Unclear,Yes,No,,Disagreement
+3299,White EM,Unclear,Low,Yes,No,,Disagreement
+3572,Hurst JH,High,Low,Yes,No,,Disagreement
+3622,Malagón-Rojas J,Unclear,Unclear,Yes,No,,Disagreement
+3624,Grijalva CG,Unclear,Unclear,Yes,No,,Disagreement
+3721,Letizia AG,High,Unclear,Yes,No,,Disagreement
+3951,Cao S,Low,Unclear,Yes,No,,Disagreement
+4045,Migisha R,Unclear,Unclear,Yes,No,,Disagreement
+4140,Ghinai I,Low,Unclear,Yes,No,,Disagreement
+4154,Wadhwa A,Low,High,Yes,No,,Disagreement
+4265,Redditt V,Low,Unclear,Yes,No,,Disagreement
+4479,Harada S,Low,Unclear,Yes,No,,Disagreement
+4663,Mahajan NN,Unclear,Unclear,Yes,No,,Disagreement
+4866,Hogan CA,High,Unclear,Yes,No,,Disagreement
+4885,Jones A,Unclear,Unclear,Yes,No,,Disagreement
+4968,van Buul LW,Low,Unclear,Yes,No,,Disagreement
+5066,Green R,Low,Unclear,Yes,No,,Disagreement
+5291,Tan-Loh J,Unclear,Unclear,Yes,No,,Disagreement
+5565,Rauch JN,High,Unclear,Yes,No,,Disagreement
+7465,van den Besselaar JH,Low,High,Yes,No,,Disagreement
+9442,Theuring S,Unclear,Unclear,Yes,No,,Disagreement
+2826,Taylor J,Unclear,Unclear,Yes,No,,Disagreement
+2892,Kennelly SP,Low,Unclear,Yes,No,,Disagreement
+4479,Harada S,Low,Unclear,Yes,No,,Disagreement
+4968,van Buul LW,Low,Unclear,Yes,No,,Disagreement
+7465,van den Besselaar JH,Low,High,Yes,No,,Disagreement
+9442,Theuring S,Unclear,Unclear,Yes,No,,Disagreement

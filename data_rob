@@ -1,0 +1,101 @@
+id,record_id,author_1,setting,total,cluster,events,label,quest___1,quest___2,quest___5,rob_1,rob_2,rob_3,rob_4,rob_5,rob_6,risk_of_bias_update_3_complete
+33,1834,Yousaf AR,Contact and outbreak investigations,47,NA,0,Yousaf AR,1,0,0,3,2,3,3,3,3,2
+44,2218,Kittang BR,Contact and outbreak investigations,40,NA,0,Kittang BR,1,0,0,3,2,3,2,3,3,2
+58,3273,Romao VC,Contact and outbreak investigations,14,NA,0,Romao VC,1,0,0,3,2,3,3,3,3,2
+13,599,Hijnen D,Contact and outbreak investigations,11,NA,1,Hijnen D,1,0,0,3,2,2,2,2,3,2
+2,242,Danis K,Contact and outbreak investigations,12,NA,1,Danis K,1,0,0,2,2,3,3,3,3,2
+16,713,Böhmer MM,Contact and outbreak investigations,16,NA,1,Böhmer MM,1,0,0,3,3,3,2,3,3,2
+109,7465,van den Besselaar JH,Contact and outbreak investigations,54,1,1,van den Besselaar JH [Healthcare workers],1,0,0,3,1,3,2,3,1,2
+35,1886,Yang N,Contact and outbreak investigations,10,NA,2,Yang N,1,0,0,3,3,3,3,3,3,2
+7,396,Schwierzeck V,Contact and outbreak investigations,11,NA,2,Schwierzeck V,1,1,0,3,3,2,3,3,3,2
+46,2249,Corcorran MA,Contact and outbreak investigations,8,NA,3,Corcorran MA,1,0,0,3,3,3,3,3,3,2
+15,665,Brandstetter S,Contact and outbreak investigations,36,NA,2,Brandstetter S,1,0,0,2,2,3,2,3,3,2
+47,2470,Pirnay JP,Contact and outbreak investigations,9,NA,4,Pirnay JP,1,0,0,3,3,3,2,3,3,2
+75,4265,Redditt V,Contact and outbreak investigations,24,NA,3,Redditt V,1,0,0,3,2,3,1,2,3,2
+18,821,Zhang W,Contact and outbreak investigations,12,NA,4,Zhang W,1,1,1,3,3,2,2,3,3,2
+6,376,Arons MM,Contact and outbreak investigations,47,NA,3,Arons MM,1,1,0,3,3,3,3,3,3,2
+9,477,Cheng HY,Contact and outbreak investigations,22,NA,4,Cheng HY,1,0,1,3,3,1,2,2,3,2
+76,4391,Park JH,Contact and outbreak investigations,28,NA,4,Park JH,1,0,0,3,3,1,2,3,3,2
+20,849,Dora AV,Contact and outbreak investigations,16,NA,6,Dora AV,1,1,0,3,3,1,3,3,3,2
+5,354,Park SY,Contact and outbreak investigations,95,NA,4,Park SY,1,1,1,3,3,2,2,3,3,2
+11,597,Wu J,Contact and outbreak investigations,48,NA,5,Wu J,1,0,0,1,2,3,2,3,2,2
+30,1654,Yau K,Contact and outbreak investigations,20,NA,7,Yau K,1,0,0,3,3,2,2,3,3,2
+103,6685,Tian S,Contact and outbreak investigations,24,NA,7,Tian S,1,0,1,3,3,3,2,3,3,2
+78,4479,Harada S,Contact and outbreak investigations,24,1,8,Harada S [Patients],1,0,0,3,2,3,3,3,3,2
+26,1335,Pavli A,Contact and outbreak investigations,46,NA,7,Pavli A,1,0,0,3,3,3,2,3,3,2
+219,7465,van den Besselaar JH,Contact and outbreak investigations,113,2,7,van den Besselaar JH [Residents],1,0,0,3,1,3,2,3,1,2
+162,2826,Taylor J,Contact and outbreak investigations,127,2,7,Taylor J [Residents],1,0,0,2,2,2,2,3,3,2
+42,2091,Luo L,Contact and outbreak investigations,127,NA,8,Luo L,1,0,0,3,3,3,3,3,3,2
+24,1232,Patel MC,Contact and outbreak investigations,35,NA,13,Patel MC,1,0,0,3,3,3,3,3,3,2
+52,2826,Taylor J,Contact and outbreak investigations,99,1,9,Taylor J [Healthcare personnel],1,0,0,2,2,2,2,3,3,2
+43,2103,Plucinski,Contact and outbreak investigations,66,NA,14,Plucinski,1,0,0,1,1,3,1,1,3,2
+188,4479,Harada S,Contact and outbreak investigations,49,2,25,Harada S [Healthcare workers],1,0,0,3,2,3,3,3,3,2
+175,3719,Ladhani SN,Contact and outbreak investigations,53,2,26,Ladhani SN [Healthcare workers],1,0,0,3,3,2,2,3,3,2
+8,443,Bi Q,Contact and outbreak investigations,87,NA,17,Bi Q,1,0,0,1,3,3,3,3,1,2
+27,1438,Njuguna H,Contact and outbreak investigations,71,NA,29,Njuguna H,1,0,0,2,3,1,1,3,3,2
+83,4885,Jones A,Contact and outbreak investigations,87,NA,24,Jones A,1,0,0,2,2,2,2,3,3,2
+63,3624,Grijalva CG,Contact and outbreak investigations,102,NA,34,Grijalva CG,1,0,0,2,2,2,3,1,3,2
+65,3719,Ladhani SN,Contact and outbreak investigations,105,1,46,Ladhani SN [Residents],1,0,0,3,3,2,2,3,3,2
+21,1003,Graham N,Contact and outbreak investigations,126,NA,46,Graham N,1,1,0,3,3,1,1,1,3,2
+71,4090,Shi Q,Contact and outbreak investigations,183,NA,60,Shi Q,1,0,0,3,3,2,2,3,3,2
+36,1904,Pham QT,Contact and outbreak investigations,208,NA,89,Pham QT,1,0,0,3,3,2,2,3,3,2
+61,3572,Hurst JH,Contact and outbreak investigations,293,NA,87,Hurst JH,1,0,0,1,3,3,1,1,1,2
+31,1714,Lee JY,Contact and outbreak investigations,694,NA,80,Lee JY,1,0,0,2,2,1,3,1,3,2
+163,2892,Kennelly SP,Contact and outbreak investigations,395,2,97,Kennelly SP [Nursing home staff],1,0,0,3,2,1,2,1,3,2
+53,2892,Kennelly SP,Contact and outbreak investigations,710,1,193,Kennelly SP [Nursing home residents],1,0,0,3,2,1,2,1,3,2
+67,3722,Kasper MR,Contact and outbreak investigations,1271,NA,572,Kasper MR,1,0,0,3,3,3,3,3,3,2
+23,1225,Han X,Screening,17,NA,17,Han X,1,0,0,1,2,2,2,1,3,2
+39,1960,Tanacan A,Screening,3,NA,0,Tanacan A,1,0,0,1,2,2,2,3,3,2
+50,2774,Viñuela MC,Screening,8,NA,8,Viñuela MC,1,0,0,3,3,2,2,3,3,2
+69,3951,Cao S,Screening,300,NA,300,Cao S,1,0,0,3,2,1,2,3,3,2
+85,5066,Green R,Screening,22,NA,22,Green R,1,0,0,3,2,2,3,2,3,2
+194,4968,van Buul LW,Screening,9,2,0,van Buul LW [Healthcare workers],1,0,0,3,2,3,2,3,3,2
+220,9442,Theuring S,Screening,14,2,0,Theuring S [Household members],1,0,0,2,2,1,3,1,3,2
+4,317,Hoehl S,Screening,2,NA,1,Hoehl S,1,1,0,3,3,3,3,3,3,2
+1,170,Chang L,Screening,4,NA,2,Chang L,1,1,0,1,3,2,2,3,3,2
+56,2932,Berghoff AS,Screening,4,NA,2,Berghoff AS,1,0,0,3,3,2,2,3,3,2
+94,5565,Rauch JN,Screening,6,NA,2,Rauch JN,1,0,0,1,2,2,2,1,3,2
+51,2802,Bender WR,Screening,8,NA,6,Bender WR,1,0,0,1,1,3,1,2,3,2
+55,2909,AbdulRahman A,Screening,6,NA,3,AbdulRahman A,1,0,0,1,2,2,2,3,3,2
+110,9442,Theuring S,Screening,10,1,2,Theuring S [School students and staff],1,0,0,2,2,1,3,1,3,2
+32,1723,Kirshblum SC,Screening,12,NA,2,Kirshblum SC,1,0,0,3,3,1,3,3,3,2
+40,2051,Starling A,Screening,31,NA,29,Starling A,1,0,0,2,2,1,2,3,3,2
+38,1929,Kutsuna S,Screening,11,NA,3,Kutsuna S,1,0,0,3,2,2,3,3,3,2
+82,4880,Ferreira VH,Screening,9,NA,5,Ferreira VH,1,0,0,1,2,3,3,2,3,2
+84,4968,van Buul LW,Screening,16,1,3,van Buul LW [Nursing home residents],1,0,0,3,2,3,2,3,3,2
+86,5068,Varnell C,Screening,10,NA,5,Varnell C,1,0,0,1,2,3,2,3,2,2
+57,2987,Edelstein M,Screening,20,NA,4,Edelstein M,1,0,0,1,2,1,1,3,3,2
+73,4154,Wadhwa A,Screening,17,NA,6,Wadhwa A,1,0,0,3,1,3,1,1,3,2
+74,4200,Balestrini S,Screening,17,NA,11,Balestrini S,1,0,0,3,3,2,2,3,3,2
+80,4674,Alshahrani MS,Screening,18,NA,12,Alshahrani MS,1,0,0,3,3,3,1,3,3,2
+49,2650,Stock AD,Screening,19,NA,6,Stock AD,1,0,0,2,2,2,2,3,3,2
+12,598,Rivett L,Screening,30,NA,5,Rivett L,1,1,0,1,1,3,3,2,3,2
+88,5238,Pizarro-Sánchez MS,Screening,38,NA,5,Pizarro-Sánchez MS,1,0,0,1,1,2,2,3,1,2
+66,3721,Letizia AG,Screening,51,NA,46,Letizia AG,1,0,0,1,2,2,2,3,3,2
+22,1155,Bogani G,Screening,19,NA,10,Bogani G,1,0,0,3,3,1,3,3,3,2
+89,5291,Tan-Loh J,Screening,46,NA,6,Tan-Loh J,1,0,0,2,2,3,3,3,1,2
+29,1627,Wi YM,Screening,111,NA,7,Wi YM,1,0,0,3,3,3,3,3,3,2
+62,3622,Malagón-Rojas J,Screening,35,NA,11,Malagón-Rojas J,1,0,0,2,2,2,1,3,3,2
+14,622,Treibel TA,Screening,44,NA,12,Treibel TA,1,0,0,2,2,2,2,1,3,2
+81,4866,Hogan CA,Screening,38,NA,20,Hogan CA,1,0,0,1,2,3,2,1,3,2
+70,4045,Migisha R,Screening,54,NA,20,Migisha R,1,0,0,2,2,3,3,2,3,2
+10,506,Wong J,Screening,138,NA,16,Wong J,1,1,0,3,2,2,2,3,3,2
+48,2528,Marossy A,Screening,67,NA,46,Marossy A,1,0,0,3,2,2,2,3,3,2
+87,5086,Meyers KJ,Screening,86,NA,67,Meyers KJ,1,0,0,1,2,3,1,3,3,2
+17,729,London V,Screening,68,NA,22,London V,1,0,0,3,3,1,2,3,3,2
+25,1264,Lombardi A,Screening,139,NA,17,Lombardi A,1,0,0,3,3,3,2,3,3,2
+60,3359,Aslam A,Screening,65,NA,38,Aslam A,1,0,0,3,3,2,3,3,3,2
+45,2231,Chamie G,Screening,81,NA,23,Chamie G,1,0,0,1,2,2,2,3,1,2
+3,294,Lavezzo E,Screening,73,NA,29,Lavezzo E,1,1,0,3,2,3,1,3,3,2
+54,2907,Shi SM,Screening,146,NA,21,Shi SM,1,0,0,1,1,2,3,3,3,2
+41,2054,Eythorsson E,Screening,178,NA,25,Eythorsson E,1,0,0,3,2,3,3,1,3,2
+37,1926,Smith E,Screening,103,NA,42,Smith E,1,0,0,3,2,3,2,3,3,2
+34,1839,Cariani L,Screening,182,NA,32,Cariani L,1,0,0,3,3,2,2,3,3,2
+77,4407,Hcini N,Screening,137,NA,87,Hcini N,1,0,0,3,3,2,2,3,3,2
+19,832,Andrikopoulou M,Screening,158,NA,46,Andrikopoulou M,1,1,0,3,3,3,3,3,3,2
+64,3674,Al-Qahtani M,Screening,188,NA,116,Al-Qahtani M,1,0,0,3,3,1,3,3,3,2
+79,4663,Mahajan NN,Screening,467,NA,58,Mahajan NN,1,0,0,2,2,1,3,3,1,2
+68,3921,Adhikari EH,Screening,252,NA,98,Adhikari EH,1,0,0,1,2,2,2,2,3,2
+72,4140,Ghinai I,Screening,406,NA,293,Ghinai I,1,0,0,3,2,3,1,3,1,2
+28,1556,Almazeedi S,Screening,1096,NA,473,Almazeedi S,1,0,0,3,2,3,2,3,3,2
+59,3299,White EM,Screening,5403,NA,2194,White EM,1,0,0,2,3,3,3,2,3,2
