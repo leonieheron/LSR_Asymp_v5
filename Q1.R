@@ -131,7 +131,7 @@ asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label,
 asym_plot
 
 tiff(filename = "Q1.tiff",
-     width = 3000, height = 7100,
+     width = 3000, height = 8000,
      res = 300)
 forest(asym_plot, sortvar = 1/seTE, #sorted by study precision
        subgroup=TRUE,
@@ -336,4 +336,55 @@ forest(asym_plot_rob_5, #sortvar = n, #sorted by study precision
        test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
 dev.off() 
 
+#6. without studies with sample size <10
+
+#prepare data
+data_sample_size_10 <- data_rob %>%
+  filter(total >= 10) %>%
+  select(1:8)
+#conduct meta-analysis
+
+asym_plot_sample_size_10 <- metaprop(events, total, data = data_sample_size_10, 
+                            sm = "PLOGIT", studlab=label, 
+                            byvar=setting,# tau.common =TRUE,
+                            prediction = TRUE,
+                            control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
+asym_plot_sample_size_10
+
+tiff(filename = "Q1_rob_sample_size_10.tiff",
+     width = 3000, height = 6400,
+     res = 300)
+forest(asym_plot_sample_size_10, #sortvar = n, #sorted by study precision
+       subgroup=TRUE,
+       col.square = "darkblue",
+       just="left", colgap.studlab="1cm",
+       predict=T, comb.random = TRUE, comb.fixed = FALSE,
+       print.byvar = FALSE, overall = FALSE,
+       test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
+dev.off() 
+
+#############################
+# meta-regression
+#############################
+
+
+asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
+                    byvar=setting,# tau.common =TRUE,
+                    prediction = TRUE,
+                    control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
+
+asym_plot
+
+#examine sample size
+table(data$total)
+
+asym_plot_mr <- metareg(asym_plot, total)
+
+#############################
+# Galbraith plot
+#############################
+
+### draw radial plot
+radial(asym_plot, level = 0.95, 
+       pch = 1, col = "darkred")
 
