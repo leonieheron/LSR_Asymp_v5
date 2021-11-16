@@ -77,9 +77,9 @@ q2_1_df <- q2_1_df %>%
   filter(record_id <= 5296 | record_id %in% published_preprints)
 
 #add columns for forest plot
-q2_1_df$percent_1 <- paste(round((q2_1_df$Ee/q2_1_df$Ne)*100, 2), "%", sep="")
+q2_1_df$col_1 <- paste0(q2_1_df$Ee, "/", q2_1_df$Ne, sep = "")
 
-q2_1_df$percent_2 <- paste(round((q2_1_df$Ec/q2_1_df$Nc)*100, 2), "%", sep="")
+q2_1_df$col_2 <- paste0(q2_1_df$Ec, "/", q2_1_df$Nc, sep = "")
 
 #metaanalysis for asymptomatic transmission
 
@@ -92,37 +92,22 @@ q2_1_asymp <- metabin(event.e = Ee,
                       prediction = TRUE,
                       sm = "RR",
                       method = "MH",
+                      hakn = TRUE,
                       MH.exact = TRUE, 
                       byvar = group,
                       comb.random = TRUE,
                       comb.fixed = FALSE, 
                       label.e = "",
-                      label.c = "Symp.  ",
-                      percent_1 = percent_1,
-                      percent_2 = percent_2)
+                      label.c = "Symp.  ")
 q2_1_asymp
 
-
-pdf(file = 'forest_meta_Q2_1.pdf', width = 8, height = 6)
-
-forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE,
-       overall.hetstat = FALSE,
-       leftcols = c("studlab", "event.e", "n.e", "percent_1","event.c", "n.c", "percent_2"),
-       leftlabs = c("Author", "Inf.", "N", "%", "Inf.", "N", "%")) #add percent cols!
-
-
-pdf(file = 'forest_meta_Q2_1.pdf', width = 10, height = 6)
-
-forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE,
-       overall.hetstat = FALSE,
-       leftlabs = c(NA, "Inf.", "N", "Inf.", "N"))
-
-dev.off()
 
 tiff(filename = "Q2_1.tiff",
      width = 2450, height = 1400,
      res = 300)
 forest(q2_1_asymp, sortvar = (1/(sqrt(seTE))), overall = FALSE,
        overall.hetstat = FALSE,
-       leftlabs = c(NA, "      E", "      N", "            E", "        N"))
+       print.byvar = FALSE,
+       leftcols = c("studlab", "col_1", "col_2"),
+       leftlabs = c("Author", "E/N", "E/N (Symp.)"))
 dev.off()
