@@ -158,3 +158,8 @@ png(file="forest_ggplotQ3_20200714.png", res=300, height=17, width=26, units="cm
 p
 dev.off()
 
+tiff(filename = "Q2_2.tiff",
+     height=17, width=26, units="cm",
+     res = 300)
+p
+dev.off()
