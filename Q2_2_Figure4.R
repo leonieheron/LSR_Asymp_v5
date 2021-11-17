@@ -132,7 +132,7 @@ p=ggplot()+
   
   geom_text(aes(y=c(-1,-1,-1), x=c(-1.3,1.25,1.75), label=c("Study","Prop.","95% CI")), hjust = 0, fontface = "bold")+
   
-  geom_text(data=dataG,aes(y=dataG$line, x=1.10, label=label_study), hjust = 0)+
+  geom_text(data=dataG,aes(y=dataG$line, x=1.25, label=label_study), hjust = 0)+
   geom_text(data=dataG,aes(y=dataG$line, x=1.75, label=label_studyCI), hjust = 0)+
   
   
