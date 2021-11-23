@@ -1,7 +1,6 @@
 
 ## Q2.2 = Figure4 #####
 
-
 url <- "https://redcap.ispm.unibe.ch/api/"
 token <- "F2725F15FE84D2832E2793BB23B0A62B"
 formData2_2 <- list("token"=token,
