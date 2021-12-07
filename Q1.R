@@ -119,29 +119,54 @@ data=data[!is.na(data$setting),]
 
 #cut data at end of jan 31
 published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+#include additional study identified from ref list
+additional <- 11099
 data <- data %>%
-  filter(record_id <= 5296 | record_id %in% published_preprints)
+  filter(record_id <= 5296 | 
+           record_id %in% published_preprints | 
+           record_id %in% additional)
+
+
 
 
 asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
                     byvar=setting,# tau.common =TRUE,
                     prediction = TRUE,
+                    print.byvar = FALSE,
+                    comb.fixed = FALSE,
                     control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
 
 asym_plot
 
 tiff(filename = "Q1.tiff",
-     width = 3000, height = 8000,
-     res = 300)
+     width = 4000, height = 9500,
+     res = 400)
 forest(asym_plot, sortvar = 1/seTE, #sorted by study precision
-       subgroup=TRUE,
+       #subgroup=TRUE,
        col.square = "darkblue",
        just="left", colgap.studlab="1cm",
        predict=T, comb.random = TRUE, comb.fixed = FALSE,
-       print.byvar = FALSE, overall = FALSE,
-       test.subgroup.random=TRUE, test.subgroup.fixed=FALSE)
+       print.byvar = FALSE, overall = FALSE)
 dev.off() 
  
+####
+#Q1 - all studies, not in subgroups
+asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
+                    prediction = TRUE,
+                    print.byvar = FALSE,
+                    comb.random = TRUE, comb.fixed = FALSE,
+                    control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
+
+asym_plot
+
+tiff(filename = "Q1_notstratified.tiff",
+     width = 4000, height = 9000,
+     res = 400)
+forest(asym_plot, sortvar = 1/seTE, #sorted by study precision
+       col.square = "darkblue",
+       just="left", colgap.studlab="1cm",
+       predict=TRUE, comb.random = TRUE, comb.fixed = FALSE)
+dev.off() 
 
 #####
 #subgroup analysis
@@ -209,14 +234,14 @@ data_rob_1 <- data_rob %>%
   select(1:8)
 #conduct meta-analysis
 
-asym_plot_rob_1<-metaprop(events,total,data=data_rob_1,sm = "PLOGIT", studlab=label, 
-                                byvar=setting,# tau.common =TRUE,
-                                prediction = TRUE,
-                                control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
+asym_plot_rob_1<-metaprop(events,total,data=data_rob_1,sm = "PLOGIT", 
+                          studlab=label, byvar=setting, prediction = TRUE, 
+                          print.byvar = FALSE, comb.fixed = FALSE,
+                          control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
 asym_plot_rob_1
 
-tiff(filename = "Q1_rob_1.tiff",
-     width = 3000, height = 3100,
+tiff(filename = "Q1_rob_onlylowselectionbias.tiff",
+     width = 2700, height = 3200,
      res = 300)
 forest(asym_plot_rob_1, sortvar = 1/seTE, #sorted by study precision
        subgroup=TRUE,
@@ -224,6 +249,7 @@ forest(asym_plot_rob_1, sortvar = 1/seTE, #sorted by study precision
        just="left", colgap.studlab="1cm",
        predict=T, comb.random = TRUE, comb.fixed = FALSE,
        print.byvar = FALSE, overall = FALSE,
+       overall.hetstat = FALSE,
        test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
 dev.off() 
 
@@ -237,12 +263,12 @@ data_rob_2 <- data_rob %>%
 
 asym_plot_rob_2 <- metaprop(events,total,data=data_rob_2,sm = "PLOGIT", studlab=label, 
                           byvar=setting,# tau.common =TRUE,
-                          prediction = TRUE,
+                          prediction = TRUE, print.byvar = FALSE, comb.fixed = FALSE,
                           control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
 asym_plot_rob_2
 
-tiff(filename = "Q1_rob_2.tiff",
-     width = 3000, height = 2200,
+tiff(filename = "Q1_rob_onlylowinfobias.tiff",
+     width = 2700, height = 2200,
      res = 300)
 forest(asym_plot_rob_2, sortvar = 1/seTE, #sorted by study precision
        subgroup=TRUE,
@@ -250,6 +276,7 @@ forest(asym_plot_rob_2, sortvar = 1/seTE, #sorted by study precision
        just="left", colgap.studlab="1cm",
        predict=T, comb.random = TRUE, comb.fixed = FALSE,
        print.byvar = FALSE, overall = FALSE,
+       overall.hetstat = FALSE,
        test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
 dev.off() 
 
@@ -263,11 +290,12 @@ data_rob_3 <- data_rob %>%
 
 asym_plot_rob_3 <- metaprop(events,total,data=data_rob_3,sm = "PLOGIT", studlab=label, 
                             byvar=setting,# tau.common =TRUE,
-                            prediction = TRUE,
+                            prediction = TRUE, comb.random = TRUE, comb.fixed = FALSE,
+                            print.byvar = FALSE,
                             control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
 asym_plot_rob_3
 
-tiff(filename = "Q1_rob_3.tiff",
+tiff(filename = "Q1_rob_onlylowmisclassbias.tiff",
      width = 3000, height = 5500,
      res = 300)
 forest(asym_plot_rob_3, sortvar = 1/seTE, #sorted by study precision
@@ -276,6 +304,7 @@ forest(asym_plot_rob_3, sortvar = 1/seTE, #sorted by study precision
        just="left", colgap.studlab="1cm",
        predict=T, comb.random = TRUE, comb.fixed = FALSE,
        print.byvar = FALSE, overall = FALSE,
+       overall.hetstat = FALSE,
        test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
 dev.off() 
 
@@ -293,11 +322,12 @@ asym_plot_rob_4 <- metaprop(events, total, data = data_rob_4,
                             sm = "PLOGIT", studlab=label, 
                             byvar=setting,# tau.common =TRUE,
                             prediction = TRUE,
+                            print.byvar = FALSE, comb.random = TRUE, comb.fixed = FALSE,
                             control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
 asym_plot_rob_4
 
-tiff(filename = "Q1_rob_4.tiff",
-     width = 3000, height = 6500,
+tiff(filename = "Q1_rob_onlylowattritionbias.tiff",
+     width = 3000, height = 6400,
      res = 300)
 forest(asym_plot_rob_4, #sortvar = n, #sorted by study precision
        subgroup=TRUE,
@@ -305,6 +335,7 @@ forest(asym_plot_rob_4, #sortvar = n, #sorted by study precision
        just="left", colgap.studlab="1cm",
        predict=T, comb.random = TRUE, comb.fixed = FALSE,
        print.byvar = FALSE, overall = FALSE,
+       overall.hetstat = FALSE,
        test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
 dev.off() 
 
