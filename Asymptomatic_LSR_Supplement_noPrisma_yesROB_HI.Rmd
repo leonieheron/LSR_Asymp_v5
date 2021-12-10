@@ -352,9 +352,19 @@ rob_records <- httr::content(response_rob)
 # rob_records$authoryear <- paste0(rob_records$author_1, " (", rob_records$year, ")")
 
 #censor until 5296 (31 Jan) plus the published versions of preprints
-pub_preprints <- c(5565, 6219, 6685, 7030, 7465, 8249, 9442, 9484) #published version of preprints before 31 Jan
+# pub_preprints <- c(5565, 6219, 6685, 7030, 7465, 8249, 9442, 9484) #published version of preprints before 31 Jan
+# rob_records <- rob_records %>%
+#   filter(record_id %in%  pub_preprints | record_id <= 5296)
+
+published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+#include additional study identified from ref list
+additional <- 11099
 rob_records <- rob_records %>%
-  filter(record_id %in%  pub_preprints | record_id <= 5296)
+  filter(record_id <= 5296 |
+           record_id %in% published_preprints |
+           record_id %in% additional)
+
+
 
 #prepare a dataset
 # df_rob <- rob_records %>%
