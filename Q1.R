@@ -118,9 +118,19 @@ data[is.na(data$setting),]$record_id
 data=data[!is.na(data$setting),]
 
 #cut data at end of jan 31
+
+#published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+# data <- data %>%
+#   filter(record_id <= 5296 | record_id %in% published_preprints)
+
+#10.12.21 - updated HI
 published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+#include additional study identified from ref list
+additional <- 11099
 data <- data %>%
-  filter(record_id <= 5296 | record_id %in% published_preprints)
+  filter(record_id <= 5296 |
+           record_id %in% published_preprints |
+           record_id %in% additional)
 
 
 asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
