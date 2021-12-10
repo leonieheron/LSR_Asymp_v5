@@ -98,6 +98,15 @@ p1 <- contactinvestigation_rob_trafficlight +
   ggplot2::ggtitle("Contact investigation") +
   ggplot2::theme(legend.position = "none")
 
+# p1 <- annotate_figure(p1, top = text_grob("Question 1", 
+#                                           color = "black", face = "bold", size = 21))
+dev.new()
+tiff("test.tiff", width = 600, height = 400)
+#pdf("q1_1_new.pdf", width = 1000, height = 1500)
+p1
+graphics.off()
+
+
 
 # 3. "Outbreak investigation"
 outbreakinv <- q1_rob %>% 
@@ -114,15 +123,12 @@ p2 <- outbreakinv_rob_trafficlight +
   ggplot2::ggtitle("Outbreak investigation") +
   ggplot2::theme(legend.position = "none")
 
-p3 <- ggarrange(p1,p2,heights = c(1, 1.7), ncol = 1, nrow = 2)
-
-p3 <- annotate_figure(p3, top = text_grob("Question 1", 
-                                          color = "black", face = "bold", size = 21))
+#p3 <- ggarrange(p1,p2,heights = c(1, 1.7), ncol = 1, nrow = 2)
 
 
 dev.new()
-pdf("q1_1_new.pdf", width = 1000, height = 1500)
-p3
+tiff("test2.tiff", width = 600, height = 900)
+p2
 graphics.off()
 
 
@@ -142,6 +148,13 @@ p4 <- institutional_rob_trafficlight +
   ggplot2::ggtitle("Screening: institutional setting") +
   ggplot2::theme(legend.position = "none")
 
+dev.new()
+tiff("test3.tiff", width = 600, height = 710)
+p4
+graphics.off()
+
+
+
 # 10. "Screening: community setting"
 communityset <- q1_rob %>% 
   filter(setting == "Screening: community setting") %>%
@@ -158,6 +171,11 @@ p5 <- communityset_rob_trafficlight +
     caption = " ") + 
   ggplot2::ggtitle("Screening: community setting") +
   ggplot2::theme(legend.position = "none")
+
+dev.new()
+tiff("test4.tiff", width = 600, height = 520)
+p5
+graphics.off()
 
 
 # 11. "Screening: occupational"
@@ -192,12 +210,13 @@ p6 <- p6 +
   ggplot2::ggtitle("Screening: occupational")
 
 
-p7 <- ggarrange(p4,p5,p6, heights = c(1, 0.8, 0.8), ncol = 1, nrow = 3)
+#p7 <- ggarrange(p4,p5,p6, heights = c(1, 0.8, 0.8), ncol = 1, nrow = 3)
 
 dev.new()
-png("q1_2_new.png", width = 1000, height = 2500)
-p7
+tiff("test5.tiff", width = 600, height = 620)
+p6
 graphics.off()
+
 
 ###ROB analysis for Q2.1
 q2_rob <- df_rob %>%
@@ -243,6 +262,7 @@ p8 <- p8 +
   theme(plot.title = element_text(hjust = 0.5)) + theme(plot.title = element_text(size = 20, face = "bold"))
 
 dev.new()
-png("q2_new.png", width = 1000, height = 500)
+tiff("test6.tiff", width = 600, height = 420)
 p8
 graphics.off()
+
