@@ -37,8 +37,12 @@ response <- httr::POST(url, body = formData, encode = "form")
 Q1_table <- httr::content(response)
 #cut data at end of jan 31
 published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+#include additional study identified from ref list
+additional <- 11099
 Q1_table <- Q1_table %>%
-  filter(record_id <= 5296 | record_id %in% published_preprints)
+  filter(record_id <= 5296 | 
+           record_id %in% published_preprints | 
+           record_id %in% additional)
 Q1_table <- Q1_table %>%
   select(-contains("rob")) %>%
   select(-contains("risk_of_bias")) %>%
@@ -51,6 +55,7 @@ Q1_table <- Q1_table %>%
   mutate(country = ifelse(country == 10, "Australia", country),
          country = ifelse(country == 11, "Austria", country),
          country = ifelse(country == 15, "Bahrain", country),
+         country = ifelse(country == 16, "Bangladesh", country),                          
          country = ifelse(country == 19, "Belgium", country),
          country = ifelse(country == 27, "Brazil", country),
          country = ifelse(country == 28, "Brunei", country),
@@ -238,7 +243,7 @@ total_n <- Q1_table_studies %>%
 #calculate sex, total infections, asymp infections 
 
 sum_q1 <- Q1_table %>%
-  select(-age, -follow_up, -country) %>%
+  select(-age, -country) %>%
   group_by(setting) %>%
   summarise(female = sum(q1_female, na.rm = TRUE), 
             male = sum(q1_male, na.rm = TRUE), 

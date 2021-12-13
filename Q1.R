@@ -352,11 +352,13 @@ asym_plot_rob_5 <- metaprop(events, total, data = data_rob_5,
                             sm = "PLOGIT", studlab=label, 
                             byvar=setting,# tau.common =TRUE,
                             prediction = TRUE,
+                            print.byvar = FALSE,
+                            comb.random = TRUE, comb.fixed = FALSE,
                             control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
 asym_plot_rob_5
 
-tiff(filename = "Q1_rob_5.tiff",
-     width = 3000, height = 1500,
+tiff(filename = "Q1_rob_alllowROB.tiff",
+     width = 2400, height = 1400,
      res = 300)
 forest(asym_plot_rob_5, #sortvar = n, #sorted by study precision
        subgroup=TRUE,
@@ -364,13 +366,14 @@ forest(asym_plot_rob_5, #sortvar = n, #sorted by study precision
        just="left", colgap.studlab="1cm",
        predict=T, comb.random = TRUE, comb.fixed = FALSE,
        print.byvar = FALSE, overall = FALSE,
+       overall.hetstat = FALSE,
        test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
 dev.off() 
 
 #6. without studies with sample size <10
 
 #prepare data
-data_sample_size_10 <- data_rob %>%
+data_sample_size_10 <- data %>%
   filter(total >= 10) %>%
   select(1:8)
 #conduct meta-analysis
@@ -379,6 +382,7 @@ asym_plot_sample_size_10 <- metaprop(events, total, data = data_sample_size_10,
                             sm = "PLOGIT", studlab=label, 
                             byvar=setting,# tau.common =TRUE,
                             prediction = TRUE,
+                            print.byvar = FALSE,
                             control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
 asym_plot_sample_size_10
 
@@ -390,9 +394,71 @@ forest(asym_plot_sample_size_10, #sortvar = n, #sorted by study precision
        col.square = "darkblue",
        just="left", colgap.studlab="1cm",
        predict=T, comb.random = TRUE, comb.fixed = FALSE,
-       print.byvar = FALSE, overall = FALSE,
+       print.byvar = FALSE, overall = FALSE, overall.hetstat = FALSE,
        test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
 dev.off() 
+
+##################################################################################################
+#Q1 by publication date, age group and region
+####
+
+###
+#Get data
+Q1_data <- httr::content(response)
+Q1_data_age <- Q1_data %>%
+  select(record_id, starts_with("agerange"))
+Q1_data_region <- Q1_data %>%
+  select(record_id, country)
+
+####
+#Q1 by publication date
+####
+
+#calculate how many papers were published in each period
+data$pub <- NA
+data$pub[data$record_id < 1438] <- "Published Jan '20 - Jun '20"
+data$pub[data$record_id == 294] <- "Published Jul '20 - Dec '20" #published v of preprint
+data$pub[data$record_id >=4866] <- "Published Jan '21 - Jun '21"
+data$pub[data$record_id == 4968] <- "Published Jul '20 - Dec '20" #published dec 20
+data$pub[data$record_id >= 1438 & data$record_id < 4866] <- "Published Jul '20 - Dec '20" 
+
+
+asym_plot_bydate <- metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
+                    byvar=pub,
+                    prediction = TRUE,
+                    print.byvar = FALSE,
+                    comb.fixed = FALSE,
+                    control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
+
+asym_plot_bydate
+
+tiff(filename = "Q1_bypubdate.tiff",
+     width = 4000, height = 9800,
+     res = 400)
+forest(asym_plot_bydate, sortvar = 1/seTE, #sorted by study precision
+       #subgroup=TRUE,
+       col.square = "darkblue",
+       just="left", colgap.studlab="1cm",
+       predict=T, comb.random = TRUE, comb.fixed = FALSE,
+       print.byvar = FALSE, overall = FALSE)
+dev.off() 
+
+
+
+####
+#Q1 by age group
+####
+Q1_data_age <- Q1_data_age %>%
+  mutate(agerange = ifelse(agerange___1 == 1, "Children (<18 years)", NA)) %>%
+  mutate(agerange = ifelse(agerange___2 == 1, "Adults (18 - 65 years)", agerange)) %>%
+  mutate(agerange = ifelse(agerange___3 == 1, "Older adults (>65 years)", agerange)) %>%
+  mutate(agerange = ifelse(agerange___4 == 1, "All ages", agerange)) %>%
+  mutate(agerange = ifelse(agerange___5 == 1, "Not reported", agerange)) 
+  
+
+####
+#Q1 by region
+####
 
 #############################
 # meta-regression
