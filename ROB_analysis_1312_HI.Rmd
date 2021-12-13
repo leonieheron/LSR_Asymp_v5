@@ -135,7 +135,7 @@ p2 <- outbreakinv_rob_trafficlight +
 
 
 dev.new()
-tiff("test2.tiff", width = 24, height = 26.35, units = "cm", res = 600)
+tiff("test2.tiff", width = 26, height = 28, units = "cm", res = 600)
 p2
 graphics.off()
 
