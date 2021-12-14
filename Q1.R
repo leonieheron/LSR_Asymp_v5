@@ -105,10 +105,10 @@ asymptomaticQ1$label[asymptomaticQ1$label == "Taylor J [cluster:1]"] <- "Taylor 
 asymptomaticQ1$label[asymptomaticQ1$label == "Taylor J [cluster:2]"] <- "Taylor J [Residents]"
 asymptomaticQ1$label[asymptomaticQ1$label == "Ladhani SN [cluster:1]"] <- "Ladhani SN [Residents]"
 asymptomaticQ1$label[asymptomaticQ1$label == "Ladhani SN [cluster:2]"] <- "Ladhani SN [Healthcare workers]"
-#asymptomaticQ1$label[asymptomaticQ1$label == "#5551 Vohra [cluster:1]"] <- "#5551 Vohra [Presurgical patients]"
-#asymptomaticQ1$label[asymptomaticQ1$label == "#5551 Vohra [cluster:2]"] <- "#5551 Vohra [Undergoing chemotherapy]"
-#asymptomaticQ1$label[asymptomaticQ1$label == "#6526 Garibaldi [cluster:1]"] <- "#6526 Garibaldi [Residents]"
-#asymptomaticQ1$label[asymptomaticQ1$label == "#6526 Garibaldi [cluster:2]"] <- "#6526 Garibaldi [Staff]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#5551 Vohra [cluster:1]"] <- "#5551 Vohra [Presurgical patients]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#5551 Vohra [cluster:2]"] <- "#5551 Vohra [Undergoing chemotherapy]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#6526 Garibaldi [cluster:1]"] <- "#6526 Garibaldi [Residents]"
+asymptomaticQ1$label[asymptomaticQ1$label == "#6526 Garibaldi [cluster:2]"] <- "#6526 Garibaldi [Staff]"
 
 
 
@@ -117,16 +117,51 @@ data=asymptomaticQ1[order(asymptomaticQ1$setting,1/(1/asymptomaticQ1$events+1/(a
 data[is.na(data$setting),]$record_id
 data=data[!is.na(data$setting),]
 
+#run forest plot with all records
+
+asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
+                    byvar=setting,# tau.common =TRUE,
+                    prediction = TRUE,
+                    print.byvar = FALSE,
+                    comb.fixed = FALSE,
+                    control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
+
+asym_plot
+
+tiff(filename = "Q1_update5.tiff",
+     width = 4000, height = 11000,
+     res = 400)
+forest(asym_plot, sortvar = 1/seTE, #sorted by study precision
+       #subgroup=TRUE,
+       col.square = "darkblue",
+       just="left", colgap.studlab="1cm",
+       predict=T, comb.random = TRUE, comb.fixed = FALSE,
+       print.byvar = FALSE, overall = FALSE)
+dev.off() 
+
+
 #cut data at end of jan 31
+
+#published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+# data <- data %>%
+#   filter(record_id <= 5296 | record_id %in% published_preprints)
+
+#10.12.21 - updated HI
 published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
 #include additional study identified from ref list
 additional <- 11099
 data <- data %>%
+#<<<<<<< HEAD
   filter(record_id <= 5296 | 
            record_id %in% published_preprints | 
            record_id %in% additional)
 
 
+#=======
+#  filter(record_id <= 5296 |
+#           record_id %in% published_preprints |
+#           record_id %in% additional)
+#>>>>>>> d75025fce8ca3dac3ed1954e753400e950a265d1
 
 
 asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
