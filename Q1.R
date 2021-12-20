@@ -17,7 +17,8 @@ library(metafor)
 # get the data directly from redcap:
 # report #155 is Q1:
 url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
+#APIs token is not sharable
+token <- "##################################"
 formData <- list("token"=token,
                  content='report',
                  format='csv',
@@ -142,11 +143,6 @@ dev.off()
 
 #cut data at end of jan 31
 
-#published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
-# data <- data %>%
-#   filter(record_id <= 5296 | record_id %in% published_preprints)
-
-#10.12.21 - updated HI
 published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
 #include additional study identified from ref list
 additional <- 11099
@@ -233,13 +229,16 @@ forest(asym_plot_select_bias, sortvar = 1/seTE, #sorted by study precision
        test.subgroup.random=TRUE, test.subgroup.fixed=FALSE)
 dev.off() 
 
-#subgroup analyses by ROB assessments
+######################################
+#subgroup analyses by ROB assessments#
+######################################
 
 #download rob data
 
 # get the data directly from redcap:
 urlrob <- "https://redcap.ispm.unibe.ch/api/"
-tokenrob <- "F2725F15FE84D2832E2793BB23B0A62B"
+#APIs token is not sharable
+token <- "##################################"
 formDatarob <- list("token"=tokenrob,
                     content='report',
                     format='csv',
@@ -263,12 +262,13 @@ names(data_rob)
 
 #1. selection bias - only analyse those with low ROB for representativeness
 #and characteristics of non-respondents
+
 #prepare data
 data_rob_1 <- data_rob %>%
   filter(rob_1 == 3 & rob_2 == 3) %>%
   select(1:8)
-#conduct meta-analysis
 
+#conduct meta-analysis
 asym_plot_rob_1<-metaprop(events,total,data=data_rob_1,sm = "PLOGIT", 
                           studlab=label, byvar=setting, prediction = TRUE, 
                           print.byvar = FALSE, comb.fixed = FALSE,
@@ -290,12 +290,13 @@ dev.off()
 
 #2. information bias - only analyse those with low ROB for symptom assessment
 #and recording of symptoms
+
 #prepare data
 data_rob_2 <- data_rob %>%
   filter(rob_3 == 3 & rob_4 == 3) %>%
   select(1:8)
-#conduct meta-analysis
 
+#conduct meta-analysis
 asym_plot_rob_2 <- metaprop(events,total,data=data_rob_2,sm = "PLOGIT", studlab=label, 
                           byvar=setting,# tau.common =TRUE,
                           prediction = TRUE, print.byvar = FALSE, comb.fixed = FALSE,
@@ -317,12 +318,13 @@ dev.off()
 
 #3. misclassification bias - only analyse those with low ROB for 
 #classification of asymp status
+
 #prepare data
 data_rob_3 <- data_rob %>%
   filter(rob_5 == 3) %>%
   select(1:8)
-#conduct meta-analysis
 
+#conduct meta-analysis
 asym_plot_rob_3 <- metaprop(events,total,data=data_rob_3,sm = "PLOGIT", studlab=label, 
                             byvar=setting,# tau.common =TRUE,
                             prediction = TRUE, comb.random = TRUE, comb.fixed = FALSE,
@@ -351,8 +353,8 @@ dev.off()
 data_rob_4 <- data_rob %>%
   filter(rob_6 == 3) %>%
   select(1:8)
-#conduct meta-analysis
 
+#conduct meta-analysis
 asym_plot_rob_4 <- metaprop(events, total, data = data_rob_4, 
                             sm = "PLOGIT", studlab=label, 
                             byvar=setting,# tau.common =TRUE,
@@ -381,8 +383,8 @@ data_rob_5 <- data_rob %>%
   filter(rob_1 == 3 & rob_2 == 3 & rob_3 == 3 & rob_4 == 3 & rob_5 == 3 & 
            rob_6 == 3) %>%
   select(1:8)
-#conduct meta-analysis
 
+#conduct meta-analysis
 asym_plot_rob_5 <- metaprop(events, total, data = data_rob_5, 
                             sm = "PLOGIT", studlab=label, 
                             byvar=setting,# tau.common =TRUE,
@@ -411,8 +413,8 @@ dev.off()
 data_sample_size_10 <- data %>%
   filter(total >= 10) %>%
   select(1:8)
-#conduct meta-analysis
 
+#conduct meta-analysis
 asym_plot_sample_size_10 <- metaprop(events, total, data = data_sample_size_10, 
                             sm = "PLOGIT", studlab=label, 
                             byvar=setting,# tau.common =TRUE,
