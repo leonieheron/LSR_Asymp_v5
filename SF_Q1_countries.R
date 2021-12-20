@@ -12,7 +12,8 @@ library(httr) # use to retrieve data from REDCap
 # get the data directly from redcap:
 # report #155 is Q1:
 url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
+#APIs token is not sharable
+token <- "##################################"
 formData <- list("token"=token,
                  content='report',
                  format='csv',
