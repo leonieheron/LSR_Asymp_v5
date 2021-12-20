@@ -92,19 +92,13 @@ dfQ3$p=as.numeric(dfQ3$p)
 dfQ3$l=as.numeric(dfQ3$l)
 dfQ3$h=as.numeric(dfQ3$h)
 
-# dfQ3c<-read.csv(file="Q3.csv", stringsAsFactors = FALSE)
-# dfQ3$p=dfQ3$p/100
-# dfQ3$l=dfQ3$l/100
-# dfQ3$h=dfQ3$h/100
+
 
 dataG=dfQ3
 
 dig=2
 r<-function(x){format(round(as.numeric(x),2),dig=2)}
 
-
-# dataG$label=ifelse(dataG$type==2,
-#                    paste0(dataG$label, " ", ifelse(!is.na(dataG$Q3set),paste0("[",dataG$Q3set,"]"),"")),dataG$label)
 
 
 dataG$label=ifelse(dataG$label=="   Ganyani T",
