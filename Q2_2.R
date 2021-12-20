@@ -24,7 +24,8 @@ loadfonts(device = "win")
 # report #157 is Q2.2:
 
 url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
+#APIs token is not sharable
+token <- "##################################"
 formData2_2 <- list("token"=token,
                     content='report',
                     format='csv',
