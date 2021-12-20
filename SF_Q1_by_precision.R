@@ -14,7 +14,8 @@ library(httr) # use to retrieve data from REDCap
 # get the data directly from redcap:
 # report #155 is Q1:
 url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
+#APIs token is not sharable
+token <- "##################################"
 formData <- list("token"=token,
                  content='report',
                  format='csv',
@@ -59,13 +60,10 @@ asymptomaticQ1$label=paste0(asymptomaticQ1$author_1,
                                    paste0(" [cluster:",asymptomaticQ1$cluster,
                                           "]"),"")) # [FU: ",asymptomaticQ1$fup_median,"]")
 
-#data <- asymptomaticQ1[order(asymptomaticQ1$setting,1/(1/asymptomaticQ1$events+1/(asymptomaticQ1$total-asymptomaticQ1$events))),]
-
 asym_plot_by_precision <- metaprop(events, total, data = asymptomaticQ1, sm = "PLOGIT", 
                                    studlab = label)
 pdf(file = 'forest_meta_Q1_precision.pdf', width = 10, height = 27) 
 
-#forest(asym_plot_by_precision, sortvar = -seTE)
 forest(asym_plot_by_precision, sortvar = (1/(sqrt(seTE))))
 
 
