@@ -9,7 +9,8 @@ library(ggplot2)
 # report #157 is Q2.2:
 
 url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
+#APIs token is not sharable
+token <- "##################################"
 formData2_2 <- list("token"=token,
                     content='report',
                     format='csv',
@@ -31,13 +32,6 @@ asymptomaticQ3$q3_setting=ifelse(asymptomaticQ3$q3_setting=="",NA,asymptomaticQ3
 
 asymptomaticQ3 <- asymptomaticQ3[-9,]
 
-#Michel`s codes` - doesn`t work now`
-# s <- strsplit(asymptomaticQ3$q3_setting, split = ";")
-# pp_m <- strsplit(asymptomaticQ3$q3_pp_m, split = ";")
-# pp_l <- strsplit(asymptomaticQ3$q3_pp_l, split = ";")
-# pp_u <- strsplit(asymptomaticQ3$q3_pp_u, split = ";")
-
-#New codes Hira - 06.04.21
 s <- gsub(";"," ",asymptomaticQ3$q3_setting)
 pp_m <- gsub(";"," ",asymptomaticQ3$q3_pp_m)
 pp_l <- gsub(";"," ",asymptomaticQ3$q3_pp_l)
@@ -45,15 +39,6 @@ pp_u <- gsub(";"," ",asymptomaticQ3$q3_pp_u)
 
 
 
-#Michel`s codes` - doesn`t work now`
-# dfQ3a=data.frame(label=rep(paste0("   ",asymptomaticQ3$author_1), sapply(pp_m, length)),
-#                  Q3set=unlist(s),
-#                  p = as.numeric(unlist(pp_m)), 
-#                  l = as.numeric(unlist(pp_l)),
-#                  h = as.numeric(unlist(pp_u)),
-#                  setting="Pre-symptomatic",stringsAsFactors = FALSE)
-
-#New codes Hira - 06.04.21
 dfQ3a=data.frame(label=rep(paste0("   ",asymptomaticQ3$author_1), sapply(pp_m, length)),
                  Q3set=s,
                  p = as.numeric(pp_m),
@@ -97,10 +82,6 @@ dfQ3$p=as.numeric(dfQ3$p)
 dfQ3$l=as.numeric(dfQ3$l)
 dfQ3$h=as.numeric(dfQ3$h)
 
-# dfQ3c<-read.csv(file="Q3.csv", stringsAsFactors = FALSE)
-# dfQ3$p=dfQ3$p/100
-# dfQ3$l=dfQ3$l/100
-# dfQ3$h=dfQ3$h/100
 
 dataG=dfQ3
 
@@ -116,8 +97,6 @@ dataG$label[13] <- gsub("\\[[^][]*]", "", dataG$label[13])
 dataG$fontface=ifelse(dataG$type==1, "italic","plain")
 
 dataG$label_studyCI=ifelse(!is.na(dataG$h), paste0("[",r(dataG$l),";",r(dataG$h),"]"),NA)
-#dataG$label_studyCI=ifelse(!is.na(dataG$Pl), paste0("[",r(dataG$Pl),";",r(dataG$Ph),"]"),dataG$label_studyCI)
-#dataG$label_studyCI=ifelse(!is.na(dataG$Rl), paste0("[",r(dataG$Rl),";",r(dataG$Rh),"]"),dataG$label_studyCI)
 
 dataG$label_study=ifelse(!is.na(dataG$p),r(dataG$p),NA)
 dataG[15.1,]$label <- gsub("\\[[^][]*]", "", dataG[15.1,]$label)
@@ -133,7 +112,6 @@ p=ggplot()+
   
   
   geom_text(data=dataG,aes(y=dataG$line, x=-2, label=dataG$label), hjust = 0, fontface=dataG$fontface)+
-  #geom_rect(data=dataG,aes(xmin=dataG$Pl,xmax=dataG$Ph,ymin=dataG$line-0.1,ymax=dataG$line+0.1),color="black", fill="red")+
   theme_void() + 
   scale_y_reverse()+
   geom_segment(aes(y=max(dataG$line)+1, x=0, xend=1, yend=max(dataG$line)+1))+
@@ -143,8 +121,6 @@ p=ggplot()+
   geom_segment(aes(y=max(dataG$line)+1,yend=max(dataG$line)+1.3,x=0.75,xend=0.75))+
   geom_segment(aes(y=max(dataG$line)+1,yend=max(dataG$line)+1.3,x=1,xend=1))+
   geom_text(aes(y=rep(max(dataG$line)+2,5),x=0:4/4, label=c(0.00,0.25,0.5,0.75,1.00)))+
-  #geom_segment(data=dataG,aes(x=vlineloc, xend=vlineloc, y=0, yend=max(dataG$line)+1), linetype=3)+
-  
   xlim(c(-2,2.5))+
   theme(legend.position = "none")
 p
