@@ -12,5 +12,5 @@ Analysis for update 4 of living systematic review on asymptomatic SARS-CoV-2 inf
  
 ### Shiny Applications
 To be able to distribute screening tasks to a ‘crowd’, we build two shiny apps that communicate with the central database.
-Records are attibuted to members of the crowd for screening (first shiny app). When the task is completed, the decisions are verified (second shiny app) by a second member of the crowd.
+Records are attibuted to members of the crowd for <i>screening</i> <b>(RshinyApp-Screening)</b>. When the task is completed, the decisions are <i>verified</i> <b>(RshinyApp-Verification)<b> by a second member of the crowd.
 Disagreement is resolved by the coordinator or by a third crowd member
