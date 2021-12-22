@@ -2,7 +2,7 @@
 library("dplyr")
 library("ggpubr")
 
-#use the package as a new source. Some functions of the package are changed by HI
+#use the robvis package as a new source. Some functions of the package are changed according to our review
 source("robisfunctions.R")
 
 # get the data directly from redcap:
