@@ -9,7 +9,7 @@ Analysis for update 4 of living systematic review on asymptomatic SARS-CoV-2 inf
 <i>Q2.2.</i> Forest plot of proportion (‘Prop.’) of SARS-CoV-2 infection resulting from asymptomatic or presymptomatic transmission: <b>Q2_2.R</b><br/>
 
 ### Risk of Bias Analysis
- 
+
 ### Shiny Applications
 
 #### Screening and Verification Apps
@@ -19,3 +19,6 @@ Disagreement is resolved by the coordinator or by a third crowd member.
 
 #### Data Extraction App
 For included studies, one reviewer extracted data from full-text articles using either extraction form in REDCap or <i>Data Extraction App</i> <b>(RshinyApp-Extraction)</b>, and a second reviewer verified the extracted data using the query system.
+
+#### Risk of Bias
+Two authors  independently assessed the <i>risk of bias</i> using customised shiny apps <b>(RshinyApp-RiskOfBias-FirstReviewer, RshinyApp-RiskOfBias-SecondReviewer)</b>, which saved responses into the REDCap database. A third reviewer resolved disagreements.
