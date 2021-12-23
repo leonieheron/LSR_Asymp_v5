@@ -135,7 +135,7 @@ forest(asym_plot, sortvar = total, #sorted by study precision
        #subgroup=TRUE,
        col.square = "darkblue",
        just="left", colgap.studlab="1cm",
-       predict=T, comb.random = TRUE, comb.fixed = FALSE,
+       predict=T, comb.random = FALSE, comb.fixed = FALSE,
        print.byvar = FALSE, overall = FALSE)
 dev.off() 
 
@@ -180,7 +180,7 @@ forest(asym_plot, sortvar = total, #sorted by study precision
        #subgroup=TRUE,
        col.square = "darkblue",
        just="left", colgap.studlab="1cm",
-       predict=T, comb.random = TRUE, comb.fixed = FALSE,
+       predict=T, comb.random = FALSE, comb.fixed = FALSE,
        overall.hetstat = FALSE,
        print.byvar = FALSE, overall = FALSE)
 dev.off() 
