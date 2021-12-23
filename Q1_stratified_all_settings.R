@@ -17,7 +17,7 @@ library(metafor)
 # get the data directly from redcap:
 # report #155 is Q1:
 url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
+token <- "###############################"
 formData <- list("token"=token,
                  content='report',
                  format='csv',
@@ -131,7 +131,7 @@ forest(asym_plot, sortvar = 1/seTE, #sorted by study precision
        print.byvar = FALSE, overall = FALSE)
 dev.off() 
 
-#10.12.21 - updated HI
+
 published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
 #include additional study identified from ref list
 additional <- 11099
