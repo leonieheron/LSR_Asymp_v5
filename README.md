@@ -26,7 +26,7 @@ For included studies, one reviewer extracted data from full-text articles using 
 #### Risk of Bias Apps
 Two authors  independently assessed the <i>risk of bias</i> using customised shiny apps <b>(RshinyApp-RiskOfBias-FirstReviewer, RshinyApp-RiskOfBias-SecondReviewer)</b>, which saved responses into the REDCap database. A third reviewer resolved disagreements.
 
-###Table of manuscript`s figures and corresponding R scripts
+### Table of manuscript`s figures and corresponding R scripts
 
 |          Name of table/figure                                                                                                                    |  Name of R scripts                |
 |--------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
