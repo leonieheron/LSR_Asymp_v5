@@ -19,7 +19,7 @@ library(metafor)
 # get the data directly from redcap: 
 # report #172 is Q2.1 SAR:
 url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
+token <- "####################################"
 formData2_1 <- list("token"=token,
                     content='report',
                     format='csv',
