@@ -215,14 +215,42 @@ forest(asym_plot, sortvar = total, #sorted by study precision
        just="left", colgap.studlab="1cm",
        predict=TRUE, comb.random = TRUE, comb.fixed = FALSE)
 dev.off() 
+pdf("Q1_notstratified.pdf", width = 10, height = 23)
+forest(asym_plot, sortvar = total, #sorted by study precision
+       col.square = "darkblue",
+       overall.hetstat = FALSE,
+       just="left", colgap.studlab="1cm",
+       predict=TRUE, comb.random = TRUE, comb.fixed = FALSE)
+dev.off() 
 
 #####
-#subgroup analysis
+#subgroup analysis for rob
+
+
+#download data
+# get the data directly from redcap:
+# report #155 is Q1:
+url <- "https://redcap.ispm.unibe.ch/api/"
+token <- "F2725F15FE84D2832E2793BB23B0A62B"
+formData <- list("token"=token,
+                 content='report',
+                 format='csv',
+                 report_id='155',
+                 csvDelimiter='',
+                 rawOrLabel='raw',
+                 rawOrLabelHeaders='raw',
+                 exportCheckboxLabel='false',
+                 returnFormat='csv'
+)
+response <- httr::POST(url, body = formData, encode = "form")
+
 #studies removed at high risk of selection bias
 #studies 443, 597, 1960, 2802, 2907, 3921, 5068, 5238, 170, 2987, 5086, 1225, 4880
 high_risk_select_bias <-c(443, 597, 1960, 2802, 2907, 3921, 5068, 5238, 170, 2987, 5086, 1225, 4880)
 data_selectionbias <- data %>%
   filter(!record_id %in% high_risk_select_bias)
+data_selectionbias <- data %>%
+  
 
 #run metaprop and forest plot
 
@@ -248,6 +276,18 @@ forest(asym_plot_select_bias, sortvar = total, #sorted by study precision
        test.subgroup.random=TRUE, test.subgroup.fixed=FALSE)
 dev.off() 
 
+pdf(filename = "Q1_select_bias.tiff")
+forest(asym_plot_select_bias, sortvar = total, #sorted by study precision
+       subgroup=TRUE,
+       col.square = "darkblue",
+       overall.hetstat = FALSE,
+       just="left", colgap.studlab="1cm",
+       predict=T, comb.random = TRUE, comb.fixed = FALSE,
+       print.byvar = FALSE, overall = FALSE,
+       test.subgroup.random=TRUE, test.subgroup.fixed=FALSE)
+dev.off() 
+
+
 #subgroup analyses by ROB assessments
 
 #download rob data
@@ -271,29 +311,55 @@ rob_records <- rob_records %>%
   select(1:11) %>%
   filter(risk_of_bias_update_3_complete == 2)
 
+published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+#include additional study identified from ref list
+additional <- 11099
+rob_records <- rob_records %>%
+  filter(record_id <= 5296 | 
+           record_id %in% published_preprints | 
+           record_id %in% additional)
+
 #merge with dataset
 data_rob <- left_join(data, rob_records, by = "record_id")
 names(data_rob)
 
 
-#1. selection bias - only analyse those with low ROB for representativeness
+#1. selection bias - stratify by rob assessment for representativeness
 #and characteristics of non-respondents
 #prepare data
 data_rob_1 <- data_rob %>%
-  filter(rob_1 == 3 & rob_2 == 3) %>%
-  select(1:8)
+  mutate(rob_select = ifelse(setting == "Screening" & rob_1 == 3 & rob_2 == 3, 
+                             "Screening studies, low risk of selection bias", 
+                             ifelse(setting == "Contact and outbreak investigations" & rob_1 == 3 & rob_2 == 3,
+                             "Contact and outbreak investigations, low risk of selection bias",
+                             ifelse(setting == "Contact and outbreak investigations" & rob_1 != 3,
+                                    "Contact and outbreak investigations, unclear or high risk of selection bias",
+                                    ifelse(setting == "Contact and outbreak investigations" & rob_2 != 3,
+                                           "Contact and outbreak investigations, unclear or high risk of selection bias",
+                                           "Screening studies, unclear or high risk of selection bias")))))
+
 #conduct meta-analysis
 
 asym_plot_rob_1<-metaprop(events,total,data=data_rob_1,sm = "PLOGIT", 
-                          studlab=label, byvar=setting, prediction = TRUE, 
+                          studlab=label, byvar=rob_select, prediction = TRUE, 
                           print.byvar = FALSE, comb.fixed = FALSE,
                           overall.hetstat = FALSE,
                           control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
 asym_plot_rob_1
 
 tiff(filename = "Q1_rob_onlylowselectionbias.tiff",
-     width = 2700, height = 3200,
+     width = 2700, height = 7500,
      res = 300)
+forest(asym_plot_rob_1, sortvar = total, #sorted by study precision
+       subgroup=TRUE,
+       overall.hetstat = FALSE,
+       col.square = "darkblue",
+       just="left", colgap.studlab="1cm",
+       predict=T, comb.random = TRUE, comb.fixed = FALSE,
+       print.byvar = FALSE, overall = FALSE,
+       test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
+dev.off() 
+pdf("Q1_rob_onlylowselectionbias.pdf", height = 25, width = 10)
 forest(asym_plot_rob_1, sortvar = total, #sorted by study precision
        subgroup=TRUE,
        overall.hetstat = FALSE,
@@ -308,19 +374,26 @@ dev.off()
 #and recording of symptoms
 #prepare data
 data_rob_2 <- data_rob %>%
-  filter(rob_3 == 3 & rob_4 == 3) %>%
-  select(1:8)
+  mutate(rob_info = ifelse(setting == "Screening" & rob_3 == 3 & rob_4 == 3, 
+                             "Screening studies, low risk of information bias", 
+                             ifelse(setting == "Contact and outbreak investigations" & rob_3 == 3 & rob_4 == 3,
+                                    "Contact and outbreak investigations, low risk of information bias",
+                                    ifelse(setting == "Contact and outbreak investigations" & rob_3 != 3,
+                                           "Contact and outbreak investigations, unclear or high risk of information bias",
+                                           ifelse(setting == "Contact and outbreak investigations" & rob_4 != 3,
+                                                  "Contact and outbreak investigations, unclear or high risk of information bias",
+                                                  "Screening studies, unclear or high risk of information bias")))))
 #conduct meta-analysis
 
 asym_plot_rob_2 <- metaprop(events,total,data=data_rob_2,sm = "PLOGIT", studlab=label, 
-                          byvar=setting,# tau.common =TRUE,
+                          byvar=rob_info,# tau.common =TRUE,
                           overall.hetstat = FALSE,
                           prediction = TRUE, print.subgroup.name = FALSE, fixed = FALSE,
                           control=list(stepadj=0.05, maxiter=10000))#, method ="INV") #, verbose=TRUE, digits=5, control=list(stepadj=0.5))
 asym_plot_rob_2
 
 tiff(filename = "Q1_rob_onlylowinfobias.tiff",
-     width = 2700, height = 2200,
+     width = 2800, height = 7800,
      res = 300)
 forest(asym_plot_rob_2, sortvar = total, #sorted by study precision
        subgroup=TRUE,
@@ -331,17 +404,34 @@ forest(asym_plot_rob_2, sortvar = total, #sorted by study precision
        overall.hetstat = FALSE,
        test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
 dev.off() 
+pdf("Q1_rob_onlylowinfobias.pdf", height = 26, width = 10)
+forest(asym_plot_rob_2, sortvar = total, #sorted by study precision
+       subgroup=TRUE,
+       col.square = "darkblue",
+       just="left", colgap.studlab="1cm",
+       predict=T, comb.random = TRUE, comb.fixed = FALSE,
+       print.byvar = FALSE, overall = FALSE,
+       overall.hetstat = FALSE,
+       test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
+dev.off() 
+
 
 #3. misclassification bias - only analyse those with low ROB for 
 #classification of asymp status
 #prepare data
 data_rob_3 <- data_rob %>%
-  filter(rob_5 == 3) %>%
-  select(1:8)
+  mutate(rob_misclas = ifelse(setting == "Screening" & rob_5 == 3, 
+                           "Screening studies, low risk of misclassification bias", 
+                           ifelse(setting == "Contact and outbreak investigations" & rob_5 == 3,
+                                  "Contact and outbreak investigations, low risk of misclassification bias",
+                                  ifelse(setting == "Contact and outbreak investigations" & rob_5 != 3,
+                                         "Contact and outbreak investigations, unclear or high risk of misclassification bias",
+                                                "Screening studies, unclear or high risk of misclassification bias"))))
+
 #conduct meta-analysis
 
 asym_plot_rob_3 <- metaprop(events,total,data=data_rob_3,sm = "PLOGIT", studlab=label, 
-                            byvar=setting,# tau.common =TRUE,
+                            byvar=rob_misclas,# tau.common =TRUE,
                             prediction = TRUE, comb.random = TRUE, comb.fixed = FALSE,
                             print.byvar = FALSE,
                             overall.hetstat = FALSE,
@@ -349,8 +439,18 @@ asym_plot_rob_3 <- metaprop(events,total,data=data_rob_3,sm = "PLOGIT", studlab=
 asym_plot_rob_3
 
 tiff(filename = "Q1_rob_onlylowmisclassbias.tiff",
-     width = 3000, height = 5500,
+     width = 3000, height = 7500,
      res = 300)
+forest(asym_plot_rob_3, sortvar = total, #sorted by study precision
+       subgroup=TRUE,
+       col.square = "darkblue",
+       just="left", colgap.studlab="1cm",
+       predict=T, comb.random = TRUE, comb.fixed = FALSE,
+       print.byvar = FALSE, overall = FALSE,
+       overall.hetstat = FALSE,
+       test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
+dev.off() 
+pdf("Q1_rob_onlylowmisclassbias.pdf", height = 26, width = 10)
 forest(asym_plot_rob_3, sortvar = total, #sorted by study precision
        subgroup=TRUE,
        col.square = "darkblue",
@@ -367,13 +467,19 @@ dev.off()
 
 #prepare data
 data_rob_4 <- data_rob %>%
-  filter(rob_6 == 3) %>%
-  select(1:8)
+  mutate(rob_att = ifelse(setting == "Screening" & rob_6 == 3, 
+                              "Screening studies, low risk of attrition bias", 
+                              ifelse(setting == "Contact and outbreak investigations" & rob_6 == 3,
+                                     "Contact and outbreak investigations, low risk of attrition bias",
+                                     ifelse(setting == "Contact and outbreak investigations" & rob_6 != 3,
+                                            "Contact and outbreak investigations, unclear or high risk of attrition bias",
+                                            "Screening studies, unclear or high risk of attrition bias"))))
+
 #conduct meta-analysis
 
 asym_plot_rob_4 <- metaprop(events, total, data = data_rob_4, 
                             sm = "PLOGIT", studlab=label, 
-                            byvar=setting,# tau.common =TRUE,
+                            byvar=rob_att,# tau.common =TRUE,
                             prediction = TRUE,
                             overall.hetstat = FALSE,
                             print.byvar = FALSE, comb.random = TRUE, comb.fixed = FALSE,
@@ -381,8 +487,18 @@ asym_plot_rob_4 <- metaprop(events, total, data = data_rob_4,
 asym_plot_rob_4
 
 tiff(filename = "Q1_rob_onlylowattritionbias.tiff",
-     width = 3000, height = 6400,
+     width = 3000, height = 7700,
      res = 300)
+forest(asym_plot_rob_4, sortvar = total, #sorted by study precision
+       subgroup=TRUE,
+       col.square = "darkblue",
+       just="left", colgap.studlab="1cm",
+       predict=T, comb.random = TRUE, comb.fixed = FALSE,
+       print.byvar = FALSE, overall = FALSE,
+       overall.hetstat = FALSE,
+       test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
+dev.off() 
+pdf("Q1_rob_onlylowattritionbias.pdf", height = 26, width = 10)
 forest(asym_plot_rob_4, sortvar = total, #sorted by study precision
        subgroup=TRUE,
        col.square = "darkblue",
@@ -400,11 +516,25 @@ data_rob_5 <- data_rob %>%
   filter(rob_1 == 3 & rob_2 == 3 & rob_3 == 3 & rob_4 == 3 & rob_5 == 3 & 
            rob_6 == 3) %>%
   select(1:8)
+
+data_rob_5 <- data_rob %>%
+  mutate(rob_all_low = ifelse(setting == "Screening" & rob_1 == 3 & rob_2 == 3 & rob_3 == 3 & rob_4 == 3 & rob_5 == 3 & rob_6 == 3, 
+                          "Screening studies, low risk of bias in all domains", 
+                          ifelse(setting == "Contact and outbreak investigations" & rob_1 == 3 & rob_2 == 3 & rob_3 == 3 & rob_4 == 3 & rob_5 == 3 & rob_6 == 3,
+                                 "Contact and outbreak investigations, low risk of bias in all domains",
+                                        "Setting?, unclear or high risk of bias in all domains")))
+data_rob_5 <- data_rob_5 %>%
+  mutate(rob_all_low = ifelse(setting == "Screening" & rob_all_low == "Setting?, unclear or high risk of bias in all domains",
+                              "Screening studies, unclear or high risk of bias in all domains",
+                              ifelse(setting == "Contact and outbreak investigations" & rob_all_low == "Setting?, unclear or high risk of bias in all domains",
+                                     "Contact and outbreak investigations, unclear or high risk of bias in all domains",
+                                     rob_all_low)))
+
 #conduct meta-analysis
 
 asym_plot_rob_5 <- metaprop(events, total, data = data_rob_5, 
                             sm = "PLOGIT", studlab=label, 
-                            byvar=setting,# tau.common =TRUE,
+                            byvar=rob_all_low,# tau.common =TRUE,
                             prediction = TRUE,
                             overall.hetstat = FALSE,
                             print.byvar = FALSE,
@@ -413,8 +543,18 @@ asym_plot_rob_5 <- metaprop(events, total, data = data_rob_5,
 asym_plot_rob_5
 
 tiff(filename = "Q1_rob_alllowROB.tiff",
-     width = 2400, height = 1400,
+     width = 3000, height = 7800,
      res = 300)
+forest(asym_plot_rob_5, sortvar = total, #sorted by study precision
+       subgroup=TRUE,
+       col.square = "darkblue",
+       just="left", colgap.studlab="1cm",
+       predict=T, comb.random = TRUE, comb.fixed = FALSE,
+       print.byvar = FALSE, overall = FALSE,
+       overall.hetstat = FALSE,
+       test.subgroup.random=FALSE, test.subgroup.fixed=FALSE)
+dev.off() 
+pdf("Q1_rob_alllowROB.pdf", height = 26, width = 10)
 forest(asym_plot_rob_5, sortvar = total, #sorted by study precision
        subgroup=TRUE,
        col.square = "darkblue",
@@ -656,8 +796,8 @@ asym_plot_bydate_screen$bylevs <- c("Published Jan '20 - Jun '20", "Published Ju
 
 
 tiff(filename = "Q1_bypubdate_screen.tiff",
-     width = 4000, height = 8500,
-     res = 400)
+     width = 3000, height = 6500,
+     res = 300)
 forest(asym_plot_bydate_screen, sortvar = total, #sorted by study precision
        #subgroup=TRUE,
        col.square = "darkblue",
