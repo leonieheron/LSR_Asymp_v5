@@ -264,7 +264,7 @@ dev.off()
 # get the data directly from redcap:
 # report #155 is Q1:
 url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
+token <- "################################"
 formData <- list("token"=token,
                  content='report',
                  format='csv',
@@ -327,7 +327,7 @@ dev.off()
 
 # get the data directly from redcap:
 urlrob <- "https://redcap.ispm.unibe.ch/api/"
-tokenrob <- "F2725F15FE84D2832E2793BB23B0A62B"
+tokenrob <- "################################"
 formDatarob <- list("token"=tokenrob,
                     content='report',
                     format='csv',
@@ -645,7 +645,7 @@ Q1_data_region <- Q1_data %>%
 # get the data directly from redcap:
 # report #155 is Q1:
 url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
+token <- "################################"
 formData <- list("token"=token,
                  content='report',
                  format='csv',
