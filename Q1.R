@@ -140,22 +140,13 @@ forest(asym_plot, sortvar = total, #sorted by study precision
 dev.off() 
 
 
-#without pooled estimates
-
-# tiff(filename = "Q1_update5.tiff",
-#      width = 4000, height = 12000,
-#      res = 400)
-# forest(asym_plot, sortvar = total, #sorted by study precision
-#        #subgroup=TRUE,
-#        col.square = "darkblue",
-#        just="left", colgap.studlab="1cm",
-#        predict=T, comb.random = TRUE, comb.fixed = FALSE,
-#        print.byvar = FALSE, overall = FALSE)
-# dev.off()
-
 #cut data at end of jan 31
 
-#10.12.21
+#published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
+# data <- data %>%
+#   filter(record_id <= 5296 | record_id %in% published_preprints)
+
+#10.12.21 - updated HI
 published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
 #include additional study identified from ref list
 additional <- 11099
@@ -185,26 +176,14 @@ asym_plot
 tiff(filename = "Q1.tiff",
      width = 4000, height = 9500,
      res = 400)
-#without pooled estimate
 forest(asym_plot, sortvar = total, #sorted by study precision
        #subgroup=TRUE,
        col.square = "darkblue",
        just="left", colgap.studlab="1cm",
-       predict=T, comb.random = FALSE, comb.fixed = FALSE,
+       predict=T, comb.random = TRUE, comb.fixed = FALSE,
        overall.hetstat = FALSE,
        print.byvar = FALSE, overall = FALSE)
 dev.off() 
-
-# #with pooled estimate
-
-# forest(asym_plot, sortvar = total, #sorted by study precision
-#        #subgroup=TRUE,
-#        col.square = "darkblue",
-#        just="left", colgap.studlab="1cm",
-#        predict=T, comb.random = TRUE, comb.fixed = FALSE,
-#        overall.hetstat = FALSE,
-#        print.byvar = FALSE, overall = FALSE)
-
 
 pdf("Q1.pdf", width = 10, height = 24)
 forest(asym_plot, sortvar = total, #sorted by study precision
