@@ -176,6 +176,7 @@ asym_plot
 tiff(filename = "Q1.tiff",
      width = 4000, height = 9500,
      res = 400)
+#without pooled estimate
 forest(asym_plot, sortvar = total, #sorted by study precision
        #subgroup=TRUE,
        col.square = "darkblue",
@@ -184,6 +185,17 @@ forest(asym_plot, sortvar = total, #sorted by study precision
        overall.hetstat = FALSE,
        print.byvar = FALSE, overall = FALSE)
 dev.off() 
+
+# #with pooled estimate
+
+# forest(asym_plot, sortvar = total, #sorted by study precision
+#        #subgroup=TRUE,
+#        col.square = "darkblue",
+#        just="left", colgap.studlab="1cm",
+#        predict=T, comb.random = TRUE, comb.fixed = FALSE,
+#        overall.hetstat = FALSE,
+#        print.byvar = FALSE, overall = FALSE)
+
 
 pdf("Q1.pdf", width = 10, height = 24)
 forest(asym_plot, sortvar = total, #sorted by study precision
