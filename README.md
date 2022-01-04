@@ -1,12 +1,19 @@
 # LSR_Asymp_v4
 Analysis for update 4 of living systematic review on asymptomatic SARS-CoV-2 infections
 
+We conducted a living systematic review and meta-analysis to address three questions: 
+1. Amongst people who become infected with SARS-CoV-2, what proportion does not experience symptoms at all during their infection?
+2. What is the infectiousness of asymptomatic and presymptomatic, compared with symptomatic, SARS-CoV-2 infection?
+3. What proportion of SARS-CoV-2 transmission in a population is accounted for by people who are either asymptomatic throughout infection, or presymptomatic? 
+
+
+
 ## R scripts
 
 ### Forest Plots
 <i>Q1.</i> Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection, stratified by setting:   <b>Q1.R</b> <br/>
-<i>Q2.1.</i> Forest plot of the secondary attack rate of SARS-CoV-2 infections comparing infections in contacts of asymptomatic and presymptomatic index cases: <b>Q2_1.R</b> <br/>
-<i>Q2.2.</i> Forest plot of proportion (‘Prop.’) of SARS-CoV-2 infection resulting from asymptomatic or presymptomatic transmission: <b>Q2_2.R</b><br/>
+<i>Q2.</i> Forest plot of the secondary attack rate of SARS-CoV-2 infections comparing infections in contacts of asymptomatic and presymptomatic index cases: <b>Q2.R</b> <br/>
+<i>Q3.</i> Forest plot of proportion (‘Prop.’) of SARS-CoV-2 infection resulting from asymptomatic or presymptomatic transmission: <b>Q3.R</b><br/>
 
 ### Risk of Bias Analysis
 Risk of bias in studies included in review question 1 and review question 2
