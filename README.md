@@ -38,8 +38,8 @@ Two authors  independently assessed the <i>risk of bias</i> using customised shi
 |          Name of table/figure                                                                                                                    |  Name of R scripts                |
 |--------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
 |Fig 1	                                                                                                                                           | Q1.R                              |
-|Fig 2	                                                                                                                                           | Q2_1.R                            |
-|Fig 3	                                                                                                                                           | Q2_2.R                            |
+|Fig 2	                                                                                                                                           | Q2.R                            |
+|Fig 3	                                                                                                                                           | Q3.R                            |
 |S4 Fig - Risk of bias assessment of studies in question 1 and 2.1	                                                                               | ROB_analysis.R                    |
 |S2 Fig - Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection in all studies, not stratified.	                           | Q1.R                              |
 |S5 Fig - Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection, restricted to studies with a sample size of at least 10.     | Q1.R                              |
