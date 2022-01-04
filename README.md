@@ -1,7 +1,7 @@
 # LSR_Asymp_v4
 Analysis for update 4 of living systematic review on asymptomatic SARS-CoV-2 infections
 
-We conducted a living systematic review and meta-analysis to address three questions: 
+We conducted this living systematic review and meta-analysis to address three questions: 
 1. Amongst people who become infected with SARS-CoV-2, what proportion does not experience symptoms at all during their infection?
 2. What is the infectiousness of asymptomatic and presymptomatic, compared with symptomatic, SARS-CoV-2 infection?
 3. What proportion of SARS-CoV-2 transmission in a population is accounted for by people who are either asymptomatic throughout infection, or presymptomatic? 
