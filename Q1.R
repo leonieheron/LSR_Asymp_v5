@@ -16,6 +16,11 @@ library(metafor)
 #download data
 # get the data directly from redcap:
 # report #155 is Q1:
+
+################################################################
+#Below codes are to get data from REDCap. In order to reproduce #
+#plots and analysis please use "ExtractedData_v1.csv" file.     #
+#################################################################
 url <- "https://redcap.ispm.unibe.ch/api/"
 token <- "################################"
 formData <- list("token"=token,
