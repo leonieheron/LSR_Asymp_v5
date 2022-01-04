@@ -35,12 +35,13 @@ formData <- list("token"=token,
                  returnFormat='csv'
 )
 response <- httr::POST(url, body = formData, encode = "form")
+asymptomaticQ1 <- httr::content(response)
 
 ##########################################
 # Q1 forest plot
 ##########################################
 
-asymptomaticQ1 <- httr::content(response)
+
 
 asymptomaticQ1 <- read.csv("ExtractedData_v1.csv")
 
