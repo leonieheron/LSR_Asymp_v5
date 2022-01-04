@@ -21,6 +21,7 @@ library(metafor)
 #Below codes are to get data from REDCap. In order to reproduce #
 #plots and analysis please use "ExtractedData_v1.csv" file.     #
 #################################################################
+
 url <- "https://redcap.ispm.unibe.ch/api/"
 token <- "################################"
 formData <- list("token"=token,
@@ -41,6 +42,7 @@ response <- httr::POST(url, body = formData, encode = "form")
 
 asymptomaticQ1 <- httr::content(response)
 
+asymptomaticQ1 <- read.csv("ExtractedData_v1.csv")
 
 settings=c("Contact investigation",
            "Contact investigation, aggregated",
