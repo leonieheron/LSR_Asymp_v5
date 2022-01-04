@@ -97,7 +97,7 @@ server <- function(input, output, session) {
                       column(7, HTML("No data to show: You have either completed all your tasks, or no tasks have been assigned<br><br><b>Please check back tomorrow!</b>"))))
       
     }else{
-      redcapdb<- redcapdb[seq(dim(redcapdb)[1],1),] #also reverse because shiny builds page bottom up
+      redcapdb<- redcapdb[seq(dim(redcapdb)[1],1),]
       for(i in 1:nrow(redcapdb)) {
       abstract = highlightWords(redcapdb$abstract[i])
       insertUI(
