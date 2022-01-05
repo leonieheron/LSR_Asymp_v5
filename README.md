@@ -11,9 +11,9 @@ We conducted this living systematic review and meta-analysis to address three qu
 ## R scripts
 
 ### Forest Plots
-<i>Q1.</i> Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection, stratified by setting:   <b>Q1.R</b><br>   - To reproduce analysis and forest plots for Q1 please use <b>"Q1_ExtarctedData.csv"</b> file. <br/>
-<i>Q2.</i> Forest plot of the secondary attack rate of SARS-CoV-2 infections comparing infections in contacts of asymptomatic and presymptomatic index cases: <b>Q2.R</b><br>  - To reproduce analysis and forest plots for Q2 please use <b>"Q2_ExtarctedData.csv"</b> file.<br/>
-<i>Q3.</i> Forest plot of proportion (‘Prop.’) of SARS-CoV-2 infection resulting from asymptomatic or presymptomatic transmission: <b>Q3.R</b><br>  - To reproduce analysis and forest plots for Q3 please use <b>"Q3_ExtarctedData.csv"</b> file.<br/>
+<i>Q1.</i> Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection, stratified by setting:   <b>Q1.R</b><br>   - To reproduce analysis and forest plots for Q1 please use <b>"Q1_ExtractedData.csv"</b> file. <br/>
+<i>Q2.</i> Forest plot of the secondary attack rate of SARS-CoV-2 infections comparing infections in contacts of asymptomatic and presymptomatic index cases: <b>Q2.R</b><br>  - To reproduce analysis and forest plots for Q2 please use <b>"Q2_ExtractedData.csv"</b> file.<br/>
+<i>Q3.</i> Forest plot of proportion (‘Prop.’) of SARS-CoV-2 infection resulting from asymptomatic or presymptomatic transmission: <b>Q3.R</b><br>  - To reproduce analysis and forest plots for Q3 please use <b>"Q3_ExtractedData.csv"</b> file.<br/>
 <br>
 <b>Note:</b> In ExtractedData_v1.csv file you can find all extracted data for each questions.
 
