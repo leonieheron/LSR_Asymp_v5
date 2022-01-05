@@ -11,7 +11,7 @@ We conducted this living systematic review and meta-analysis to address three qu
 ## R scripts
 
 ### Forest Plots
-<i>Q1.</i> Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection, stratified by setting:   <b>Q1.R</b> <br/>
+<i>Q1.</i> Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection, stratified by setting:   <b>Q1.R</b>To reproduce analysis and forest plots for Q1 please use "Q1_ExtarctedData.csv" file. <br/>
 <i>Q2.</i> Forest plot of the secondary attack rate of SARS-CoV-2 infections comparing infections in contacts of asymptomatic and presymptomatic index cases: <b>Q2.R</b> <br/>
 <i>Q3.</i> Forest plot of proportion (‘Prop.’) of SARS-CoV-2 infection resulting from asymptomatic or presymptomatic transmission: <b>Q3.R</b><br/>
 
