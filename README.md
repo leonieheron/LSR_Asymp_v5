@@ -1,15 +1,14 @@
-# LSR_Asymp_v4
-Analysis for update 4 of living systematic review on asymptomatic SARS-CoV-2 infections
+# Overview
+This repository contains the code for the fourth update of a living systematic review on Asymptomatic SARS-CoV-2 infection.
 
+You can find more information on the current status of the review here : https://ispmbern.github.io/covid-19/#living-systematic-review
 
-### Overview of the living systematic review
+### Research Questions
 
 We conducted this living systematic review and meta-analysis to address three questions: 
 1. Amongst people who become infected with SARS-CoV-2, what proportion does not experience symptoms at all during their infection?
 2. What is the infectiousness of asymptomatic and presymptomatic, compared with symptomatic, SARS-CoV-2 infection?
 3. What proportion of SARS-CoV-2 transmission in a population is accounted for by people who are either asymptomatic throughout infection, or presymptomatic? 
-
-
 
 ## R scripts
 
