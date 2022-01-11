@@ -34,10 +34,6 @@ rob_records <- rob_records %>%
 
 
 #prepare a dataset
-# df_rob <- rob_records %>%
-#   select(record_id,author_1, authoryear, quest___1, q3_sar, setting2, 
-#          rob_1, rob_2, rob_3, rob_4, rob_5, rob_6, 
-#          risk_of_bias_update_3_complete)
 
 df_rob <- rob_records %>%
   select(record_id,author_1, quest___1, q3_sar, setting2, 
