@@ -19,7 +19,7 @@ library(metafor)
 
 ################################################################
 #Below codes are to get data from REDCap. In order to reproduce #
-#plots and analysis please use "ExtractedData_v1.csv" file.     #
+#plots and analysis please use "Q1_ExtractedData.csv" file.     #
 #################################################################
 
 url <- "https://redcap.ispm.unibe.ch/api/"
