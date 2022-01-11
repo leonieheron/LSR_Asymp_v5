@@ -21,8 +21,7 @@ loadfonts(device = "win")
 # Proportion of transmission from asymp or pre-symp ###########
 ###############################################################
 
-# get the data directly from REDCap: 
-# report #157 is Q2.2:
+
 
 ################################################################
 #Below codes are to get data from REDCap. In order to reproduce #
@@ -30,19 +29,10 @@ loadfonts(device = "win")
 #################################################################
 
 
-url <- "https://redcap.ispm.unibe.ch/api/"
-#APIs token is not sharable
-token <- "##################################"
-formData2_2 <- list("token"=token,
-                    content='report',
-                    format='csv',
-                    report_id='157',
-                    csvDelimiter='',
-                    rawOrLabel='raw',
-                    rawOrLabelHeaders='raw',
-                    exportCheckboxLabel='false',
-                    returnFormat='csv'
-)
+#use getDataREDCap.R to get data from REDCap
+source("getDataREDCap.R")
+
+#formDataQ3 is from getDataREDCap script
 response2_2 <- httr::POST(url, body = formData2_2, encode = "form")
 asymptomaticQ2_2 <- httr::content(response2_2)
 

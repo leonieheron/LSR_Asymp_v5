@@ -58,7 +58,7 @@ formDataQ2 <- list("token"=token,
 
 #APIs token is not sharable
 token <- "##################################"
-formData2_2 <- list("token"=token,
+formDataQ3 <- list("token"=token,
                     content='report',
                     format='csv',
                     report_id='157',
