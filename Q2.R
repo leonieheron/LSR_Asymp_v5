@@ -41,7 +41,8 @@ response2_1 <- httr::POST(url, body = formData2_1, encode = "form")
 asymptomaticQ2_1 <- httr::content(response2_1)
 
 
-asymptomaticQ2_1 <- read.csv("Q1_ExtractedData.csv")
+#read "Q2_ExtractedData.csv" file
+asymptomaticQ2_1 <- read.csv("Q2_ExtractedData.csv")
 
 
 #clean data

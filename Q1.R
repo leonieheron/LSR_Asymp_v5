@@ -42,7 +42,7 @@ asymptomaticQ1 <- httr::content(response)
 ##########################################
 
 
-
+#read "Q1_ExtractedData.csv" file
 asymptomaticQ1 <- read.csv("Q1_ExtractedData.csv")
 
 settings=c("Contact investigation",

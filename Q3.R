@@ -24,6 +24,12 @@ loadfonts(device = "win")
 # get the data directly from REDCap: 
 # report #157 is Q2.2:
 
+################################################################
+#Below codes are to get data from REDCap. In order to reproduce #
+#plots and analysis please use "Q3_ExtractedData.csv" file.     #
+#################################################################
+
+
 url <- "https://redcap.ispm.unibe.ch/api/"
 #APIs token is not sharable
 token <- "##################################"
@@ -39,6 +45,9 @@ formData2_2 <- list("token"=token,
 )
 response2_2 <- httr::POST(url, body = formData2_2, encode = "form")
 asymptomaticQ2_2 <- httr::content(response2_2)
+
+#read "Q3_ExtractedData.csv" file
+asymptomaticQ2_2 <- read.csv("Q3_ExtractedData.csv")
 
 
 asymptomaticQ2_2 = asymptomaticQ2_2 %>% filter(!(q3_pp_m=="" & is.na(q3_pa_m)))
