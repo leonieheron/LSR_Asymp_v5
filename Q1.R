@@ -253,25 +253,10 @@ forest(asym_plot, sortvar = total, #sorted by study precision
 dev.off() 
 
 #####
+
 #subgroup analysis for rob
 
-
-#download data
-# get the data directly from redcap:
-# report #155 is Q1:
-url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "################################"
-formData <- list("token"=token,
-                 content='report',
-                 format='csv',
-                 report_id='155',
-                 csvDelimiter='',
-                 rawOrLabel='raw',
-                 rawOrLabelHeaders='raw',
-                 exportCheckboxLabel='false',
-                 returnFormat='csv'
-)
-response <- httr::POST(url, body = formData, encode = "form")
+response <- httr::POST(url, body = formDataSubgroup, encode = "form")
 
 #studies removed at high risk of selection bias
 #studies 443, 597, 1960, 2802, 2907, 3921, 5068, 5238, 170, 2987, 5086, 1225, 4880

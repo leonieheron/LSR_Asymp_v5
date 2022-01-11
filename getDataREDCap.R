@@ -19,6 +19,26 @@ formDataQ1 <- list("token"=token,
 )
 
 
+
+#subgroup analysis for rob
+
+#download data
+# get the data directly from redcap:
+# report #155 is Q1:
+url <- "https://redcap.ispm.unibe.ch/api/"
+token <- "################################"
+formDataSubgroup <- list("token"=token,
+                 content='report',
+                 format='csv',
+                 report_id='155',
+                 csvDelimiter='',
+                 rawOrLabel='raw',
+                 rawOrLabelHeaders='raw',
+                 exportCheckboxLabel='false',
+                 returnFormat='csv'
+)
+
+
 # get the ROB data directly from redcap:
 urlrob <- "https://redcap.ispm.unibe.ch/api/"
 #APIs token is not sharable
