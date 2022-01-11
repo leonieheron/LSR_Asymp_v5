@@ -254,8 +254,9 @@ dev.off()
 
 #####
 
-#subgroup analysis for rob
+###subgroup analysis for rob###
 
+#formDataSubgroup is from getDataREDCap.R script
 response <- httr::POST(url, body = formDataSubgroup, encode = "form")
 
 #studies removed at high risk of selection bias
@@ -267,7 +268,6 @@ data_selectionbias <- data %>%
   
 
 #run metaprop and forest plot
-
 
 asym_plot_select_bias<-metaprop(events,total,data=data_selectionbias,sm = "PLOGIT", studlab=label, 
                     byvar=setting,# tau.common =TRUE,
@@ -302,25 +302,13 @@ forest(asym_plot_select_bias, sortvar = total, #sorted by study precision
 dev.off() 
 
 
-#subgroup analyses by ROB assessments
+###subgroup analyses by ROB assessments###
 
 #download rob data
-
-# get the data directly from redcap:
-urlrob <- "https://redcap.ispm.unibe.ch/api/"
-tokenrob <- "################################"
-formDatarob <- list("token"=tokenrob,
-                    content='report',
-                    format='csv',
-                    report_id='283',
-                    csvDelimiter='',
-                    rawOrLabel='raw',
-                    rawOrLabelHeaders='raw',
-                    exportCheckboxLabel='false',
-                    returnFormat='csv'
-)
+#formDatarob is from getDataREDCap.R script
 response_rob <- httr::POST(urlrob, body = formDatarob, encode = "form")
 rob_records <- httr::content(response_rob)
+
 rob_records <- rob_records %>%
   select(1:11) %>%
   filter(risk_of_bias_update_3_complete == 2)
@@ -625,19 +613,9 @@ Q1_data_region <- Q1_data %>%
 #download data
 # get the data directly from redcap:
 # report #155 is Q1:
-url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "################################"
-formData <- list("token"=token,
-                 content='report',
-                 format='csv',
-                 report_id='155',
-                 csvDelimiter='',
-                 rawOrLabel='raw',
-                 rawOrLabelHeaders='raw',
-                 exportCheckboxLabel='false',
-                 returnFormat='csv'
-)
-response <- httr::POST(url, body = formData, encode = "form")
+
+#formDataQ1 is from getDataREDCap.R script
+response <- httr::POST(url, body = formDataQ1, encode = "form")
 
 ##########################################
 # Q1 forest plot
