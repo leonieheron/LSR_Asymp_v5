@@ -5,24 +5,31 @@ You can find more information on the current status of the review here : https:/
 
 ### Research Questions
 
-We conducted this living systematic review and meta-analysis to address three questions: 
+We conducted this living systematic review to address three questions: 
 1. Amongst people who become infected with SARS-CoV-2, what proportion does not experience symptoms at all during their infection?
 2. What is the infectiousness of asymptomatic and presymptomatic, compared with symptomatic, SARS-CoV-2 infection?
 3. What proportion of SARS-CoV-2 transmission in a population is accounted for by people who are either asymptomatic throughout infection, or presymptomatic? 
 
-## R scripts
+## Tables and Figures
+
+The code for the tables and figures included in this publication is available here. Please note that API tokens used to download the data from our online electronic database have been censored in the R scripts. However, all data extracted from the included studies are available in the following csv files: 
+
+-[Data from all included studies](ExtractedData_v1.csv)  
+-[Data from studies included for Q1](Q1_ExtractedData.csv)  
+-[Data from studies included for Q2](Q2_ExtractedData.csv)  
+-[Data from studies included for Q3](Q3_ExtractedData.csv)  
+
 
 ### Forest Plots
-<i>Q1.</i> Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection, stratified by setting:   <b>Q1.R</b><br>   - To reproduce analysis and forest plots for Q1 please use <b>"Q1_ExtractedData.csv"</b> file. <br/>
-<i>Q2.</i> Forest plot of the secondary attack rate of SARS-CoV-2 infections comparing infections in contacts of asymptomatic and presymptomatic index cases: <b>Q2.R</b><br>  - To reproduce analysis and forest plots for Q2 please use <b>"Q2_ExtractedData.csv"</b> file.<br/>
-<i>Q3.</i> Forest plot of proportion (‘Prop.’) of SARS-CoV-2 infection resulting from asymptomatic or presymptomatic transmission: <b>Q3.R</b><br>  - To reproduce analysis and forest plots for Q3 please use <b>"Q3_ExtractedData.csv"</b> file.<br/>
-<br>
-<b>Note:</b> In <b>ExtractedData_v1.csv</b> file you can find all extracted data for each questions.
+<i>Q1.</i> Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection, stratified by setting:  [Q1.R](Q1.R)  
+<i>Q2.</i> Forest plot of the secondary attack rate of SARS-CoV-2 infections comparing infections in contacts of asymptomatic and presymptomatic index cases: [Q2.R](Q2.R)   
+<i>Q3.</i> Forest plot of proportion (‘Prop.’) of SARS-CoV-2 infection resulting from asymptomatic or presymptomatic transmission: [Q3.R](Q3.R)
+
 
 
 ### Risk of Bias Analysis
-Risk of bias in studies included in review question 1 and review question 2
-The summary table from risk-of-bias assessments and plots formatted according to the assessment tool used: <b>ROB_analysis.R</b>, [robvis](https://github.com/mcguinlu/robvis) package was used as a source <b>robisfunctions.R</b>
+We used a bespoke tool to assess risk of bias in studies included in Q1 and Q2.   
+A summary table and plots of the risk-of-bias assessments were formatted using the [robvis](https://github.com/mcguinlu/robvis) package: [robisfunctions.R](robisfunctions.R)  
 
 
 ### Shiny Applications
@@ -42,9 +49,9 @@ Two authors  independently assessed the <i>risk of bias</i> using customised shi
 
 |          Name of table/figure                                                                                                                    |  Name of R scripts                |
 |--------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
-|Fig 1	                                                                                                                                           | Q1.R                              |
-|Fig 2	                                                                                                                                           | Q2.R                            |
-|Fig 3	                                                                                                                                           | Q3.R                            |
+|Fig 1 - Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection, stratified by setting	                                       | Q1.R                              |
+|Fig 2 - Forest plot of the secondary attack rate of SARS-CoV-2 infections comparing infections in contacts of asymptomatic and presymptomatic index cases	      | Q2.R                            |
+|Fig 3 - Forest plot of proportion (‘Prop.’) of SARS-CoV-2 infection resulting from asymptomatic or presymptomatic transmission	                                                                                                                                           | Q3.R                            |
 |S4 Fig - Risk of bias assessment of studies in question 1 and 2.1	                                                                               | ROB_analysis.R                    |
 |S2 Fig - Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection in all studies, not stratified.	                           | Q1.R                              |
 |S5 Fig - Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection, restricted to studies with a sample size of at least 10.     | Q1.R                              |
