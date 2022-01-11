@@ -18,6 +18,13 @@ library(metafor)
 
 # get the data directly from redcap: 
 # report #172 is Q2.1 SAR:
+
+################################################################
+#Below codes are to get data from REDCap. In order to reproduce #
+#plots and analysis please use "Q2_ExtractedData.csv" file.     #
+#################################################################
+
+
 url <- "https://redcap.ispm.unibe.ch/api/"
 token <- "####################################"
 formData2_1 <- list("token"=token,
@@ -32,6 +39,10 @@ formData2_1 <- list("token"=token,
 )
 response2_1 <- httr::POST(url, body = formData2_1, encode = "form")
 asymptomaticQ2_1 <- httr::content(response2_1)
+
+
+asymptomaticQ2_1 <- read.csv("Q1_ExtractedData.csv")
+
 
 #clean data
 asymptomaticQ2_1[asymptomaticQ2_1=="9999;9999"]=NA #indicate as missing
