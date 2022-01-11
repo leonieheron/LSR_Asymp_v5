@@ -5,7 +5,10 @@ library("ggpubr")
 #use the robvis package as a new source. Some functions of the package are changed according to our review
 source("robisfunctions.R")
 
+#use getDataREDCap.R to get data from REDCap
+source("getDataREDCap.R")
 
+#formDatarob is from getDataREDCap script
 response_rob <- httr::POST(urlrob, body = formDatarob, encode = "form")
 rob_records <- httr::content(response_rob)
 
