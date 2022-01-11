@@ -23,7 +23,7 @@ library(metafor)
 #################################################################
 
 source("getDataREDCap.R")
-response <- httr::POST(url, body = formData, encode = "form")
+response <- httr::POST(url, body = formDataQ1, encode = "form")
 asymptomaticQ1 <- httr::content(response)
 
 ##########################################

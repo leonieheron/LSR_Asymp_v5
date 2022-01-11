@@ -7,7 +7,7 @@
 
 url <- "https://redcap.ispm.unibe.ch/api/"
 token <- "################################"
-formData <- list("token"=token,
+formDataQ1 <- list("token"=token,
                  content='report',
                  format='csv',
                  report_id='155',
