@@ -5,20 +5,7 @@ library("ggpubr")
 #use the robvis package as a new source. Some functions of the package are changed according to our review
 source("robisfunctions.R")
 
-# get the data directly from redcap:
-urlrob <- "https://redcap.ispm.unibe.ch/api/"
-#APIs token is not sharable
-token <- "##################################"
-formDatarob <- list("token"=tokenrob,
-                    content='report',
-                    format='csv',
-                    report_id='283',
-                    csvDelimiter='',
-                    rawOrLabel='raw',
-                    rawOrLabelHeaders='raw',
-                    exportCheckboxLabel='false',
-                    returnFormat='csv'
-)
+
 response_rob <- httr::POST(urlrob, body = formDatarob, encode = "form")
 rob_records <- httr::content(response_rob)
 
