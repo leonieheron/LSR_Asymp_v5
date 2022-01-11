@@ -12,17 +12,16 @@ library(tidyr)
 library(ggplot2)
 library(metafor)
 
-
-#download data
-# get the data directly from redcap:
-# report #155 is Q1:
-
 ################################################################
 #Below codes are to get data from REDCap. In order to reproduce #
 #plots and analysis please use "Q1_ExtractedData.csv" file.     #
 #################################################################
 
+#use getDataREDCap.R to get data from REDCap
+#download data
+# report #155 is Q1:
 source("getDataREDCap.R")
+
 response <- httr::POST(url, body = formDataQ1, encode = "form")
 asymptomaticQ1 <- httr::content(response)
 
@@ -31,7 +30,7 @@ asymptomaticQ1 <- httr::content(response)
 ##########################################
 
 
-#read "Q1_ExtractedData.csv" file
+#upload "Q1_ExtractedData.csv" file
 asymptomaticQ1 <- read.csv("Q1_ExtractedData.csv")
 
 settings=c("Contact investigation",
@@ -67,11 +66,10 @@ asymptomaticQ1$setting2[asymptomaticQ1$setting2 == "Screening: occupational"] <-
 asymptomaticQ1$setting = asymptomaticQ1$setting2
 
   
-
-
 data_long1 <- gather(asymptomaticQ1, cluster, total, c(q1_c1_total,q1_c2_total,q1_c3_total), factor_key=TRUE) %>% 
   mutate(id=1:nrow(.)) %>%
   select(record_id, author_1, setting, total, id, cluster)
+
 data_long2 <-gather(asymptomaticQ1, cluster, events, c(q1_c1_event,q1_c2_event,q1_c3_event), factor_key=TRUE) %>% 
   mutate(id=1:nrow(.)) %>%
   select(events, id)
@@ -167,7 +165,7 @@ data <- data %>%
 #  filter(record_id <= 5296 |
 #           record_id %in% published_preprints |
 #           record_id %in% additional)
-#>>>>>>> d75025fce8ca3dac3ed1954e753400e950a265d1
+#>>>>>>>
 
 
 asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
@@ -226,6 +224,7 @@ dev.off()
 #        print.byvar = FALSE, overall = FALSE)
 # dev.off() 
 ####
+
 #Q1 - all studies, not in subgroups
 asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
                     prediction = TRUE,
