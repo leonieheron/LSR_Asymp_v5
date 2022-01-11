@@ -25,8 +25,7 @@ formDataQ1 <- list("token"=token,
 #download data
 # get the data directly from redcap:
 # report #155 is Q1:
-url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "################################"
+
 formDataSubgroup <- list("token"=token,
                  content='report',
                  format='csv',
@@ -38,11 +37,24 @@ formDataSubgroup <- list("token"=token,
                  returnFormat='csv'
 )
 
+url <- "https://redcap.ispm.unibe.ch/api/"
+token <- "####################################"
+formDataQ2 <- list("token"=token,
+                   content='report',
+                   format='csv',
+                   report_id='172',
+                   csvDelimiter='',
+                   rawOrLabel='raw',
+                   rawOrLabelHeaders='raw',
+                   exportCheckboxLabel='false',
+                   returnFormat='json'
+)
+
 
 # get the ROB data directly from redcap:
 urlrob <- "https://redcap.ispm.unibe.ch/api/"
 #APIs token is not sharable
-token <- "##################################"
+
 formDatarob <- list("token"=tokenrob,
                     content='report',
                     format='csv',

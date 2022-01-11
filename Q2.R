@@ -24,21 +24,12 @@ library(metafor)
 #plots and analysis please use "Q2_ExtractedData.csv" file.     #
 #################################################################
 
+#use getDataREDCap.R to get data from REDCap
+source("getDataREDCap.R")
 
-url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "####################################"
-formData2_1 <- list("token"=token,
-                    content='report',
-                    format='csv',
-                    report_id='172',
-                    csvDelimiter='',
-                    rawOrLabel='raw',
-                    rawOrLabelHeaders='raw',
-                    exportCheckboxLabel='false',
-                    returnFormat='json'
-)
-response2_1 <- httr::POST(url, body = formData2_1, encode = "form")
-asymptomaticQ2_1 <- httr::content(response2_1)
+#formDataQ2 is from getDataREDCap script
+response2 <- httr::POST(url, body = formDataQ2, encode = "form")
+asymptomaticQ2 <- httr::content(response2)
 
 
 #read "Q2_ExtractedData.csv" file
