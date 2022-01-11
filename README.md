@@ -32,20 +32,22 @@ We used a bespoke tool to assess risk of bias in studies included in Q1 and Q2.
 A summary table and plots of the risk-of-bias assessments were formatted using the [robvis](https://github.com/mcguinlu/robvis) package: [robisfunctions.R](robisfunctions.R)  
 
 
-### Shiny Applications
+### RShiny Applications
 
-#### Screening and Verification Apps
-To be able to distribute screening tasks to a ‘crowd’, we build two shiny apps that communicate with the central database.
-Records are attibuted to members of the crowd for <i>screening</i> <b>(RshinyApp-Screening)</b>. When the task is completed, the decisions are <i>verified</i> <b>(RshinyApp-Verification)</b> by a second member of the crowd.
+We used RShiny apps to screen titles and abstracts of studies identified in the search, perform data extraction, and assess risk of bias. The apps allowed the core team to delegate tasks to the 'crowd' members: a group of volunteers who are helping us with the review.
+
+#### Selection process
+We build two shiny apps that communicate with the central database: one to screen potentially eligible studies and one to verify the screening decision.
+Records are attibuted to members of the crowd for <i>screening</i> [(RshinyApp-Screening)](RshinyApp-Screening). When the task is completed, the decisions are <i>verified</i> [(RshinyApp-Verification)](RshinyApp-Verification) by a second member of the crowd.
 Disagreement is resolved by the coordinator or by a third crowd member.
 
 #### Data Extraction App
-For included studies, one reviewer extracted data from full-text articles using either extraction form in REDCap or <i>Data Extraction App</i> <b>(RshinyApp-Extraction)</b>, and a second reviewer verified the extracted data using the query system.
+For included studies, one reviewer extracted data from full-text articles using either extraction form in REDCap or [Data Extraction App](RshinyApp-Extraction), and a second reviewer verified the extracted data using the query system.
 
 #### Risk of Bias Apps
-Two authors  independently assessed the <i>risk of bias</i> using customised shiny apps <b>(RshinyApp-RiskOfBias-FirstReviewer, RshinyApp-RiskOfBias-SecondReviewer)</b>, which saved responses into the REDCap database. A third reviewer resolved disagreements.
+Two authors  independently assessed the <i>risk of bias</i> using customised shiny apps, [RshinyApp-RiskOfBias-FirstReviewer](RshinyApp-RiskOfBias-FirstReviewer) and [RshinyApp-RiskOfBias-SecondReviewer](RshinyApp-RiskOfBias-SecondReviewer), which saved responses into the REDCap database. A third reviewer resolved disagreements directly in REDCap.
 
-### Table of figures and corresponding R scripts
+### Output and corresponding R scripts
 
 |          Name of table/figure                                                                                                                    |  Name of R scripts                |
 |--------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
