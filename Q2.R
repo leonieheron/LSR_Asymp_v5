@@ -32,27 +32,27 @@ response2 <- httr::POST(url, body = formDataQ2, encode = "form")
 asymptomaticQ2 <- httr::content(response2)
 
 
-#read "Q2_ExtractedData.csv" file
-asymptomaticQ2_1 <- read.csv("Q2_ExtractedData.csv")
+#upload "Q2_ExtractedData.csv" file
+asymptomaticQ2 <- read.csv("Q2_ExtractedData.csv")
 
 
 #clean data
-asymptomaticQ2_1[asymptomaticQ2_1=="9999;9999"]=NA #indicate as missing
-asymptomaticQ2_1[asymptomaticQ2_1=="9999"]=NA #indicate as missing
+asymptomaticQ2[asymptomaticQ2=="9999;9999"]=NA #indicate as missing
+asymptomaticQ2[asymptomaticQ2=="9999"]=NA #indicate as missing
 
 #added for now
-asymptomaticQ2_1 <- asymptomaticQ2_1[asymptomaticQ2_1$record_id < 5296, ]
+asymptomaticQ2 <- asymptomaticQ2[asymptomaticQ2$record_id < 5296, ]
 
-asymptomaticQ2_1=asymptomaticQ2_1%>% #separate symp SAR into 2 variables
+asymptomaticQ2=asymptomaticQ2%>% #separate symp SAR into 2 variables
   separate(q3_sar_s, c("Ec","Nc"), ";", remove=FALSE) 
-asymptomaticQ2_1=asymptomaticQ2_1%>% #separate asymp SAR into 2 variables
+asymptomaticQ2=asymptomaticQ2%>% #separate asymp SAR into 2 variables
   separate(q3_sar_a, c("Ee_a","Ne_a"), ";", remove=FALSE) 
-asymptomaticQ2_1=asymptomaticQ2_1%>% #separate presymp SAR into 2 variables
+asymptomaticQ2=asymptomaticQ2%>% #separate presymp SAR into 2 variables
   separate(q3_sar_p, c("Ee_p","Ne_p"), ";", remove=FALSE) 
 
 
 
-asymptomaticQ2_1=asymptomaticQ2_1 %>% #change values to numeric
+asymptomaticQ2=asymptomaticQ2 %>% #change values to numeric
   mutate(Ec=as.numeric(Ec),
          Nc=as.numeric(Nc),
          Ee_a=as.numeric(Ee_a),
@@ -61,13 +61,13 @@ asymptomaticQ2_1=asymptomaticQ2_1 %>% #change values to numeric
          Ne_p=as.numeric(Ne_p))
 
 #create new df with asymp/presymp as subgroups
-q2_1_df_a <- asymptomaticQ2_1 %>%
+q2_1_df_a <- asymptomaticQ2 %>%
   select("record_id", "author_1", "Ee_a", "Ne_a", "Ec", "Nc", "region", "year") %>%
   rename(Ee = Ee_a,
          Ne = Ne_a) %>%
   filter(!is.na(Ee)) %>%
   mutate(group = "Asymptomatic")
-q2_1_df_p <- asymptomaticQ2_1 %>%
+q2_1_df_p <- asymptomaticQ2 %>%
   select("record_id", "author_1", "Ee_p", "Ne_p", "Ec", "Nc", "region", "year") %>%
   rename(Ee = Ee_p,
          Ne = Ne_p) %>%
