@@ -17,7 +17,15 @@
 |comment_q1                           |Comments:                                                                        |	-|
 |source	                              |Source:	                                                                        |1, MedRxiv <br /> 2, BioRxiv <br /> 3, EMBASE<br /> 4, PubMed <br /> 5, Other|
 |Year                                 |Publication year:                                                                |	-	|
-|
+|region	| Region or comments from "country":|	-	|
+|q1_female|	Number of females who remained asymptomatic throughout infection:|	-|	
+|q1_male|	Number of males who remained asymptomatic throughout infection:|	-	|
+|q1_age_median|	Median age of all people who remained asymptomatic throughout infection:|	-|	
+|q1_age_iqr	| IQR for age of all people who remained asymptomatic throughout infection:|	-	|
+|fup___1|	Duration of follow-up time:|	1, 14 days after the last possible exposure date|
+|fup___2|	Duration of follow-up time:|	2, 7 days after diagnosis|
+|fup___3|	Duration of follow-up time:|	3, Until negative PCR result|
+|fup___4|	Duration of follow-up time:|	4, >7 days after diagnosis|
 |||
 |||
 |||
