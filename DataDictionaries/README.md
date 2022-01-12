@@ -45,17 +45,4 @@
 |agerange___3						  |Age range of asymptomatic |3, Older adults (>65 years)|
 |agerange___4						  |Age range of asymptomatic |4, All ages|
 |agerange___5						  |Age range of asymptomatic |5, Not Reported|
-||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
-|||
+
