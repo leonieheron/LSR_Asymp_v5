@@ -1,23 +1,2 @@
-id,users,names,pw,email,fullname,hash
-1,MC,Michel,****,******,Michel Counotte,C99A41
-2,NL,Nicola,****,******,Nicola Low,53460C
-3,MI,Mert,****,******,Mert Ipekci,CB679D
-4,DB,Diana,****,******,Diana Garcia,8EDFF8
-5,SH,Stefanie,****,******,Stefanie Hossmann,F3E26B
-7,KM,Kaspar,****,******,Kaspar Meili,D842F1
-8,AR,Aaron,****,******,Aaron Richterman,DF1F76
-9,IB,Isaac,****,******,Isaac Bogoch,A68H2E
-10,HI,Hira,****,******,Hira Imeri,AEE78D
-11,IA,Ingrid,****,******,Ingrid Arevalo-Rodriguez,F392A8
-12,MU,Muge,****,******,Muge Cevik,CED766
-13,EM,Eric,****,******,Eric Meyerowitz ,65BB1A
-14,XQ,Xueting,****,******,Xueting Qiu,46EC59
-15,AN,Ali,****,******,Ali Ihsan Nergiz,F66343
-16,LH,Leonie,****,******,Leonie Heron,AG185
-17,ST,Shabnam,****,******,Shabnam Thapa,FF6629
-18,IZ,Ivan,****,******,Ivan Zhelyazkov,43F2F5
-19,NP,Nirmala,****,******,Nirmala Prajapati,EC59D5
-20,WR,William,****,******,William Robles,CCV8D8
-21,AC,Agustin,****,******,Agustin Ciapponi,DTY482
-22,IR,Irfan,****,******,Muhammad Irfanul Alam,GYD584
-23,LA,Lucia,****,******,Lucia Araujo Chaveron,GDT47D
+id,users,names,pw,email,fullname
+1,HI,Hira,****,******,Hira Imeri
