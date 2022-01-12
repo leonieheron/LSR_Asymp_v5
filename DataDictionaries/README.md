@@ -26,8 +26,25 @@
 |fup___2|	Duration of follow-up time:|	2, 7 days after diagnosis|
 |fup___3|	Duration of follow-up time:|	3, Until negative PCR result|
 |fup___4|	Duration of follow-up time:|	4, >7 days after diagnosis|
-|||
-|||
+|risk_of_bias_update_3_complete|	Complete?|	0, Incomplete <br />1, Unverified <br />2, Complete|
+|rob_1|	(Consensus) Question 1- Was the sample invited to participate a close or true representation of the target population?|	1, High <br />2, Unclear <br />3, Low|
+|rob_1_c2|	(Consensus) Question 1- Was the sample invited in cluster 2 to participate a close or true representation of the target population?	1, High<br />2, Unclear<br /> 3, Low|
+|rob_2	|(Consensus) Q2- The characteristics of non-respondents, if any, who were eligible are similar to those who participated in the study?	1, High<br />2, Unclear <br /> 3, Low|
+|rob_2_c2|	(Consensus) Q2- The characteristics of non-respondents, if any, who were eligible are similar to those who participated in the study for cluster 2?	1, High<br />2, Unclear <br />3, Low|
+|rob_3	|(Consensus) Q3- Was the assessment of symptoms status adequate?	1, High<br />2, Unclear<br />3, Low|
+|rob_3_c2|	(Consensus) Q3- Was the assessment of symptoms status adequate for cluster 2?	1, High<br />2, Unclear<br />3, Low|
+|rob_4	|(Consensus) Q4- Based on the method symptoms were collected, is there a risk of recall bias?1, High<br />2, Unclear<br />3, Low|
+|rob_4_c2|	(Consensus) Q4- Based on the method symptoms were collected, is there a risk of recall bias for cluster 2?	1, High<br />2, Unclear<br />3, Low|
+|rob_5	|(Consensus) Q5- Is there a risk that asymptomatic status was misclassified?	1, High<br />2, Unclear<br />3, Low|
+|rob_5_c2|	(Consensus) Q5- Is there a risk that asymptomatic status was misclassified in cluster 2?	1, High<br />2, Unclear<br />3, Low|
+|rob_6	|(Consensus) Q6- Is there a risk of incomplete or selective reporting of symptoms status?	1, High<br />2, Unclear<br />3, Low|
+|rob_6_c2|	(Consensus) Q6- Is there a risk of incomplete or selective reporting of symptoms status in cluster 2?	1, High<br />2, Unclear<br />3, Low|
+|agerange___1|	Age range of asymptomatic |1, Children (< 18 years)|
+|agerange___2|	Age range of asymptomatic |2, Adults (18 - 65 years)|
+|agerange___3|	Age range of asymptomatic |3, Older adults (>65 years)|
+|agerange___4|	Age range of asymptomatic |4, All ages|
+|agerange___5|	Age range of asymptomatic |5, Not Reported|
+||
 |||
 |||
 |||
