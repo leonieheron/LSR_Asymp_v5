@@ -46,3 +46,6 @@
 |agerange___4						  |Age range of asymptomatic |4, All ages|
 |agerange___5						  |Age range of asymptomatic |5, Not Reported|
 
+## Q2 Data Dictionary
+
+## Q3 Data Dictionary
