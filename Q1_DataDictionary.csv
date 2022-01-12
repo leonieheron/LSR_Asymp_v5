@@ -232,9 +232,7 @@ q1_age_median,Median age of all people who remained asymptomatic throughout infe
 q1_age_iqr,IQR for age of all people who remained asymptomatic throughout infection:,-           
 fup___1,Duration of follow-up time (choose all that apply):,"1, 14 days after the last possible exposure date"
 fup___2,Duration of follow-up time (choose all that apply):,"2, 7 days after diagnosis"
-,,
 fup___3,Duration of follow-up time (choose all that apply):,"3, Until negative PCR result"
-,,
 fup___4,Duration of follow-up time (choose all that apply):,"4, >7 days after diagnosis"
 risk_of_bias_update_3_complete,Complete?,"0, Incomplete"
 ,,"1, Unverified"
@@ -276,17 +274,8 @@ rob_6_c2,(Consensus) Q6- Is there a risk of incomplete or selective reporting of
 ,,"2, Unclear"
 ,,"3, Low"
 agerange___1,Age range of asymptomatic,"1, Children (< 18 years)"
-,,
-,Select one or more if applicable,
 agerange___2,Age range of asymptomatic,"2, Adults (18 - 65 years)"
-,,
-,Select one or more if applicable,
 agerange___3,Age range of asymptomatic,"3, Older adults (>65 years)"
-,,
-,Select one or more if applicable,
-agerange___4,Age range of asymptomatic,
-,,"4, All ages"
-,Select one or more if applicable,
+agerange___4,Age range of asymptomatic,"4, All ages"
 agerange___5,Age range of asymptomatic,"5, Not Reported"
 ,,
-,Select one or more if applicable,
