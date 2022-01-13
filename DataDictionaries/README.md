@@ -61,3 +61,17 @@
 
 
 ## Q3 Data Dictionary
+
+|          Variable name              | Definition of the variable                                                      | Settings and their definitions                                               |
+|-------------------------------------|---------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+|q3_pa_m	                          |Proportion asymptomatic transmission (median)	                                |-|
+|q3_pa_l	                          |Proportion asymptomatic transmission (lower CrI)                                 |-|
+|q3_pa_u	                          |Proportion asymptomatic transmission (upper CrI)                                 |-|
+|q3_pp_m	                          |Proportion pre-symptomatic transmission (median)									|-|
+|q3_pp_l							  |Proportion pre-symptomatic transmission (lower CrI)								|-|
+|q3_pp_u							  |Proportion pre-symptomatic transmission (upper CrI)								|-|
+|question_3_complete				  |Complete?	                                                                    |0, Incomplete<br /> 1, Unverified <br /> 2, Complete|
+|q3_setting							  |Region/setting																	|-|
+|year								  |Publication Year																	|-|
+|source								  |Source																			|1, MedRxiv<br />2, BioRxiv<br />3, EMBASE<br />4, PubMed<br />5, Other|
+|journal							  |Journal																			|-|
