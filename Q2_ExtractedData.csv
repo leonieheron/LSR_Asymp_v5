@@ -1,0 +1,9 @@
+"record_id","author_1","title","doi","q3_sar_a","q3_sar_s","q3_sar_p","country","region","year","setting2"
+122,"Luo L1","Modes of contact and risk of transmission in COVID-19 among close contacts","10.1101/2020.03.24.20042606","1;305","117;2305","9999;9999",40,"Guangzhou",2020,2
+354,"Park SY","Coronavirus Disease Outbreak in Call Center, South Korea.","10.3201/eid2608.201274","0;4","34;210","0;11",157,"Seoul",2020,3
+477,"Cheng HY","Contact Tracing Assessment of COVID-19 Transmission Dynamics in Taiwan and Risk at Different Exposure Periods Before and After Symptom Onset.","10.1001/jamainternmed.2020.2020","0;91","22;2644","2;299",888,"Taiwan",2020,2
+821,"Zhang W","Secondary Transmission of Coronavirus Disease from Presymptomatic Persons, China.","10.3201/eid2608.201142","1;119","11;250","9999;9999",40,"Guangzhou",2020,1
+3074,"Chaw L","Analysis of SARS-CoV-2 Transmission in Different Settings, Brunei.","10.3201/eid2611.202263","3;106","28;1010","12;585",28,"none",2020,2
+5665,"Bender JK","Analysis of Asymptomatic and Presymptomatic Transmission in SARS-CoV-2 Outbreak, Germany, 2020.","10.3201/eid2704.204576","26;0","9;82","15;72",67,NA,2021,1
+6492,"Wu P","Assessing asymptomatic, pre-symptomatic and symptomatic transmission risk of SARS-CoV-2.","10.1093/cid/ciab271","12; 1078","128; 3136","9999",40,NA,2021,1
+7343,"Lao X","The epidemiological characteristics and effectiveness of countermeasures to contain coronavirus disease 2019 in Ningbo City, Zhejiang Province, China","10.1038/s41598-021-88473-4","0,056179775","0,058601925",NA,40,"Zhejiang Province",2021,4
