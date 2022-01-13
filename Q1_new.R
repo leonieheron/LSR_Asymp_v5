@@ -13,22 +13,18 @@ library(ggplot2)
 library(metafor)
 
 
+################################################################
+#Below codes are to get data from REDCap. In order to reproduce #
+#plots and analysis please use "Q1_ExtractedData.csv" file.     #
+#################################################################
+
+#use getDataREDCap.R to get data from REDCap
 #download data
-# get the data directly from redcap:
 # report #155 is Q1:
-url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
-formData <- list("token"=token,
-                 content='report',
-                 format='csv',
-                 report_id='155',
-                 csvDelimiter='',
-                 rawOrLabel='raw',
-                 rawOrLabelHeaders='raw',
-                 exportCheckboxLabel='false',
-                 returnFormat='csv'
-)
-response <- httr::POST(url, body = formData, encode = "form")
+source("getDataREDCap.R")
+
+response <- httr::POST(url, body = formDataQ1, encode = "form")
+
 
 ##########################################
 # Q1 forest plot
@@ -69,8 +65,6 @@ asymptomaticQ1$setting2[asymptomaticQ1$setting2 == "Screening: occupational"] <-
 asymptomaticQ1$setting = asymptomaticQ1$setting2
 
   
-
-
 data_long1 <- gather(asymptomaticQ1, cluster, total, c(q1_c1_total,q1_c2_total,q1_c3_total), factor_key=TRUE) %>% 
   mutate(id=1:nrow(.)) %>%
   select(record_id, author_1, setting, total, id, cluster)
@@ -142,11 +136,6 @@ dev.off()
 
 #cut data at end of jan 31
 
-#published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
-# data <- data %>%
-#   filter(record_id <= 5296 | record_id %in% published_preprints)
-
-#10.12.21 - updated HI
 published_preprints <-c(5565,6219, 6685, 7030, 7465, 8249, 9442, 9484)
 #include additional study identified from ref list
 additional <- 11099
@@ -163,13 +152,6 @@ data %>% filter(setting == "Screening") %>%
 data %>% filter(setting == "Contact and outbreak investigations") %>%
   summary()
 summary(data$prop)
-
-
-#=======
-#  filter(record_id <= 5296 |
-#           record_id %in% published_preprints |
-#           record_id %in% additional)
-#>>>>>>> d75025fce8ca3dac3ed1954e753400e950a265d1
 
 
 asym_plot<-metaprop(events,total,data=data,sm = "PLOGIT", studlab=label, 
@@ -236,22 +218,9 @@ dev.off()
 #subgroup analysis for rob
 
 
-#download data
-# get the data directly from redcap:
-# report #155 is Q1:
-url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
-formData <- list("token"=token,
-                 content='report',
-                 format='csv',
-                 report_id='155',
-                 csvDelimiter='',
-                 rawOrLabel='raw',
-                 rawOrLabelHeaders='raw',
-                 exportCheckboxLabel='false',
-                 returnFormat='csv'
-)
-response <- httr::POST(url, body = formData, encode = "form")
+
+#formDataSubgroup is from getDataREDCap.R script
+response <- httr::POST(url, body = formDataSubgroup, encode = "form")
 
 #studies removed at high risk of selection bias
 #studies 443, 597, 1960, 2802, 2907, 3921, 5068, 5238, 170, 2987, 5086, 1225, 4880
@@ -301,21 +270,10 @@ dev.off()
 
 #download rob data
 
-# get the data directly from redcap:
-urlrob <- "https://redcap.ispm.unibe.ch/api/"
-tokenrob <- "F2725F15FE84D2832E2793BB23B0A62B"
-formDatarob <- list("token"=tokenrob,
-                    content='report',
-                    format='csv',
-                    report_id='283',
-                    csvDelimiter='',
-                    rawOrLabel='raw',
-                    rawOrLabelHeaders='raw',
-                    exportCheckboxLabel='false',
-                    returnFormat='csv'
-)
+#formDatarob is from getDataREDCap.R script
 response_rob <- httr::POST(urlrob, body = formDatarob, encode = "form")
 rob_records <- httr::content(response_rob)
+
 rob_records <- rob_records %>%
   select(1:11) %>%
   filter(risk_of_bias_update_3_complete == 2)
@@ -764,19 +722,9 @@ Q1_data_region <- Q1_data %>%
 #download data
 # get the data directly from redcap:
 # report #155 is Q1:
-url <- "https://redcap.ispm.unibe.ch/api/"
-token <- "F2725F15FE84D2832E2793BB23B0A62B"
-formData <- list("token"=token,
-                 content='report',
-                 format='csv',
-                 report_id='155',
-                 csvDelimiter='',
-                 rawOrLabel='raw',
-                 rawOrLabelHeaders='raw',
-                 exportCheckboxLabel='false',
-                 returnFormat='csv'
-)
-response <- httr::POST(url, body = formData, encode = "form")
+
+#formDataQ1 is from getDataREDCap.R script
+response <- httr::POST(url, body = formDataQ1, encode = "form")
 
 ##########################################
 # Q1 forest plot
