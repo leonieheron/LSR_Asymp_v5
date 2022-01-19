@@ -60,7 +60,6 @@ Two authors  independently assessed the <i>risk of bias</i> using customised shi
 |S2 Fig - Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection.	                           | Q1.R                              |
 |S3 Fig - Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection, stratified by study design.  | Q1_stratified_all_settings.R      |
 |S4 Fig - Risk of bias assessment of studies in question 1 and 2.1	                                                                               | ROB_analysis.R                    |
-
 |S5 Fig - Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection, restricted to studies with a sample size of at least 10.     | Q1.R                              |
 |S6 Fig - Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection in contact and outbreak investigations by date of publication.| Q1.R                              |
 |S7 Fig - Forest plot of proportion of people with asymptomatic SARS-CoV-2 infection in screening studies by date of publication.                  | Q1.R                              |
