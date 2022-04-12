@@ -1,0 +1,145 @@
+﻿Study,Location,WHO_region,Total_SARS_CoV_2,Asymp_SARS_CoV_2,Asymp_sex,Asymp_age,Study_age_range,Follow_14days_exposure,Follow_7days_diagnosis,Follow_more7days_diagnosis,Follow_untilnegPCR,Pub_period,Setting
+"Hijnen D, 2020 ","Germany, Munich",Europe,11,1,"0 F, 1 M",49,Adults (18 - 65 years),1,1,0,0,Jan 20 - Jun 2020,Contact investigations
+"Zhang W, 2020 ","China, Guangzhou",Western Pacific,12,4,NR,NR,All ages,1,1,1,0,Jan 20 - Jun 2020,Contact investigations
+"Cheng HY, 2020 ","Other, Taiwan",Western Pacific,22,4,NR,NR,All ages,1,0,0,0,Jan 20 - Jun 2020,Contact investigations
+"Brandstetter S, 2020 ","Germany, Regensburg",Europe,36,2,NR,NR,Adults (18 - 65 years),0,1,0,1,Jan 20 - Jun 2020,Contact investigations
+"Yousaf AR, 2020 ","United States of America, Utah",Americas,47,0,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Contact investigations
+"Wu J, 2020 ","China, Zhuhai",Western Pacific,48,5,NR,NR,All ages,1,1,0,1,Jan 20 - Jun 2020,Contact investigations
+"Xie W, 2021 ","China, Beijing",Western Pacific,53,4,NR,NR,Adults (18 - 65 years),0,1,0,0,Jan 21 onward,Contact investigations
+"Gettings JR, 2021 ","United States of America, Georgia",Americas,55,31,NR,NR,All ages,1,1,0,1,Jan 21 onward,Contact investigations
+"Jones A, 2021","United States of America, Vermont",Americas,87,24,NR,NR,NR,1,1,0,0,Jan 21 onward,Contact investigations
+"Grijalva CG, 2020 ","United States of America, Tennessee and Wisconsin",Americas,102,34,NR,NR,All ages,0,1,0,0,Jul 20 - Dec 2020,Contact investigations
+"Luo L2, 2020 ","China, Guangzhou",Western Pacific,127,8,NR,NR,All ages,1,0,0,1,Jul 20 - Dec 2020,Contact investigations
+"Shi Q, 2020 ","China, Wanzhou District",Western Pacific,183,60,NR,NR,NR,0,0,1,0,Jul 20 - Dec 2020,Contact investigations
+"Hurst JH, 2020 ","United States of America, North Carolina",Americas,293,87,NR,NR,Children (< 18 years),0,1,0,0,Jul 20 - Dec 2020,Contact investigations
+"Pirnay JP, 2020 ",Belgium,Europe,4,2,"0 F, 2 M",28.5,Adults (18 - 65 years),1,0,0,0,Jul 20 - Dec 2020,Outbreak investigations
+"Cardillo L, 2021 ","Italy, Campania",Europe,4,2,"11 F, 9 M",78,All ages,0,0,0,1,Jan 21 onward,Outbreak investigations
+"Garibaldi PMM, 2021 ","Brazil, Sao Paulo State",Americas,8,0,NR,NR,Older adults (>65 years),1,1,0,1,Jan 21 onward,Outbreak investigations
+"Corcorran MA, 2020 ","United States of America, Washington",Americas,8,3,NR,NR,All ages,0,1,1,0,Jul 20 - Dec 2020,Outbreak investigations
+"Yang N, 2020 ","China, Xiaoshan",Western Pacific,10,2,"1 F, 1 M",26,Adults (18 - 65 years),1,1,0,0,Jul 20 - Dec 2020,Outbreak investigations
+"Schwierzeck V, 2020 ","Germany, Muenster",Europe,11,2,NR,NR,Children (< 18 years),0,1,0,0,Jan 20 - Jun 2020,Outbreak investigations
+"Danis K, 2020 ",France,Europe,12,1,NR,NR,All ages,1,1,0,1,Jan 20 - Jun 2020,Outbreak investigations
+"Garibaldi PMM, 2021 ","Brazil, Sao Paulo State",Americas,12,1,NR,NR,Older adults (>65 years),1,1,0,1,Jan 21 onward,Outbreak investigations
+"Romao VC, 2020 ","Portugal, Lisbon",Europe,14,0,NR,NR,Adults (18 - 65 years),0,0,1,0,Jul 20 - Dec 2020,Outbreak investigations
+"Orsi A, 2021 ","Italy, Genoa",Europe,14,13,"9 F, 4 M",91,Older adults (>65 years),1,0,0,1,Jan 21 onward,Outbreak investigations
+"Böhmer MM, 2020 ","Germany, Bavaria",Europe,16,1,NR,NR,All ages,1,1,0,0,Jan 20 - Jun 2020,Outbreak investigations
+"Dora AV, 2020 ","United States of America, Los Angeles",Americas,16,6,"0 F, 6 M",75,Older adults (>65 years),0,0,1,0,Jan 20 - Jun 2020,Outbreak investigations
+"Yau K, 2020 ","Canada, Toronto",Americas,20,7,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Outbreak investigations
+"Redditt V, 2020 ","Canada, Toronto",Americas,24,3,NR,NR,Adults (18 - 65 years),0,1,0,1,Jul 20 - Dec 2020,Outbreak investigations
+"Tian S, 2021 ","China, Shandong",Western Pacific,24,7,NR,NR,Adults (18 - 65 years),0,1,1,0,Jan 21 onward,Outbreak investigations
+"Harada S, 2020 ","Japan, Tokyo",Western Pacific,24,8,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Outbreak investigations
+"Park JH, 2020 ",South Korea,SE Asia,28,4,NR,NR,Adults (18 - 65 years),1,1,0,0,Jul 20 - Dec 2020,Outbreak investigations
+"Patel MC, 2020 ","United States of America, Illinois",Americas,35,13,NR,NR,Older adults (>65 years),0,1,0,1,Jan 20 - Jun 2020,Outbreak investigations
+"Kittang BR, 2020 ","Norway, Bergen",Europe,40,0,NR,NR,Older adults (>65 years),1,1,0,0,Jul 20 - Dec 2020,Outbreak investigations
+"Pavli A, 2020 ",Greece,Europe,46,7,NR,NR,All ages,1,1,0,0,Jan 20 - Jun 2020,Outbreak investigations
+"Arons MM, 2020 ","United States of America, Seattle, WA",Americas,47,3,NR,NR,Older adults (>65 years),0,1,0,0,Jan 20 - Jun 2020,Outbreak investigations
+"Harada S, 2020 ","Japan, Tokyo",Western Pacific,49,25,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Outbreak investigations
+"Ladhani SN, 2020 ","United Kingdom, London",Europe,53,26,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Outbreak investigations
+"van den Besselaar JH, 2021 ","Netherlands, South Holland",Europe,54,1,NR,NR,All ages,0,1,0,1,Jan 21 onward,Outbreak investigations
+"Schmitt J, 2021 ",Côte d'Ivoire,Africa,54,18,NR,NR,Adults (18 - 65 years),1,1,0,1,Jan 21 onward,Outbreak investigations
+"Plucinski MM, 2020 ",Japan,Western Pacific,66,14,NR,NR,All ages,0,1,0,0,Jul 20 - Dec 2020,Outbreak investigations
+"Njuguna H, 2020 ","United States of America, Louisiana",Americas,71,29,NR,NR,Adults (18 - 65 years),1,1,0,0,Jul 20 - Dec 2020,Outbreak investigations
+"Cardillo L, 2021 ","Italy, Campania",Europe,91,20,"11 F, 9 M",78,All ages,0,0,0,1,Jan 21 onward,Outbreak investigations
+"Park SY, 2020 ","South Korea, Seoul",SE Asia,95,4,NR,NR,All ages,0,1,0,1,Jan 20 - Jun 2020,Outbreak investigations
+"Taylor J, 2020 ","United States of America, Minnesota",Americas,99,9,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Outbreak investigations
+"Ladhani SN, 2020 ","United Kingdom, London",Europe,105,46,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Outbreak investigations
+"Paleker M, 2021 ",South Africa,Africa,112,41,NR,NR,All ages,0,0,0,1,Jan 21 onward,Outbreak investigations
+"van den Besselaar JH, 2021 ","Netherlands, South Holland",Europe,113,7,NR,NR,All ages,0,1,0,1,Jan 21 onward,Outbreak investigations
+"Graham N, 2020 ","United Kingdom, London",Europe,126,46,NR,NR,Older adults (>65 years),0,1,0,0,Jan 20 - Jun 2020,Outbreak investigations
+"Taylor J, 2020 ","United States of America, Minnesota",Americas,127,7,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Outbreak investigations
+"Pham QT, 2020 ",Vietnam,Western Pacific,208,89,NR,31,Adults (18 - 65 years),0,1,0,0,Jul 20 - Dec 2020,Outbreak investigations
+"Kennelly SP, 2020 ",Ireland,Europe,395,97,NR,NR,NR,0,1,0,0,Jul 20 - Dec 2020,Outbreak investigations
+"Lee JY, 2020 ","South Korea, Daegu",SE Asia,694,80,NR,NR,All ages,0,1,0,0,Jul 20 - Dec 2020,Outbreak investigations
+"Kennelly SP, 2020 ",Ireland,Europe,710,193,NR,NR,NR,0,1,0,0,Jul 20 - Dec 2020,Outbreak investigations
+"Kasper MR, 2020 ",United States of America,Americas,1271,572,NR,NR,Adults (18 - 65 years),0,1,0,1,Jul 20 - Dec 2020,Outbreak investigations
+"Hoehl S, 2020 ","Germany, Germersheim",Europe,2,1,"0 F, 1 M",58,NR,0,1,0,0,Jan 20 - Jun 2020,Screening in community settings
+"Chang L, 2020 ","China, Wuhan",Western Pacific,4,2,"0 F, 2 M",45,Adults (18 - 65 years),0,1,1,0,Jan 20 - Jun 2020,Screening in community settings
+"Rauch JN, 2021 ","United States of America, California",Americas,6,2,NR,NR,Adults (18 - 65 years),0,1,0,1,Jan 21 onward,Screening in community settings
+"AbdulRahman A, 2020 ",Bahrain,East Med,6,3,"0 F, 3 M",25,Adults (18 - 65 years),0,1,1,0,Jul 20 - Dec 2020,Screening in community settings
+"Theuring S, 2021 ","Germany, Berlin",Europe,10,2,NR,NR,All ages,0,1,0,1,Jan 21 onward,Screening in community settings
+"Kutsuna S, 2020 ","Japan, Tokyo",Western Pacific,11,3,"1 F, 2 M",NR,Adults (18 - 65 years),0,1,1,0,Jul 20 - Dec 2020,Screening in community settings
+"Theuring S, 2021 ","Germany, Berlin",Europe,14,0,NR,NR,All ages,0,1,0,1,Jan 21 onward,Screening in community settings
+"Hwang, 2021 ",United States of America,Americas,14,8,NR,NR,NR,0,1,0,1,Jan 21 onward,Screening in community settings
+"Edelstein M, 2020 ","United Kingdom, London",Europe,20,4,NR,NR,All ages,0,0,1,1,Jul 20 - Dec 2020,Screening in community settings
+"Migisha R, 2020 ",Uganda,Africa,54,20,NR,NR,Adults (18 - 65 years),0,1,0,1,Jul 20 - Dec 2020,Screening in community settings
+"Lavezzo E, 2020 ","Italy, Veneto",Europe,73,29,NR,NR,All ages,0,1,0,0,Jul 20 - Dec 2020,Screening in community settings
+"Chamie G, 2020 ","United States of America, San Francisco",Americas,81,23,NR,NR,Adults (18 - 65 years),0,1,0,1,Jul 20 - Dec 2020,Screening in community settings
+"Meyers KJ, 2021 ","United States of America, Indianapolis",Americas,86,67,NR,NR,Adults (18 - 65 years),0,1,0,1,Jan 21 onward,Screening in community settings
+"Wi YM, 2020 ","South Korea, Gyeongsangnam-do province",SE Asia,111,7,NR,NR,All ages,0,0,1,0,Jul 20 - Dec 2020,Screening in community settings
+"Turunen T, 2021 ",Finland,Europe,127,23,"0 F, 23 M",NR,Adults (18 - 65 years),1,0,0,0,Jan 21 onward,Screening in community settings
+"Wong J, 2020 ",Brunei,Western Pacific,138,16,NR,NR,NR,0,1,1,0,Jan 20 - Jun 2020,Screening in community settings
+"Eythorsson E, 2020 ",Iceland,Europe,178,25,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Screening in community settings
+"Al-Qahtani M, 2020 ",Bahrain,East Med,188,116,NR,NR,NR,0,1,1,1,Jul 20 - Dec 2020,Screening in community settings
+"Cao S, 2020 ","China, Wuhan",Western Pacific,300,300,"168 F, 132 M",NR,All ages,1,0,1,0,Jul 20 - Dec 2020,Screening in community settings
+"Uysal E, 2021",Turkey,Europe,684,64,"42 F, 22 M",59.4,All ages,0,1,0,1,Jan 21 onward,Screening in community settings
+"Almazeedi S, 2020 ",Kuwait,East Med,1096,473,NR,NR,All ages,0,0,1,0,Jul 20 - Dec 2020,Screening in community settings
+"Malhotra S, 2021 ",India,SE Asia,1729,1272,NR,NR,All ages,0,1,0,0,Jan 21 onward,Screening in community settings
+"Abraha HE, 2021 ","Ethiopia, Tigray",Africa,2617,1935,NR,NR,All ages,0,1,0,1,Jan 21 onward,Screening in community settings
+"Ren R, 2021 ",China,Western Pacific,3103,1612,"378 F, 1234 M",NR,Adults (18 - 65 years),0,1,0,1,Jan 21 onward,Screening in community settings
+"Tanacan A, 2020 ","Turkey, Ankara",Europe,3,0,NR,NR,Adults (18 - 65 years),0,0,1,0,Jul 20 - Dec 2020,Screening in institutional settings
+"Jeffery-Smith A, 2021  ","United Kingdom, London",Europe,3,2,NR,NR,All ages,0,0,1,0,Jan 21 onward,Screening in institutional settings
+"Berghoff AS, 2020 ","Austria, Vienna",Europe,4,2,NR,53,Adults (18 - 65 years),1,1,1,0,Jul 20 - Dec 2020,Screening in institutional settings
+"Vohra LM, 2021 ",Pakistan,East Med,4,2,NR,NR,All ages,0,1,1,1,Jan 21 onward,Screening in institutional settings
+"Fisher MJ, 2021 ","United States of America, New York",Americas,4,3,"0 F, 3 M",78,Older adults (>65 years),0,1,0,0,Jan 21 onward,Screening in institutional settings
+"Pamplona J, 2021 ","Spain, Girona",Europe,5,2,"2 F, 0 M",72,All ages,0,1,0,1,Jan 21 onward,Screening in institutional settings
+"Bender WR, 2020 ","United States of America, Philadelphia, PA",Americas,8,6,"6 F, 0 M",NR,Adults (18 - 65 years),0,1,0,1,Jul 20 - Dec 2020,Screening in institutional settings
+"Viñuela MC, 2020 ","Spain, Madrid",Europe,8,8,"8 F, 0 M",32,Adults (18 - 65 years),0,0,1,0,Jul 20 - Dec 2020,Screening in institutional settings
+"van Buul LW, 2020 ",Netherlands,Europe,9,0,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Screening in institutional settings
+"Varnell C, 2021 ",United States of America,Americas,10,5,NR,NR,All ages,0,1,0,0,Jan 21 onward,Screening in institutional settings
+"Vohra LM, 2021 ",Pakistan,East Med,10,10,NR,NR,All ages,0,1,1,1,Jan 21 onward,Screening in institutional settings
+"Haidar G, 2021 ","United States of America, Pennsylvania",Americas,11,9,"6 F, 3 M",54,All ages,0,1,0,1,Jan 21 onward,Screening in institutional settings
+"Kirshblum SC, 2020 ","United States of America, New Jersey",Americas,12,2,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Screening in institutional settings
+"Jeffery-Smith A, 2021 ","United Kingdom, London",Europe,13,6,NR,NR,All ages,0,0,1,0,Jan 21 onward,Screening in institutional settings
+"Isoldi S, 2021 ","Italy, Rome",Europe,15,4,NR,NR,Children (< 18 years),0,0,1,1,Jan 21 onward,Screening in institutional settings
+"van Buul LW, 2020 ",Netherlands,Europe,16,3,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Screening in institutional settings
+"Wadhwa A, 2020 ","United States of America, Chicago",Americas,17,6,NR,NR,Adults (18 - 65 years),0,1,0,0,Jul 20 - Dec 2020,Screening in institutional settings
+"Balestrini S, 2020 ","United Kingdom, London",Europe,17,11,NR,NR,All ages,0,0,1,0,Jul 20 - Dec 2020,Screening in institutional settings
+"Maki G, 2020 ","United States of America, Detroit, Michigan",Americas,18,16,"9 F, 7 M",mean 50.7 ,Adults (18 - 65 years),0,1,0,1,Jan 21 onward,Screening in institutional settings
+"Bogani G, 2020 ","Italy, Lombardy",Europe,19,10,"10 F, 0 M",NR,Older adults (>65 years),0,0,1,0,Jan 20 - Jun 2020,Screening in institutional settings
+"Martins Machado C, 2020 ",Brazil,Americas,22,5,NR,NR,All ages,0,1,0,1,Jan 21 onward,Screening in institutional settings
+"Green R, 2021 ","United Kingdom, Liverpool",Europe,22,22,"15 F, 7 M",80,All ages,0,1,0,1,Jan 21 onward,Screening in institutional settings
+"Khondaker T, 2021 ","Bangladesh, Dhaka",SE Asia,26,7,NR,NR,Children (< 18 years),0,1,0,1,Jan 21 onward,Screening in institutional settings
+"Starling A, 2020 ","United Kingdom, Essex",Europe,31,29,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Screening in institutional settings
+"Rincon A, 2020 ","Spain, Barcelona",Europe,35,9,"2 F, 7 M",76.67,All ages,1,1,0,1,Jan 21 onward,Screening in institutional settings
+"Pizarro-Sánchez MS, 2021 ","Spain, Madrid",Europe,38,5,"2 F, 3 M",NR,All ages,0,1,0,1,Jan 21 onward,Screening in institutional settings
+"Patel MR, 2021 ",India,SE Asia,55,43,NR,NR,Adults (18 - 65 years),0,0,0,1,Jan 21 onward,Screening in institutional settings
+"Aslam A, 2020 ","United States of America, New York",Americas,65,38,NR,NR,NR,0,1,0,1,Jul 20 - Dec 2020,Screening in institutional settings
+"Marossy A, 2020 ","United Kingdom, London",Europe,67,46,NR,NR,NR,0,1,1,0,Jul 20 - Dec 2020,Screening in institutional settings
+"London V, 2020 ","United States of America, New York City",Americas,68,22,"22 F, 0 M",30.5,Adults (18 - 65 years),0,1,0,1,Jan 20 - Jun 2020,Screening in institutional settings
+"Smith E, 2020 ","United Kingdom, Norfolk",Europe,103,42,NR,NR,All ages,0,1,0,1,Jul 20 - Dec 2020,Screening in institutional settings
+"Weinbergerova B, 2021 ","Czech Republic, Brno",Europe,105,6,NR,NR,Adults (18 - 65 years),0,0,1,0,Jan 21 onward,Screening in institutional settings
+"Esteban I, 2021 ","Argentina, Buenos Aires",Americas,113,75,NR,NR,Older adults (>65 years),0,0,0,1,Jan 21 onward,Screening in institutional settings
+"Nunes MC, 2021 ","South Africa, Soweto",Africa,115,14,NR,NR,Adults (18 - 65 years),0,0,1,0,Jan 21 onward,Screening in institutional settings
+"Hcini N, 2020 ","French Guyana, West French Guiana territory",Americas,137,87,"87 F, 0 M",NR,Adults (18 - 65 years),0,1,0,1,Jul 20 - Dec 2020,Screening in institutional settings
+"Shi SM, 2020 ","United States of America, Boston, MA",Americas,146,21,NR,NR,Older adults (>65 years),0,1,0,1,Jul 20 - Dec 2020,Screening in institutional settings
+"Andrikopoulou M, 2020 ","United States of America, New York",Americas,158,46,"46 F, 0 M",NR,Adults (18 - 65 years),0,1,0,0,Jan 20 - Jun 2020,Screening in institutional settings
+"Blain H, 2021 ",France,Europe,161,14,NR,NR,Older adults (>65 years),1,1,0,1,Jan 21 onward,Screening in institutional settings
+"Say D, 2021 ","Australia, Melbourne",Western Pacific,171,61,NR,NR,Children (< 18 years),0,0,0,1,Jan 21 onward,Screening in institutional settings
+"Beiting KJ, 2021 ","United States of America, Chicago, IL",Americas,172,50,NR,NR,Older adults (>65 years),0,1,0,1,Jan 21 onward,Screening in institutional settings
+"Uçkay, I, 2021 ","Switzerland, Zurich",Europe,175,71,NR,NR,Adults (18 - 65 years),0,1,0,1,Jan 21 onward,Screening in institutional settings
+"Adhikari EH, 2020 ","United States of America, Texas",Americas,252,98,"98 F, 0 M",NR,Adults (18 - 65 years),0,1,0,1,Jul 20 - Dec 2020,Screening in institutional settings
+"Hussain A, 2020 ","Pakistan, Karachi",East Med,266,54,NR,NR,All ages,0,0,1,0,Jan 21 onward,Screening in institutional settings
+"Marcus JE, 2021 ","United States of America, Texas",Americas,403,199,NR,NR,Adults (18 - 65 years),0,1,0,1,Jan 21 onward,Screening in institutional settings
+"Ghinai I, 2020 ","United States of America, Chicago",Americas,406,293,NR,NR,Adults (18 - 65 years),0,1,0,1,Jul 20 - Dec 2020,Screening in institutional settings
+"White EM, 2020 ",United States of America,Americas,5403,2194,NR,NR,NR,0,1,0,1,Jul 20 - Dec 2020,Screening in institutional settings
+"Lalani T, 2021 ","United States of America, New York City",Americas,8,4,NR,NR,Adults (18 - 65 years),1,1,0,1,Jan 21 onward,Screening in occupational settings
+"Ferreira VH, 2021 ","Canada, Toronto",Americas,9,5,"5 F, 0 M",33,NR,0,1,0,1,Jan 21 onward,Screening in occupational settings
+"Morgan SC, 2021 ","United States of America, San Diego",Americas,11,2,NR,NR,Adults (18 - 65 years),0,1,0,1,Jan 21 onward,Screening in occupational settings
+"Han X, 2020 ","China, Wuhan",Western Pacific,17,17,"8 F, 9 M",30,Adults (18 - 65 years),0,1,0,0,Jan 20 - Jun 2020,Screening in occupational settings
+"Alshahrani MS, 2020 ","Saudi Arabia, Alkhobar",East Med,18,12,NR,NR,Adults (18 - 65 years),0,0,1,0,Jul 20 - Dec 2020,Screening in occupational settings
+"Stock AD, 2020 ","United States of America, New York City",Americas,19,6,NR,NR,Adults (18 - 65 years),1,1,0,0,Jul 20 - Dec 2020,Screening in occupational settings
+"Fakhim H, 2021 ","Iran, Isfahan",East Med,21,14,NR,NR,Adults (18 - 65 years),0,1,1,0,Jan 21 onward,Screening in occupational settings
+"Laws RL, 2021 ","Uganda, Kampala",Africa,28,25,NR,NR,NR,0,1,0,1,Jan 21 onward,Screening in occupational settings
+"Rivett L, 2020 ","United Kingdom, Cambridge",Europe,30,5,NR,NR,All ages,0,1,0,0,Jan 20 - Jun 2020,Screening in occupational settings
+"Malagón-Rojas J, 2020 ","Colombia, Bogota",Americas,35,11,NR,NR,Adults (18 - 65 years),0,1,0,1,Jul 20 - Dec 2020,Screening in occupational settings
+"Hogan CA, 2021 ","United States of America, California",Americas,38,20,"13 F, 7 M",41,Adults (18 - 65 years),0,1,0,1,Jan 21 onward,Screening in occupational settings
+"Treibel TA, 2020 ","United Kingdom, London",Europe,44,12,NR,NR,Adults (18 - 65 years),0,1,0,1,Jan 20 - Jun 2020,Screening in occupational settings
+"Tan-Loh J, 2021 ","Malaysia, Teluk Intan",Western Pacific,46,6,NR,NR,Adults (18 - 65 years),0,1,1,1,Jan 21 onward,Screening in occupational settings
+"Letizia AG, 2020 ","United States of America, South Carolina",Americas,51,46,NR,NR,Adults (18 - 65 years),1,1,0,0,Jul 20 - Dec 2020,Screening in occupational settings
+"Lombardi A, 2020 ","Italy, Lombardy",Europe,139,17,NR,NR,Adults (18 - 65 years),1,1,1,0,Jan 20 - Jun 2020,Screening in occupational settings
+"Cariani L, 2020 ","Italy, Milan",Europe,182,32,NR,NR,Adults (18 - 65 years),0,1,1,0,Jul 20 - Dec 2020,Screening in occupational settings
+"Mahajan NN, 2020 ","India, Mumbai",SE Asia,467,58,NR,NR,Adults (18 - 65 years),0,0,1,0,Jul 20 - Dec 2020,Screening in occupational settings
+"Hall VJ, 2021 ",United Kingdom,Europe,1704,293,NR,NR,All ages,0,1,0,1,Jan 21 onward,Screening in occupational settings
+"Bender JK, 2021",Germany,Europe,98,26,NR,NR,All ages,1,0,1,0,Jan 21 onward,Review question 2 only
+"Wu P, 2021",China,Western Pacific,4214,12,"10 F,",NR,All ages,0,1,0,0,Jan 21 onward,Review question 2 only
+,,0,,,,,,,,,,,
