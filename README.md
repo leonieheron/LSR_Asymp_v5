@@ -18,6 +18,7 @@ The code for the tables and figures is available here, if they were generated us
 -[Extracted data from studies included for Q1](Q1_ExtractedData.csv)  
 -[Extracted data from studies included for Q2](Q2_ExtractedData.csv)  
 -[Extracted data from studies included for Q3](Q3_ExtractedData.csv)  
+-[Study characteristics for Q1 and Q2](study_characteristics.csv)  
 
 
 ### Forest plots
