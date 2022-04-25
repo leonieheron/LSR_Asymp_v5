@@ -10,7 +10,7 @@ We conducted this living systematic review to address three questions:
 2. What is the infectiousness of asymptomatic and presymptomatic, compared with symptomatic, SARS-CoV-2 infection?
 3. What proportion of SARS-CoV-2 transmission in a population is accounted for by people who are either asymptomatic throughout infection, or presymptomatic? 
 
-## Tables and figures
+## Extracted data
 
 The code for the tables and figures is available here, if they were generated using an R script. Please note that we do not share the API tokens used to download the data from our REDCap database. All data extracted from the included studies are available for each question: 
 
