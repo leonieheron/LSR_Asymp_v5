@@ -1,5 +1,5 @@
 # Overview
-This repository contains the code for the fourth update of a living systematic review on asymptomatic and presymptomatic SARS-CoV-2 infection.
+This repository contains the code for the fifth update of a living systematic review on asymptomatic and presymptomatic SARS-CoV-2 infection.
 
 You can find more information on the current status of the review here : https://ispmbern.github.io/covid-19/#living-systematic-review
 
